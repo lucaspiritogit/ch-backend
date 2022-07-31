@@ -5,7 +5,7 @@ class Container {
     this.filePath = filePath;
   }
 
-  startDocument() {
+  async startDocument() {
     const readFile = fs.readFileSync(this.filePath, "utf-8");
     if (readFile.length === 0) {
       fs.writeFileSync(this.filePath, JSON.stringify([], null, 2), "utf-8");
@@ -43,7 +43,16 @@ class Container {
     return fs.readFileSync(this.filePath, "utf-8");
   }
 
-  deleteById(objectId) {}
+  deleteById(objectId) {
+    let fileData = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
+
+    fileData.forEach(element => {
+      if (element.id === objectId) {
+        fileData.splice(objectId, 1);
+        fs.writeFileSync(this.filePath, JSON.stringify(fileData, null, 2));
+      }
+    });
+  }
 
   deleteAll() {
     fs.writeFileSync(this.filePath, "", "utf-8");
@@ -61,7 +70,7 @@ setTimeout(() => {
 // container.getById(6);
 
 // Correr solo este metodo para borrar un elemento
-// container.deleteById(0);
+// container.deleteById(2);
 
 // Correr solo este metodo para limpiar el documento
 // container.deleteAll();
