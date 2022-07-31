@@ -77,17 +77,30 @@ class Container {
 }
 
 const container = new Container("./productos.txt");
+
 container.startDocument();
-container.save({ title: "Product", price: 100, thumbnail: "url" });
-setTimeout(() => {
+
+setInterval(() => {
+  container.save({ title: "Product", price: 100, thumbnail: "url" });
+}, 1500);
+
+setInterval(() => {
+  console.log("Obteniendo todos los objetos: ");
+  console.log(container.getAll());
   container.getAll();
-}, 500);
+}, 5000);
 
-// Correr solo este metodo para encontrar un elemento
-// container.getById(5);
+setInterval(() => {
+  console.log("Obteniendo un solo objeto");
+  container.getById(0);
+}, 2500);
 
-// Correr solo este metodo para borrar un elemento
-// container.deleteById(2);
+setInterval(() => {
+  container.deleteAll();
+  console.log("Borrando todos los objetos");
+}, 8000);
 
-// Correr solo este metodo para limpiar el array
-//container.deleteAll();
+setInterval(() => {
+  container.deleteById(1);
+  console.log("Borrando Id 1");
+}, 6500);
