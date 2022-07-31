@@ -55,7 +55,7 @@ class Container {
   }
 
   deleteAll() {
-    fs.writeFileSync(this.filePath, "", "utf-8");
+    fs.writeFileSync(this.filePath, JSON.stringify([], null, 2), "utf-8");
   }
 }
 
@@ -73,4 +73,4 @@ setTimeout(() => {
 // container.deleteById(2);
 
 // Correr solo este metodo para limpiar el documento
-// container.deleteAll();
+//container.deleteAll();
