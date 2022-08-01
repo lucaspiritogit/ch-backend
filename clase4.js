@@ -7,32 +7,30 @@ class Container {
   }
 
   startDocument() {
-    try {
-      const readFile = fs.readFileSync(this.filePath, "utf-8");
-      if (readFile.length === 0) {
-        fs.writeFileSync(this.filePath, JSON.stringify([], null, 2), "utf-8");
-      } else {
-        return;
+    fs.readFile(this.filePath, (err, data) => {
+      if (data.length === 0) {
+        fs.writeFileSync(this.filePath, JSON.stringify([], null, 2), err => {
+          if (err) throw err;
+        });
       }
-    } catch (error) {
-      throw error;
-    }
+    });
   }
 
   async save(object) {
-    try {
-      let fileData = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
-      await fileData.push(object);
-
-      fileData.forEach((element, index) => {
-        element.id = index;
+    fs.readFile(this.filePath, (err, data) => {
+      data = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
+      let newId = 1;
+      data.forEach(() => {
+        newId = data[data.length - 1].id + 1;
       });
+      let newObj = { id: newId, ...object };
+      data.push(newObj);
 
-      await fs.promises.writeFile(this.filePath, JSON.stringify(fileData, null, 2), "utf-8");
-      return object.id;
-    } catch (error) {
-      throw error;
-    }
+      fs.writeFile(this.filePath, JSON.stringify(data, null, 2), err => {
+        if (err) throw err;
+        return newObj.id;
+      });
+    });
   }
 
   getById(objectId) {
@@ -40,10 +38,10 @@ class Container {
       let fileData = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
       let found = false;
 
-      fileData.forEach((element, index) => {
-        if (index === objectId) {
-          console.log(element);
+      fileData.forEach(element => {
+        if (objectId === element.id) {
           found = true;
+          console.log(element);
           return element;
         }
       });
@@ -60,15 +58,19 @@ class Container {
     return fs.readFileSync(this.filePath, "utf-8");
   }
 
-  deleteById(objectId) {
+  async deleteById(objectId) {
     let fileData = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
+    let index = fileData.findIndex(object => object.id == objectId);
 
-    fileData.forEach(element => {
-      if (element.id === objectId) {
-        fileData.splice(objectId, 1);
-        fs.writeFileSync(this.filePath, JSON.stringify(fileData, null, 2));
+    try {
+      fileData.splice(index, 1);
+      fs.writeFileSync(this.filePath, JSON.stringify(fileData, null, 2));
+    } catch (error) {
+      if (index === -1) {
+        return "Objeto no encontrado";
       }
-    });
+      throw error;
+    }
   }
 
   deleteAll() {
@@ -80,27 +82,11 @@ const container = new Container("./productos.txt");
 
 container.startDocument();
 
-setInterval(() => {
-  container.save({ title: "Product", price: 100, thumbnail: "url" });
-}, 1500);
+container.save({ title: "Product", price: 100, thumbnail: "url" });
 
-setInterval(() => {
-  console.log("Obteniendo todos los objetos: ");
-  console.log(container.getAll());
-  container.getAll();
-}, 5000);
+// Descomentar metodos una vez el array este populado
+// container.getById(2);
 
-setInterval(() => {
-  console.log("Obteniendo un solo objeto");
-  container.getById(0);
-}, 2500);
+// container.getAll();
 
-setInterval(() => {
-  container.deleteAll();
-  console.log("Borrando todos los objetos");
-}, 8000);
-
-setInterval(() => {
-  container.deleteById(1);
-  console.log("Borrando Id 1");
-}, 6500);
+// container.deleteById(1);
