@@ -82,7 +82,7 @@ class Container {
       if (err) throw err;
     });
     console.log("Obteniendo todos los objetos", fileData);
-    return JSON.parse(fileData);
+    return await JSON.parse(fileData);
   }
 }
 
