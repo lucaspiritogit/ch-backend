@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { runInContext } = require("vm");
 
 class Container {
   filePath;
@@ -6,17 +7,20 @@ class Container {
     this.filePath = filePath;
   }
 
-  startDocument() {
+  async startDocument() {
     fs.readFile(this.filePath, (err, data) => {
       if (data.length === 0) {
         fs.writeFileSync(this.filePath, JSON.stringify([], null, 2), err => {
           if (err) throw err;
         });
+      } else if (err) {
+        throw err;
       }
     });
   }
 
   async save(object) {
+    await this.startDocument();
     fs.readFile(this.filePath, (err, data) => {
       data = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
       let newId = 1;
@@ -54,11 +58,7 @@ class Container {
     }
   }
 
-  getAll() {
-    return fs.readFileSync(this.filePath, "utf-8");
-  }
-
-  async deleteById(objectId) {
+  deleteById(objectId) {
     let fileData = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
     let index = fileData.findIndex(object => object.id == objectId);
 
@@ -76,17 +76,25 @@ class Container {
   deleteAll() {
     fs.writeFileSync(this.filePath, JSON.stringify([], null, 2), "utf-8");
   }
+
+  async getAll() {
+    let fileData = fs.readFileSync(this.filePath, "utf-8", err => {
+      if (err) throw err;
+    });
+    console.log("Obteniendo todos los objetos", fileData);
+    return JSON.parse(fileData);
+  }
 }
 
 const container = new Container("./productos.txt");
-
-container.startDocument();
-
 container.save({ title: "Product", price: 100, thumbnail: "url" });
 
-// Descomentar metodos una vez el array este populado
-// container.getById(2);
+//  Descomentar metodos una vez este populado el array
 
-// container.getAll();
+//  container.getById(1);
+//  container.deleteById(1);
+// container.deleteAll();
 
-// container.deleteById(1);
+setTimeout(() => {
+  container.getAll();
+}, 300);
