@@ -79,16 +79,5 @@ class Container {
     return JSON.parse(fileData);
   }
 }
-// container.save({ title: "Product", price: 100, thumbnail: "url" });
 
 module.exports = Container;
-
-//  Descomentar metodos una vez este populado el array
-
-//  container.getById(1);
-//  container.deleteById(1);
-//  container.deleteAll();
-
-// setTimeout(() => {
-//   container.getAll();
-// }, 300);
