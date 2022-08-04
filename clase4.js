@@ -1,5 +1,4 @@
 const fs = require("fs");
-const { runInContext } = require("vm");
 
 class Container {
   filePath;
@@ -24,9 +23,12 @@ class Container {
     fs.readFile(this.filePath, (err, data) => {
       data = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
       let newId = 1;
-      data.forEach(() => {
+
+      if (data.length) {
         newId = data[data.length - 1].id + 1;
-      });
+      } else {
+        newId = 1;
+      }
       let newObj = { id: newId, ...object };
       data.push(newObj);
 
@@ -85,7 +87,6 @@ class Container {
     return await JSON.parse(fileData);
   }
 }
-
 const container = new Container("./productos.txt");
 container.save({ title: "Product", price: 100, thumbnail: "url" });
 
@@ -93,7 +94,7 @@ container.save({ title: "Product", price: 100, thumbnail: "url" });
 
 //  container.getById(1);
 //  container.deleteById(1);
-// container.deleteAll();
+//  container.deleteAll();
 
 setTimeout(() => {
   container.getAll();
