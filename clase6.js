@@ -96,6 +96,6 @@ container.save({ title: "Product", price: 100, thumbnail: "url" });
 //  container.deleteById(1);
 //  container.deleteAll();
 
-setTimeout(() => {
-  container.getAll();
-}, 300);
+// setTimeout(() => {
+//   container.getAll();
+// }, 300);
