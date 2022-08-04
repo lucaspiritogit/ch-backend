@@ -26,3 +26,5 @@ app.get("/productoRandom", (req, res) => {
   let calculateRandom = Math.floor(Math.random() * 3) + 1;
   res.send(container.getById(calculateRandom));
 });
+
+console.log("test");
