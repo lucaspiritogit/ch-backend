@@ -60,10 +60,10 @@ class Container {
     try {
       fileData.splice(index, 1);
       fs.writeFileSync(this.filePath, JSON.stringify(fileData, null, 2));
-    } catch (error) {
       if (index === -1) {
-        return "Objeto no encontrado";
+        throw "Objeto no encontrado";
       }
+    } catch (error) {
       throw error;
     }
   }
