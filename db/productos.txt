@@ -1,20 +1,8 @@
 [
   {
     "id": 1,
-    "title": "Product1",
-    "price": 5100,
-    "thumbnail": "url"
-  },
-  {
-    "id": 2,
-    "title": "Product2",
-    "price": 2100,
-    "thumbnail": "url"
-  },
-  {
-    "id": 3,
-    "title": "Product3",
-    "price": 1100,
-    "thumbnail": "url"
+    "title": "1",
+    "price": "1",
+    "thumbnail": "tst"
   }
 ]

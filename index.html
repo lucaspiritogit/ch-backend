@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Coderhouse - backend</title>
+  </head>
+
+  <body>
+    <form action="/api/productos" method="post">
+      <div class="container">
+        <label for="title">Title </label>
+        <input id="title" type="text" name="title" placeholder="title" />
+        <label for="price">Price </label>
+        <input id="price" type="text" name="price" placeholder="price" />
+        <label for="thumbnail">Thumbnail </label>
+        <input id="thumbnail" type="text" name="thumbnail" placeholder="url" />
+        <button type="submit">Enviar</button>
+      </div>
+    </form>
+  </body>
+</html>

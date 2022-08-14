@@ -29,8 +29,10 @@ class Container {
       } else {
         newId = 1;
       }
+
       let newObj = { id: newId, ...object };
       data.push(newObj);
+      data.sort((firstObj, secondObj) => firstObj.id - secondObj.id);
 
       fs.writeFile(this.filePath, JSON.stringify(data, null, 2), err => {
         if (err) throw err;
@@ -54,15 +56,16 @@ class Container {
   }
 
   deleteById(objectId) {
-    let fileData = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
-    let index = fileData.findIndex(object => object.id == objectId);
-
     try {
+      let fileData = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
+      let index = fileData.findIndex(object => object.id == objectId);
+
+      if (index == -1) {
+        throw new Error({ error: "Objeto no encontrado" });
+      }
+
       fileData.splice(index, 1);
       fs.writeFileSync(this.filePath, JSON.stringify(fileData, null, 2));
-      if (index === -1) {
-        throw "Objeto no encontrado";
-      }
     } catch (error) {
       throw error;
     }

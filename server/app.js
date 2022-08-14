@@ -1,21 +1,31 @@
 const express = require("express");
 const Container = require("../src/Container.js");
 const routerProductos = require("./routes/productos.routes.js");
+const path = require("path");
 
 const PORT = 8080;
 const app = express();
-const container = new Container("./db/productos.txt");
 
+const container = new Container("./db/productos.txt");
 // configs
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "../")));
 
 app.listen(PORT, () => {
   console.log(`Server corriendo en http://localhost:${PORT}`);
 });
-// /api/productos
+
+/*
+    /api/productos
+*/
 app.use("/api/productos", routerProductos);
 
+/* 
+    /
+*/
 app.get("/", (req, res) => {
-  res.send("Test");
+  res.sendFile("./index.html");
 });
 
 // glitch sv: https://glitch.com/edit/#!/oval-victorious-peridot?path=server%2Fapp.js%3A14%3A23
