@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
+
 const routerProductos = express.Router();
 const Container = require("../../src/Container");
-const container = new Container("./db/productos.txt");
 
+const container = new Container("./db/productos.txt");
 routerProductos.get("/", async (req, res, next) => {
   res.send(container.getAll());
 });
@@ -20,7 +21,7 @@ routerProductos.post("/", (req, res, next) => {
   let data = req.body;
   container.save(data);
 
-  res.status(201).send(req.body);
+  res.status(201).send(data);
 });
 
 routerProductos.put("/:id", (req, res, next) => {
@@ -30,13 +31,9 @@ routerProductos.put("/:id", (req, res, next) => {
     let modifiedObj = {
       id: parseInt(req.params.id),
       title: data.title,
-      price: data.price,
+      price: parseInt(data.price),
       thumbnail: data.thumbnail,
     };
-
-    if (req.params.id == -1) {
-      throw new Error("");
-    }
 
     container.deleteById(req.params.id);
     container.save(modifiedObj);

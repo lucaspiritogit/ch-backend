@@ -1,13 +1,12 @@
 const express = require("express");
+const app = express();
 const Container = require("../src/Container.js");
 const routerProductos = require("./routes/productos.routes.js");
 const path = require("path");
 
 const PORT = 8080;
-const app = express();
 
-const container = new Container("./db/productos.txt");
-// configs
+// middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../")));

@@ -12,6 +12,6 @@
 }
 
 button {
-  margin: 10px;
+  cursor: pointer;
   width: 100px;
 }

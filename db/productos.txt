@@ -1,8 +1,8 @@
 [
   {
     "id": 1,
-    "title": "1",
-    "price": "1",
-    "thumbnail": "tst"
+    "title": "Product",
+    "price": 1000,
+    "thumbnail": "test"
   }
 ]

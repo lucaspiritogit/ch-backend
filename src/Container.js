@@ -21,23 +21,32 @@ class Container {
   async save(object) {
     await this.startDocument();
     fs.readFile(this.filePath, (err, data) => {
-      data = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
-      let newId = 1;
+      try {
+        data = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
+        let newId;
 
-      if (data.length) {
-        newId = data[data.length - 1].id + 1;
-      } else {
-        newId = 1;
+        if (data.length) {
+          newId = data[data.length - 1].id + 1;
+        } else {
+          newId = 1;
+        }
+
+        let newObj = { id: newId, ...object };
+        data.push(newObj);
+        data.sort((firstObj, secondObj) => firstObj.id - secondObj.id);
+
+        fs.writeFile(this.filePath, JSON.stringify(data, null, 2), err => {
+          if (err) throw err;
+          return newObj.id;
+        });
+      } catch (error) {
+        throw new Error(`
+        ${error.message}
+        
+        Verificar si hay algun error de sintaxis en el txt.
+        Por ejemplo: Alguna ',' (coma) que no antecede a un '{}'(objeto)        
+        `);
       }
-
-      let newObj = { id: newId, ...object };
-      data.push(newObj);
-      data.sort((firstObj, secondObj) => firstObj.id - secondObj.id);
-
-      fs.writeFile(this.filePath, JSON.stringify(data, null, 2), err => {
-        if (err) throw err;
-        return newObj.id;
-      });
     });
   }
 
