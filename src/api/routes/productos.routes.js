@@ -1,17 +1,16 @@
 const express = require("express");
-const app = express();
-
+const Container = require("../service/Container.js");
 const routerProductos = express.Router();
-const Container = require("../../src/Container");
 
-const container = new Container("./db/productos.txt");
+const container = new Container("./src/api/db/productos.txt");
+
 routerProductos.get("/", async (req, res, next) => {
   res.send(container.getAll());
 });
 
 routerProductos.get("/:id", (req, res, next) => {
   try {
-    res.send(container.getById(req.params.id));
+    res.send(container.getById(parseInt(req.params.id)));
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
   }

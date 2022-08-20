@@ -7,8 +7,8 @@
   },
   {
     "id": 2,
-    "title": "Product",
-    "price": 1000,
+    "title": "Product changed",
+    "price": null,
     "thumbnail": "test"
   },
   {
@@ -19,6 +19,12 @@
   },
   {
     "id": 4,
+    "title": "Product",
+    "price": 1000,
+    "thumbnail": "test"
+  },
+  {
+    "id": 5,
     "title": "Product",
     "price": 1000,
     "thumbnail": "test"

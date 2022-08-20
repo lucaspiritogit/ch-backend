@@ -58,7 +58,7 @@ class Container {
         throw "Objeto no encontrado";
       }
 
-      const foundObject = fileData.find(object => object.id === parseInt(objectId));
+      const foundObject = fileData.find(object => object.id === objectId);
 
       return foundObject;
     } catch (error) {
