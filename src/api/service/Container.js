@@ -20,7 +20,7 @@ class Container {
 
   async save(object) {
     await this.startDocument();
-    fs.readFile(this.filePath, (err, data) => {
+    fs.readFile(this.filePath, async (err, data) => {
       try {
         data = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
         let newId;
@@ -35,17 +35,18 @@ class Container {
         data.push(newObj);
         data.sort((firstObj, secondObj) => firstObj.id - secondObj.id);
 
-        fs.writeFile(this.filePath, JSON.stringify(data, null, 2), err => {
+        await fs.writeFile(this.filePath, JSON.stringify(data, null, 2), err => {
           if (err) throw err;
-          return newObj.id;
         });
+
+        return newObj.id;
       } catch (error) {
-        throw new Error(`
-        ${error.message}
-        
-        Verificar si hay algun error de sintaxis en el txt.
-        Por ejemplo: Alguna ',' (coma) que no antecede a un '{}'(objeto)        
-        `);
+        throw new Error(
+          `${error.message}
+          
+          Verificar si hay algun error de sintaxis en el txt.
+          Por ejemplo: Alguna ',' (coma) que no antecede a un '{}'(objeto)`
+        );
       }
     });
   }
@@ -83,7 +84,7 @@ class Container {
   }
 
   deleteAll() {
-    fs.writeFileSync(this.filePath, JSON.stringify([], null, 2), "utf-8");
+    fs.writeFileSync(this.filePath, []);
   }
 
   getAll() {

@@ -14,14 +14,8 @@ app.listen(PORT, () => {
   console.log(`Server corriendo en http://localhost:${PORT}`);
 });
 
-/*
-    /api/productos
-*/
 app.use("/api/productos", routerProductos);
 
-/* 
-    /
-*/
 app.get("/", (req, res) => {
   res.sendFile("./index.html");
 });
