@@ -1,4 +1,6 @@
 const express = require("express");
+const app = express();
+const path = require("path");
 const Container = require("../service/Container.js");
 const routerProductos = express.Router();
 

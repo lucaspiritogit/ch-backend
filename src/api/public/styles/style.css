@@ -15,3 +15,16 @@ button {
   cursor: pointer;
   width: 100px;
 }
+
+.listadoProductos {
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  font-size: 30px;
+}
