@@ -100,5 +100,23 @@
     "title": "Product",
     "price": 1000,
     "thumbnail": "test"
+  },
+  {
+    "id": 18,
+    "title": "",
+    "price": "",
+    "thumbnail": ""
+  },
+  {
+    "id": 19,
+    "title": "",
+    "price": "",
+    "thumbnail": ""
+  },
+  {
+    "id": 20,
+    "title": "123",
+    "price": "123",
+    "thumbnail": "123"
   }
 ]
