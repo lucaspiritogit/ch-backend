@@ -28,3 +28,15 @@ li {
   padding: 10px;
   font-size: 30px;
 }
+
+.introListado {
+  display: flex;
+  align-items: center;
+}
+.introListado h1 {
+  margin: 10px;
+}
+
+.introListado a {
+  font-size: 30px;
+}
