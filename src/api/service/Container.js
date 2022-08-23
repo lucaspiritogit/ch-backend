@@ -55,11 +55,8 @@ class Container {
     try {
       let fileData = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
 
-      if (!fileData[objectId - 1]) {
-        throw "Objeto no encontrado";
-      }
-
       const foundObject = fileData.find(object => object.id === objectId);
+      if (!foundObject) throw "Objeto no encontrado";
 
       return foundObject;
     } catch (error) {
