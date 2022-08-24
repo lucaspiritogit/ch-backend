@@ -41,3 +41,16 @@ li {
 .introListado a {
   font-size: 30px;
 }
+
+table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+td {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  font-size: 2rem;
+}
