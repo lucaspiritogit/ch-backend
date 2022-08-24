@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+    body
+        form(action="/api/productos" method="post")
+            .container 
+                label(for="title") Title
+                input(id="title" type="text" name="title" placeholder="title") 
+                label(for="price") Price
+                input(id="price" type="text" name="price" placeholder="price") 
+                label(for="thumbnail") Thumbnail
+                input(id="thumbnail" type="text" name="thumbnail" placeholder="url") 
+                button(type="submit") Enviar
+                a.listadoProductos(href="/api/productos") Ir al listado de productos

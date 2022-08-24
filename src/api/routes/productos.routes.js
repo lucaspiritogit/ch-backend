@@ -7,7 +7,7 @@ const routerProductos = express.Router();
 const container = new Container("./src/api/db/productos.txt");
 
 routerProductos.get("/", async (req, res, next) => {
-  res.render("./getAll.pug", { data: container.getAll() });
+  res.render("./getAll.ejs", { data: container.getAll() });
 });
 
 routerProductos.get("/:id", (req, res, next) => {
