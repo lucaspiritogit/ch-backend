@@ -5,9 +5,10 @@ const Container = require("../service/Container.js");
 const routerProductos = express.Router();
 
 const container = new Container("./src/api/db/productos.txt");
+app.use(express.static(path.join(__dirname, "./src/api/public")));
 
 routerProductos.get("/", async (req, res, next) => {
-  res.render("./partials/getAll.hbs", { data: container.getAll() });
+  res.render("getAll.pug", { data: container.getAll() });
 });
 
 routerProductos.get("/:id", (req, res, next) => {
@@ -20,6 +21,11 @@ routerProductos.get("/:id", (req, res, next) => {
 
 routerProductos.post("/", (req, res, next) => {
   let data = req.body;
+  data = {
+    title: data.title,
+    price: parseInt(data.price),
+    thumbnail: data.thumbnail,
+  };
   container.save(data);
 
   res.status(201).send(data);

@@ -4,12 +4,24 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="/styles/style.css")
         title Document
     body 
         div
             h1 Listado de productos
             a(href="/") Volver al inicio  
-        
-    ul
-    each object in data 
-        li= object.id + " " + object.title + " " + object.price + " " + object.thumbnail
+    table
+        tr
+            th Id
+            th Title
+            th Price
+            th Thumbnail
+        each object in data
+            tr
+                td= object.id
+                td= object.title
+                td= object.price
+                td
+                    img(src=object.thumbnail).image
+        else
+            h1 No hay productos     

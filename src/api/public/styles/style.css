@@ -42,15 +42,25 @@ li {
   font-size: 30px;
 }
 
-table {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+/* getAll table container */
 
+table {
+  width: 100%;
+  padding: 60px;
+}
 td {
+  border: 1px solid #ccc;
   padding: 10px;
   margin: 10px;
+  font-size: 2rem;
+}
+
+th {
+  padding: 10px;
   border: 1px solid #ccc;
   font-size: 2rem;
+}
+
+.image {
+  width: 50px;
 }
