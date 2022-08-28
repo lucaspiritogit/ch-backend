@@ -17,3 +17,7 @@ html(lang="en")
                 input(id="thumbnail" type="text" name="thumbnail" placeholder="url") 
                 button(type="submit") Enviar
                 a.listadoProductos(href="/api/productos") Ir al listado de productos
+
+    script(src="/socket.io/socket.io.js")
+    script.
+        let socket = io();

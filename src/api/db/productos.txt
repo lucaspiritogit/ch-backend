@@ -28,5 +28,11 @@
     "title": "",
     "price": null,
     "thumbnail": ""
+  },
+  {
+    "id": 6,
+    "title": "",
+    "price": null,
+    "thumbnail": ""
   }
 ]
