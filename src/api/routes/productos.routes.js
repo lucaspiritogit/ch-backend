@@ -3,11 +3,25 @@ const app = express();
 const path = require("path");
 const Container = require("../service/Container.js");
 const routerProductos = express.Router();
+const exphbs = require("express-handlebars");
+
+
+app.set("views", path.join(__dirname + "/views"));
+app.set("view engine", "hbs");
+
+app.engine(
+  "hbs",
+  exphbs.engine({
+    extname: "hbs",
+    defaultLayout: "",
+    layoutsDir: "",
+  })
+);
 
 const container = new Container("./src/api/db/productos.txt");
 
 routerProductos.get("/", async (req, res, next) => {
-  res.render("./partials/getAll.hbs", { data: container.getAll() });
+  res.render("getAll", { data: container.getAll() });
 });
 
 routerProductos.get("/:id", (req, res, next) => {

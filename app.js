@@ -19,10 +19,9 @@ app.set("view engine", "hbs");
 app.engine(
   "hbs",
   exphbs.engine({
-    defaultLayout: "main",
-    layoutsDir: path.join(app.get("views"), "layouts"),
-    partialsDir: path.join(app.get("views"), "partials"),
     extname: "hbs",
+    defaultLayout: "",
+    layoutsDir: "",
   })
 );
 
@@ -33,7 +32,7 @@ app.listen(PORT, () => {
 app.use("/api/productos", routerProductos);
 
 app.get("/", (req, res) => {
-  res.render("./layouts/main.hbs");
+  res.render("formPost");
 });
 
 // glitch sv: https://glitch.com/edit/#!/oval-victorious-peridot?path=server%2Fapp.js%3A14%3A23
