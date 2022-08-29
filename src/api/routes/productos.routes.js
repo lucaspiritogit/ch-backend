@@ -5,7 +5,6 @@ const Container = require("../service/Container.js");
 const routerProductos = express.Router();
 const exphbs = require("express-handlebars");
 
-
 app.set("views", path.join(__dirname + "/views"));
 app.set("view engine", "hbs");
 
@@ -21,7 +20,11 @@ app.engine(
 const container = new Container("./src/api/db/productos.txt");
 
 routerProductos.get("/", async (req, res, next) => {
-  res.render("getAll", { data: container.getAll() });
+  try {
+    res.render("getAll", { data: container.getAll() });
+  } catch (error) {
+    res.send({ error: "No hay productos" });
+  }
 });
 
 routerProductos.get("/:id", (req, res, next) => {
