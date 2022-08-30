@@ -1,3 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
+
+* {
+  font-family: "Roboto Condensed", sans-serif;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -76,10 +82,22 @@ th {
 .producto {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   border: 1px solid black;
   margin: 10px;
   padding: 10px;
+  max-width: 80%;
+}
+
+.productoThumbnail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.productoThumbnail img {
+  width: 30%;
 }
 
 .producto h3 {

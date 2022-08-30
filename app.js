@@ -1,14 +1,13 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const http = require("http");
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server);
+const { Server: HttpServer } = require("http");
+const { Server: IOServer } = require("socket.io");
+const server = new HttpServer(app);
+const io = new IOServer(server);
 
 const routerProductos = require("./src/api/routes/productos.routes.js");
 const Container = require("./src/api/service/Container.js");
-const { SocketAddress } = require("net");
 
 const PORT = 8080;
 const container = new Container("./src/api/db/productos.txt");
@@ -31,10 +30,16 @@ app.get("/", (req, res) => {
   }
 });
 
+const mensajesArr = [];
 // socket
 io.on("connection", socket => {
-  console.log(`Conectado: ${socket.id}`);
   io.sockets.emit("productos", container.getAll());
+  socket.emit("nuevo-mensaje-server", mensajesArr);
+
+  socket.on("nuevo-mensaje-cliente", data => {
+    mensajesArr.push(data);
+    io.sockets.emit("nuevo-mensaje-server", mensajesArr);
+  });
 });
 
 server.listen(PORT, () => {

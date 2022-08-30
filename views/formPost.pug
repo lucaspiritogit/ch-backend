@@ -5,6 +5,7 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet", href="/styles/style.css")
+        
         title Document
     body
         form(action="/api/productos" method="post")
@@ -15,26 +16,19 @@ html(lang="en")
                 input(id="price" type="text" name="price" placeholder="price") 
                 label(for="thumbnail") Thumbnail
                 input(id="thumbnail" type="text" name="thumbnail" placeholder="url") 
-                button(type="submit" id="postProductoBtn") Enviar
+                button(id="postProductoBtn") Enviar
         #listadoProductos
-    script(src="/socket.io/socket.io.js")
-    script.
-        let socket = io();
-        socket.on("productos", productos => {
-        const listado = productos.map(product => {
-            console.log(product)
-            if (product.price == null) {
-                product.price = ` Valor no ingresado`;
 
-            }
-            return `
-                <div class="producto">
-                    <h3>Id: ${product.id}</h3> 
-                    <h3>Titulo:${product.title}</h3>
-                    <h3>Precio:${product.price}</h3>
-                    <h3>Imagen representativa:</h3><img src="${product.thumbnail}"/>
-                </div>
-            `
-        }).join("")
-            document.querySelector('#listadoProductos').innerHTML = listado
-        })
+        #chatLog
+        form(id="chatBox") 
+            h1 chat
+            label(for="usuario") Usuario 
+            input(type="text" id="usuario" name="usuario" placeholder="usuario")
+            label(for="mensaje") Mensaje 
+            input(name="mensaje" id="mensaje")
+            button(onclick="enviarMensaje()") Enviar
+
+    script(src="/socket.io/socket.io.js")
+    script(src="./js/main.js")
+
+
