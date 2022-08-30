@@ -19,14 +19,14 @@ html(lang="en")
                 button(id="postProductoBtn") Enviar
         #listadoProductos
 
-        #chatLog
-        form(id="chatBox") 
+        form(id="chatBox" onsubmit="return enviarMensaje(this)") 
             h1 chat
-            label(for="usuario") Usuario 
-            input(type="text" id="usuario" name="usuario" placeholder="usuario")
+            label(for="email") Email 
+            input(type="email" id="email" name="email" placeholder="email" required)
             label(for="mensaje") Mensaje 
             input(name="mensaje" id="mensaje")
-            button(onclick="enviarMensaje()") Enviar
+            button(type="submit") Enviar
+        #chatLog
 
     script(src="/socket.io/socket.io.js")
     script(src="./js/main.js")

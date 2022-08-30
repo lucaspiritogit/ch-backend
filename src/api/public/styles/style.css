@@ -103,3 +103,47 @@ th {
 .producto h3 {
   padding: 5px;
 }
+
+/* chat */
+
+#chatBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+  margin: 10px;
+  font-size: 2rem;
+}
+
+#chatBox input {
+  padding: 10px;
+  margin: 10px;
+}
+
+#chatBox button {
+  align-self: flex-end;
+  padding: 10px;
+  font-size: 1.2rem;
+}
+
+#chatLog {
+  padding: 10px;
+}
+
+.mensajes {
+  display: flex;
+}
+
+.usuario {
+  color: blue;
+  font-weight: bold;
+}
+
+.timestamp {
+  color: brown;
+}
+
+.mensaje {
+  color: green;
+  font-style: italic;
+}
