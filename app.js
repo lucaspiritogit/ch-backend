@@ -8,8 +8,10 @@ const io = new Server(server);
 
 const routerProductos = require("./src/api/routes/productos.routes.js");
 const Container = require("./src/api/service/Container.js");
+const { SocketAddress } = require("net");
 
 const PORT = 8080;
+const container = new Container("./src/api/db/productos.txt");
 
 // middleware
 app.use(express.json());
@@ -22,11 +24,17 @@ app.set("view engine", "pug");
 app.use("/api/productos", routerProductos);
 
 app.get("/", (req, res) => {
-  res.render("formPost.pug");
+  try {
+    res.render("formPost.pug", { data: container.getAll() });
+  } catch (error) {
+    res.render("formPost.pug");
+  }
 });
 
+// socket
 io.on("connection", socket => {
   console.log(`Conectado: ${socket.id}`);
+  io.sockets.emit("productos", container.getAll());
 });
 
 server.listen(PORT, () => {

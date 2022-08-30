@@ -85,10 +85,15 @@ class Container {
   }
 
   getAll() {
-    let fileData = fs.readFileSync(this.filePath, "utf-8", err => {
-      if (err) throw err;
-    });
-    return JSON.parse(fileData);
+    this.startDocument();
+    try {
+      let fileData = fs.readFileSync(this.filePath, "utf-8", err => {
+        if (err) throw err;
+      });
+      return JSON.parse(fileData);
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

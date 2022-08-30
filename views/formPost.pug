@@ -15,9 +15,26 @@ html(lang="en")
                 input(id="price" type="text" name="price" placeholder="price") 
                 label(for="thumbnail") Thumbnail
                 input(id="thumbnail" type="text" name="thumbnail" placeholder="url") 
-                button(type="submit") Enviar
-                a.listadoProductos(href="/api/productos") Ir al listado de productos
-
+                button(type="submit" id="postProductoBtn") Enviar
+        #listadoProductos
     script(src="/socket.io/socket.io.js")
     script.
         let socket = io();
+        socket.on("productos", productos => {
+        const listado = productos.map(product => {
+            console.log(product)
+            if (product.price == null) {
+                product.price = ` Valor no ingresado`;
+
+            }
+            return `
+                <div class="producto">
+                    <h3>Id: ${product.id}</h3> 
+                    <h3>Titulo:${product.title}</h3>
+                    <h3>Precio:${product.price}</h3>
+                    <h3>Imagen representativa:</h3><img src="${product.thumbnail}"/>
+                </div>
+            `
+        }).join("")
+            document.querySelector('#listadoProductos').innerHTML = listado
+        })

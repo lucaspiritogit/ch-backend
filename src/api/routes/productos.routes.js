@@ -28,7 +28,7 @@ routerProductos.post("/", (req, res, next) => {
   };
   container.save(data);
 
-  res.status(201).send(data);
+  res.redirect("/");
 });
 
 routerProductos.put("/:id", (req, res, next) => {
