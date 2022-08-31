@@ -11,12 +11,12 @@ html(lang="en")
             h1 Listado de productos
             a(href="/") Volver al inicio  
     table
-        tr
-            th Id
-            th Title
-            th Price
-            th Thumbnail
         each object in data
+            tr
+                th Id
+                th Title
+                th Price
+                th Thumbnail
             tr
                 td= object.id
                 td= object.title
