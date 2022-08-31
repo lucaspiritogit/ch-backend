@@ -1,0 +1,65 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  margin: 0 auto;
+  width: 500px;
+  font-size: 30px;
+}
+
+.container > * {
+  padding: 10px;
+}
+
+button {
+  cursor: pointer;
+  width: 100px;
+}
+
+.listadoProductos {
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  font-size: 30px;
+}
+
+.introListado {
+  display: flex;
+  align-items: center;
+}
+.introListado h1 {
+  margin: 10px;
+}
+
+.introListado {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 20px;
+  padding: 10px;
+  margin: 20px;
+}
+
+.thumbnailImg {
+  width: 40%;
+}
+
+table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+td {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  font-size: 2rem;
+}
