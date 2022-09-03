@@ -1,0 +1,34 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <title>Backend | Lucas Pirito</title>
+  </head>
+  <body>
+    <form action="/api/productos" method="post">
+      <div class="container">
+        <label for="title">Title</label>
+        <input id="title" type="text" name="title" placeholder="title" />
+        <label for="price">Price</label>
+        <input id="price" type="text" name="price" placeholder="price" />
+        <label for="thumbnail">Thumbnail</label>
+        <input id="thumbnail" type="text" name="thumbnail" placeholder="url" />
+        <button type="submit">Enviar</button>
+      </div>
+    </form>
+    <div id="listadoProductos"></div>
+    <form id="chatBox" onsubmit="return enviarMensaje(this)">
+      <h1>chat</h1>
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" placeholder="email" required />
+      <label for="mensaje">Mensaje</label>
+      <input type="text" name="mensaje" id="mensaje" placeholder="mensaje" />
+      <button type="submit">Enviar</button>
+    </form>
+    <div id="chatLog"></div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>

@@ -7,10 +7,6 @@ const routerProductos = express.Router();
 const container = new Container("./src/api/db/productos.txt");
 app.use(express.static(path.join(__dirname, "./src/api/public")));
 
-routerProductos.get("/", async (req, res, next) => {
-  res.render("getAll.pug", { data: container.getAll() });
-});
-
 routerProductos.get("/:id", (req, res, next) => {
   try {
     res.send(container.getById(parseInt(req.params.id)));

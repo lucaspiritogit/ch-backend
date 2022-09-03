@@ -6,7 +6,6 @@ socket.on("productos", productos => {
       if (product.price == null) {
         product.price = `Valor no ingresado`;
       }
-
       return `
                 <div class="producto">
                     <h3>Id: ${product.id}</h3> 
@@ -42,7 +41,7 @@ function render(mensajes) {
   document.getElementById("chatLog").innerHTML = html;
 }
 
-const enviarMensaje = e => {
+const enviarMensaje = () => {
   const inputEmail = document.getElementById("email");
   const inputMensaje = document.getElementById("mensaje");
   const time = new Date();
