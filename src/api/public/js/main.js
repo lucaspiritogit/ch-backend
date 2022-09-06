@@ -21,10 +21,6 @@ socket.on("productos", productos => {
   document.querySelector("#listadoProductos").innerHTML = listado;
 });
 
-socket.on("nuevo-mensaje-server", mensajes => {
-  render(mensajes);
-});
-
 function render(mensajes) {
   const html = mensajes
     .map(msj => {
@@ -41,6 +37,11 @@ function render(mensajes) {
   document.getElementById("chatLog").innerHTML = html;
 }
 
+socket.on("nuevo-mensaje-server", data => {
+  console.log(data);
+  render(data);
+});
+
 const enviarMensaje = () => {
   const inputEmail = document.getElementById("email");
   const inputMensaje = document.getElementById("mensaje");
@@ -51,6 +52,7 @@ const enviarMensaje = () => {
     mensaje: inputMensaje.value,
     timestamp: time.toLocaleDateString() + " " + time.toLocaleTimeString(),
   };
+
   socket.emit("nuevo-mensaje-cliente", mensaje);
   return false;
 };
