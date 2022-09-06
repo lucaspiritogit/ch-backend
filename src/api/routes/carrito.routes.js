@@ -3,34 +3,65 @@ const app = express();
 const path = require("path");
 const Container = require("../service/Container.js");
 const routerCarrito = express.Router();
+const fs = require("fs");
 
 const carritoContainer = new Container("./src/api/db/carrito.txt");
 const productosContainer = new Container("./src/api/db/productos.txt");
 
 app.use(express.static(path.join(__dirname, "./src/api/public")));
 
-console.log(...[productosContainer.getAll()]);
 routerCarrito.post("/", (req, res, next) => {
-  let data = req.body;
+  const time = new Date();
 
-  data = {
-    products: {
-      ...[productosContainer.getAll()],
-    },
+  let data = {
+    timestamp: time.toLocaleDateString() + " " + time.toLocaleTimeString(),
+    products: [],
   };
 
-  console.log();
-
   carritoContainer.save(data);
-  res.redirect("/");
+  res.sendStatus(201);
 });
 
-routerCarrito.delete("/:id", (req, res, next) => {});
+routerCarrito.delete("/:id", (req, res, next) => {
+  try {
+    carritoContainer.deleteById(req.params.id);
+    res.sendStatus(204);
+  } catch (error) {
+    res.send({ error: "Objeto no encontrado" });
+  }
+});
 
-routerCarrito.get("/:id/productos", (req, res, next) => {});
+routerCarrito.get("/:id/productos", (req, res, next) => {
+  let selectedCarrito = carritoContainer.getById(parseInt(req.params.id));
 
-routerCarrito.post("/:id/productos", (req, res, next) => {});
+  res.send(selectedCarrito);
+});
 
-routerCarrito.delete("/:id/productos/:id_prod", (req, res, next) => {});
+routerCarrito.post("/:id/productos", (req, res, next) => {
+  try {
+    let selectedProduct = productosContainer.getById(parseInt(req.params.id));
+
+    let readCarritoArray = JSON.parse(fs.readFileSync("./src/api/db/carrito.txt", "utf-8"));
+    let products;
+
+    for (let i = 0; i < readCarritoArray.length; i++) {
+      const carrito = readCarritoArray[i];
+      products = carrito.products;
+    }
+
+    products.push(selectedProduct);
+
+    fs.writeFileSync("./src/api/db/carrito.txt", JSON.stringify(readCarritoArray, null, 2));
+
+    res.send(readCarritoArray).status(201);
+  } catch (error) {
+    res.send({ error: "Objeto no encontrado" });
+  }
+});
+
+routerCarrito.delete("/:id/productos/:id_prod", (req, res, next) => {
+  let selectedCarrito = carritoContainer.getById(parseInt(req.params.id));
+  let selectedProduct = productosContainer.getById(parseInt(req.params.id_prod));
+});
 
 module.exports = routerCarrito;

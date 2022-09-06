@@ -13,7 +13,7 @@ const PORT = 8080;
 const container = new Container("./src/api/db/productos.txt");
 const mensajes = new Container("./src/api/db/mensajes.txt");
 
-/* --------------------------- Middlware ---------------------------------- */
+/* --------------------------- Middleware ---------------------------------- */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "./src/api/public")));
