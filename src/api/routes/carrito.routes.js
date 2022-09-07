@@ -34,7 +34,7 @@ routerCarrito.delete("/:id", (req, res, next) => {
 routerCarrito.get("/:id/productos", (req, res, next) => {
   let selectedCarrito = carritoContainer.getById(parseInt(req.params.id));
 
-  res.send(selectedCarrito);
+  res.json(selectedCarrito);
 });
 
 routerCarrito.post("/:id/productos", (req, res, next) => {
@@ -60,8 +60,25 @@ routerCarrito.post("/:id/productos", (req, res, next) => {
 });
 
 routerCarrito.delete("/:id/productos/:id_prod", (req, res, next) => {
-  let selectedCarrito = carritoContainer.getById(parseInt(req.params.id));
-  let selectedProduct = productosContainer.getById(parseInt(req.params.id_prod));
+  try {
+    let newProdArr = [];
+    let selectedCarrito = carritoContainer.getById(parseInt(req.params.id));
+    let selectedProductIndex = selectedCarrito.products.findIndex(
+      prod => prod.id === parseInt(req.params.id_prod)
+    );
+
+    selectedCarrito.products.splice(selectedProductIndex, 1);
+
+    newProdArr.push(selectedCarrito);
+
+    fs.writeFile("./src/api/db/carrito.txt", JSON.stringify(newProdArr, null, 2), err => {
+      if (err) throw err;
+    });
+
+    res.send(201);
+  } catch (error) {
+    throw error;
+  }
 });
 
 module.exports = routerCarrito;

@@ -1,35 +1,17 @@
 [
   {
     "id": 1,
-    "timestamp": "5/9/2022 23:58:59",
-    "products": []
-  },
-  {
-    "id": 2,
-    "timestamp": "6/9/2022 00:06:22",
-    "products": []
-  },
-  {
-    "id": 3,
-    "timestamp": "6/9/2022 00:08:13",
+    "timestamp": "7/9/2022 19:37:26",
     "products": [
       {
         "id": 1,
-        "title": "",
-        "price": null,
-        "thumbnail": ""
-      },
-      {
-        "id": 1,
-        "title": "",
-        "price": null,
-        "thumbnail": ""
-      },
-      {
-        "id": 1,
-        "title": "",
-        "price": null,
-        "thumbnail": ""
+        "timestamp": "7/9/2022 19:37:35",
+        "title": "Product",
+        "description": "test",
+        "code": "code",
+        "thumbnail": "test",
+        "price": 1000,
+        "stock": "stock"
       }
     ]
   }
