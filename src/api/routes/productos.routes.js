@@ -24,7 +24,7 @@ routerProductos.post("/", (req, res, next) => {
   };
   container.save(data);
 
-  res.redirect("/");
+  res.status(201).json({ msg: "Agregado", data: req.body });
 });
 
 routerProductos.put("/:id", (req, res, next) => {

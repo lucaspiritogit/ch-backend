@@ -10,8 +10,6 @@ const fs = require("fs");
 
 const routerProductos = require("./src/api/routes/productos.routes.js");
 const Container = require("./src/api/service/Container.js");
-const { log } = require("console");
-const { setFlagsFromString } = require("v8");
 
 const PORT = 8080;
 const container = new Container("./src/api/db/productos.txt");
@@ -45,13 +43,19 @@ app.get("/", (req, res) => {
 
 // socket
 io.on("connection", socket => {
-  socket.emit("productos", container.getAll());
+  socket.on("productos-cliente", data => {
+    let prods = JSON.parse(fs.readFileSync("./src/api/db/productos.txt", "utf-8"));
+    container.save(data);
+    prods.push(data);
+    io.sockets.emit("productos-server", prods);
+  });
+
+  socket.emit("productos-server", container.getAll());
 
   socket.on("nuevo-mensaje-cliente", data => {
     let mensajesArray = JSON.parse(fs.readFileSync("./src/api/db/mensajes.txt", "utf-8"));
     mensajes.save(data);
     mensajesArray.push(data);
-    console.log(mensajesArray);
     io.sockets.emit("nuevo-mensaje-server", mensajesArray);
   });
 
