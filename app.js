@@ -45,18 +45,25 @@ app.get("/", (req, res) => {
   }
 });
 
-const mensajesArr = [];
 // socket
 io.on("connection", socket => {
-  io.sockets.emit("productos", container.getAll());
-  socket.emit("nuevo-mensaje-server", mensajesArr);
+  socket.on("productos-cliente", data => {
+    let prods = JSON.parse(fs.readFileSync("./src/api/db/productos.txt", "utf-8"));
+    container.save(data);
+    prods.push(data);
+    io.sockets.emit("productos-server", prods);
+  });
+
+  socket.emit("productos-server", container.getAll());
 
   socket.on("nuevo-mensaje-cliente", data => {
-    mensajesArr.push(data);
+    let mensajesArray = JSON.parse(fs.readFileSync("./src/api/db/mensajes.txt", "utf-8"));
     mensajes.save(data);
-
-    io.sockets.emit("nuevo-mensaje-server", mensajesArr);
+    mensajesArray.push(data);
+    io.sockets.emit("nuevo-mensaje-server", mensajesArray);
   });
+
+  socket.emit("nuevo-mensaje-server", mensajes.getAll());
 });
 
 server.listen(PORT, () => {

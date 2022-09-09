@@ -7,7 +7,19 @@
     <title>Backend | Lucas Pirito</title>
   </head>
   <body>
-    <form action="/api/productos" method="post">
+    {{! <form action="/api/productos" method="post">
+      <div class="container">
+        <label for="title">Title</label>
+        <input id="title" type="text" name="title" placeholder="title" />
+        <label for="price">Price</label>
+        <input id="price" type="text" name="price" placeholder="price" />
+        <label for="thumbnail">Thumbnail</label>
+        <input id="thumbnail" type="text" name="thumbnail" placeholder="url" />
+        <button type="submit">Enviar</button>
+      </div>
+    </form> }}
+
+    <form onsubmit="return enviarProd(this)">
       <div class="container">
         <label for="title">Title</label>
         <input id="title" type="text" name="title" placeholder="title" />
@@ -18,7 +30,8 @@
         <button type="submit">Enviar</button>
       </div>
     </form>
-    <div id="listadoProductos"></div>
+    <div id="listadoProductos">
+    </div>
     <form id="chatBox" onsubmit="return enviarMensaje(this)">
       <h1>chat</h1>
       <label for="email">Email</label>
