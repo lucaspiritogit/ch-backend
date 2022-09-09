@@ -6,14 +6,15 @@ const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
 const server = new HttpServer(app);
 const io = new IOServer(server);
-const Container = require("./src/api/service/Container.js");
-const PORT = 8080;
+const fs = require("fs");
 
-/* --------------------------- DB ---------------------------------- */
+const Container = require("./src/api/service/Container.js");
+
+const PORT = 8080;
 const container = new Container("./src/api/db/productos.txt");
 const mensajes = new Container("./src/api/db/mensajes.txt");
 
-/* --------------------------- Middleware ---------------------------------- */
+// middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "./src/api/public")));
@@ -29,7 +30,6 @@ app.engine(
     layoutsDir: "",
   })
 );
-
 /* --------------------------- Router ---------------------------------- */
 const routerProductos = require("./src/api/routes/productos.routes.js");
 const routerCarrito = require("./src/api/routes/carrito.routes.js");
