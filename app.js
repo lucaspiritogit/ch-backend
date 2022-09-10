@@ -9,10 +9,12 @@ const io = new IOServer(server);
 const fs = require("fs");
 
 const Container = require("./src/api/service/Container.js");
+const Repository = require("./src/api/public/js/Repository.js");
 
 const PORT = 8080;
 const container = new Container("./src/api/db/productos.txt");
 const mensajes = new Container("./src/api/db/mensajes.txt");
+const repository = new Repository("mensajes");
 
 // middleware
 app.use(express.json());
@@ -46,7 +48,7 @@ app.get("/", (req, res) => {
 });
 
 // socket
-io.on("connection", socket => {
+io.on("connection", async socket => {
   socket.on("productos-cliente", data => {
     let prods = JSON.parse(fs.readFileSync("./src/api/db/productos.txt", "utf-8"));
     container.save(data);
@@ -60,8 +62,12 @@ io.on("connection", socket => {
     let mensajesArray = JSON.parse(fs.readFileSync("./src/api/db/mensajes.txt", "utf-8"));
     mensajes.save(data);
     mensajesArray.push(data);
+    repository.insert(data);
     io.sockets.emit("nuevo-mensaje-server", mensajesArray);
   });
+
+  let res = await repository.findAll();
+  console.log("🚀 ~ file: app.js ~ line 53 ~ res", res);
 
   socket.emit("nuevo-mensaje-server", mensajes.getAll());
 });
