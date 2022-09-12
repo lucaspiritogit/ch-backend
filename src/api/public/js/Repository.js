@@ -1,9 +1,9 @@
 const knex = require("knex");
-const config = require("../../utils/config.js");
+const configMaria = require("../../utils/configMariaDB.js");
 
 class Repository {
   constructor(tableName) {
-    this.knexCli = knex(config);
+    this.knexCli = knex(configMaria);
     this.tableName = tableName;
   }
 

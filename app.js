@@ -12,11 +12,10 @@ const PORT = 8080;
 
 /* ---------------------------- Instances ------------------------- */
 const Container = require("./src/api/service/Container.js");
-const Repository = require("./src/api/public/js/Repository.js");
+const mensajes = new Container("./src/api/db/mensajes.txt");
 
 /* ---------------------------- DB ------------------------- */
 const container = new Container("./src/api/db/productos.txt");
-const repository = new Repository("mensajes");
 
 /* ---------------------------- Middlewares ------------------------- */
 app.use(express.json());
@@ -61,16 +60,18 @@ io.on("connection", async socket => {
 
   socket.emit("productos-server", container.getAll());
 
+  let mensajesArray = [];
   socket.on("nuevo-mensaje-cliente", async data => {
     try {
-      repository.insert(data);
-      io.sockets.emit("nuevo-mensaje-server", await repository.findAll());
+      mensajes.save(data);
+      mensajesArray.push(data);
+      io.sockets.emit("nuevo-mensaje-server", mensajesArray);
     } catch (error) {
       throw error;
     }
   });
 
-  socket.emit("nuevo-mensaje-server", await repository.findAll());
+  socket.emit("nuevo-mensaje-server", mensajesArray);
 });
 
 server.listen(PORT, () => {
