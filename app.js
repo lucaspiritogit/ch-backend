@@ -8,19 +8,22 @@ const server = new HttpServer(app);
 const io = new IOServer(server);
 const fs = require("fs");
 
+const PORT = 8080;
+
+/* ---------------------------- Instances ------------------------- */
 const Container = require("./src/api/service/Container.js");
 const Repository = require("./src/api/public/js/Repository.js");
 
-const PORT = 8080;
+/* ---------------------------- DB ------------------------- */
 const container = new Container("./src/api/db/productos.txt");
-const mensajes = new Container("./src/api/db/mensajes.txt");
 const repository = new Repository("mensajes");
 
-// middleware
+/* ---------------------------- Middlewares ------------------------- */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "./src/api/public")));
 
+/* ---------------------------- Views ------------------------- */
 app.set("views", path.join(__dirname + "/views"));
 app.set("view engine", "hbs");
 
@@ -47,7 +50,7 @@ app.get("/", (req, res) => {
   }
 });
 
-// socket
+/* --------------------------- SocketIO ---------------------------------- */
 io.on("connection", async socket => {
   socket.on("productos-cliente", data => {
     let prods = JSON.parse(fs.readFileSync("./src/api/db/productos.txt", "utf-8"));
@@ -58,18 +61,16 @@ io.on("connection", async socket => {
 
   socket.emit("productos-server", container.getAll());
 
-  socket.on("nuevo-mensaje-cliente", data => {
-    let mensajesArray = JSON.parse(fs.readFileSync("./src/api/db/mensajes.txt", "utf-8"));
-    mensajes.save(data);
-    mensajesArray.push(data);
-    repository.insert(data);
-    io.sockets.emit("nuevo-mensaje-server", mensajesArray);
+  socket.on("nuevo-mensaje-cliente", async data => {
+    try {
+      repository.insert(data);
+      io.sockets.emit("nuevo-mensaje-server", await repository.findAll());
+    } catch (error) {
+      throw error;
+    }
   });
 
-  let res = await repository.findAll();
-  console.log("🚀 ~ file: app.js ~ line 53 ~ res", res);
-
-  socket.emit("nuevo-mensaje-server", mensajes.getAll());
+  socket.emit("nuevo-mensaje-server", await repository.findAll());
 });
 
 server.listen(PORT, () => {

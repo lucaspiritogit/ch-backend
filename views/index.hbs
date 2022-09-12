@@ -19,7 +19,7 @@
       </div>
     </form> }}
 
-    <form onsubmit="return enviarProd(this)">
+    <form onsubmit="return sendProduct(this)" action="/api/productos" method="post">
       <div class="container">
         <label for="title">Title</label>
         <input id="title" type="text" name="title" placeholder="title" />
@@ -27,12 +27,18 @@
         <input id="price" type="text" name="price" placeholder="price" />
         <label for="thumbnail">Thumbnail</label>
         <input id="thumbnail" type="text" name="thumbnail" placeholder="url" />
+        <label for="thumbnail">stock</label>
+        <input id="stock" type="text" name="stock" placeholder="stock" />
+        <label for="thumbnail">code</label>
+        <input id="code" type="text" name="code" placeholder="code" />
+        <label for="description">description</label>
+        <input id="description" type="text" name="description" placeholder="url" />
         <button type="submit">Enviar</button>
       </div>
     </form>
     <div id="listadoProductos">
     </div>
-    <form id="chatBox" onsubmit="return enviarMensaje(this)">
+    <form id="chatBox" onsubmit="return sendMessage(this)">
       <h1>chat</h1>
       <label for="email">Email</label>
       <input type="email" name="email" id="email" placeholder="email" required />
@@ -42,6 +48,7 @@
     </form>
     <div id="chatLog"></div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="./js/main.js"></script>
+    <script src="./js/sendMessage.js"></script>
+    <script src="./js/sendProduct.js"></script>
   </body>
 </html>

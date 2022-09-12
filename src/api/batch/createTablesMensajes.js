@@ -1,14 +1,6 @@
 const knex = require("knex");
 const config = require("../utils/config.js");
 
-const db = {
-  client: "better-sqlite3", // or 'better-sqlite3'
-  connection: {
-    filename: "../../db/mensajes.db3",
-  },
-  useNullAsDefault: true,
-};
-
 const knexCli = knex(config);
 
 knexCli.schema

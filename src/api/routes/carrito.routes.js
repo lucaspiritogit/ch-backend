@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const Container = require("../service/Container.js");
 const routerCarrito = express.Router();
 const fs = require("fs");
 
+const Container = require("../service/Container.js");
 const carritoContainer = new Container("./src/api/db/carrito.txt");
 const productosContainer = new Container("./src/api/db/productos.txt");
 

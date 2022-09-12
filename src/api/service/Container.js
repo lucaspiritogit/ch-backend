@@ -1,18 +1,14 @@
 const fs = require("fs");
 
 class Container {
-  filePath;
   constructor(filePath) {
     this.filePath = filePath;
   }
 
   async startDocument() {
-    fs.readFile(this.filePath, (err, data) => {
-      if (data.length === 0) {
-        fs.writeFileSync(this.filePath, JSON.stringify([], null, 2), err => {
-          if (err) throw err;
-        });
-      } else if (err) {
+    await fs.readFile(this.filePath, (err, data) => {
+      data.length ? 0 : fs.writeFileSync(this.filePath, JSON.stringify([], null, 2));
+      if (err) {
         throw err;
       }
     });
@@ -20,7 +16,7 @@ class Container {
 
   async save(object) {
     await this.startDocument();
-    fs.readFile(this.filePath, async (err, data) => {
+    await fs.readFile(this.filePath, async (err, data) => {
       try {
         data = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
         let newId;

@@ -1,14 +1,6 @@
 const knex = require("knex");
 const config = require("../../utils/config.js");
 
-const db = {
-  client: "better-sqlite3", // or 'better-sqlite3'
-  connection: {
-    filename: "../../db/mensajes.sqlite",
-  },
-  useNullAsDefault: true,
-};
-
 class Repository {
   constructor(tableName) {
     this.knexCli = knex(config);
@@ -16,18 +8,24 @@ class Repository {
   }
 
   async findAll() {
-    return await this.knexCli(this.tableName).select("*");
+    return await this.knexCli.from(this.tableName).select("*");
   }
 
-  find() {}
+  async find(id) {
+    return await this.knexCli.from(this.tableName).select("*").where({ id: id });
+  }
 
-  updateById(id, obj) {}
+  async updateById(id, obj) {
+    return await this.knexCli.from(this.tableName).select("*").where({ id: id }).update(obj);
+  }
 
   async insert(obj) {
-    return await this.knexCli(this.tableName).insert(obj);
+    return await this.knexCli.from(this.tableName).insert(obj);
   }
 
-  deleteById(id) {}
+  async deleteById(id) {
+    return await this.knexCli.from(this.tableName).where({ id: id }).del();
+  }
 }
 
 module.exports = Repository;

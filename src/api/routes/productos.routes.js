@@ -1,14 +1,16 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const Container = require("../service/Container.js");
 const routerProductos = express.Router();
 
+const Container = require("../service/Container.js");
 const container = new Container("./src/api/db/productos.txt");
+const Repository = require("../public/js/Repository.js");
+const repository = new Repository("productos");
+
 app.use(express.static(path.join(__dirname, "./src/api/public")));
 
 let isAdmin = true;
-
 routerProductos.get("/:id", (req, res, next) => {
   try {
     res.send(container.getById(parseInt(req.params.id)));
@@ -44,7 +46,7 @@ routerProductos.post("/", (req, res, next) => {
       price: parseInt(data.price),
       stock: data.stock,
     };
-    container.save(data);
+    repository.insert(data);
 
     res.send(data);
   }
