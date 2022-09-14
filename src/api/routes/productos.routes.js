@@ -62,6 +62,8 @@ routerProductos.put("/:id", (req, res, next) => {
       const time = new Date();
       let data = req.body;
 
+      let originalObj = container.getById(parseInt(req.params.id));
+
       let modifiedObj = {
         timestamp: time.toLocaleDateString() + " " + time.toLocaleTimeString(),
         title: data.title,
@@ -71,6 +73,30 @@ routerProductos.put("/:id", (req, res, next) => {
         price: parseInt(data.price),
         stock: data.stock,
       };
+
+      if (data.title == null) {
+        modifiedObj.title = originalObj.title;
+      }
+
+      if (data.description == null) {
+        modifiedObj.description = originalObj.description;
+      }
+
+      if (data.code == null) {
+        modifiedObj.code = originalObj.code;
+      }
+
+      if (data.thumbnail == null) {
+        modifiedObj.thumbnail = originalObj.thumbnail;
+      }
+
+      if (data.price == null) {
+        modifiedObj.price = originalObj.price;
+      }
+
+      if (data.stock == null) {
+        modifiedObj.stock = originalObj.stock;
+      }
 
       container.deleteById(req.params.id);
       container.save(modifiedObj);
