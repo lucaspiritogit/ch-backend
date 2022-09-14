@@ -67,6 +67,10 @@ routerCarrito.delete("/:id/productos/:id_prod", (req, res, next) => {
       prod => prod.id === parseInt(req.params.id_prod)
     );
 
+    if (selectedProductIndex == -1) {
+      return res.json({ error: "Producto no encontrado" });
+    }
+
     selectedCarrito.products.splice(selectedProductIndex, 1);
 
     newProdArr.push(selectedCarrito);
@@ -75,7 +79,7 @@ routerCarrito.delete("/:id/productos/:id_prod", (req, res, next) => {
       if (err) throw err;
     });
 
-    res.send(201);
+    res.sendStatus(201);
   } catch (error) {
     throw error;
   }

@@ -1,12 +1,32 @@
 [
   {
     "id": 1,
-    "timestamp": "14/9/2022 00:11:23",
-    "title": "Pro222duc22t",
-    "description": "te1st",
+    "timestamp": "14/9/2022 13:12:28",
+    "title": "Product",
+    "description": "test",
     "code": "code",
     "thumbnail": "test",
-    "price": 1010,
-    "stock": "2"
+    "price": 1000,
+    "stock": "stock"
+  },
+  {
+    "id": 2,
+    "timestamp": "14/9/2022 13:14:28",
+    "title": "Product",
+    "description": "test",
+    "code": "code",
+    "thumbnail": "test",
+    "price": 1000,
+    "stock": "stock"
+  },
+  {
+    "id": 3,
+    "timestamp": "14/9/2022 13:14:35",
+    "title": "Product",
+    "description": "test",
+    "code": "code",
+    "thumbnail": "test",
+    "price": 1000,
+    "stock": "stock"
   }
 ]
