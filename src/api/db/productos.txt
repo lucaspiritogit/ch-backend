@@ -28,5 +28,15 @@
     "thumbnail": "test",
     "price": 1000,
     "stock": "stock"
+  },
+  {
+    "id": 4,
+    "timestamp": "14/9/2022 13:27:41",
+    "title": "Product",
+    "description": "test",
+    "code": "code",
+    "thumbnail": "test",
+    "price": 1000,
+    "stock": "stock"
   }
 ]

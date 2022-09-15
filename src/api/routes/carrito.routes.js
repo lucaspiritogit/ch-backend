@@ -37,19 +37,13 @@ routerCarrito.get("/:id/productos", (req, res, next) => {
   res.json(selectedCarrito);
 });
 
-routerCarrito.post("/:id/productos", (req, res, next) => {
+routerCarrito.post("/:idCarrito/productos/:idProducto", (req, res, next) => {
   try {
-    let selectedProduct = productosContainer.getById(parseInt(req.params.id));
+    let selectedProduct = productosContainer.getById(parseInt(req.params.idProducto));
 
     let readCarritoArray = JSON.parse(fs.readFileSync("./src/api/db/carrito.txt", "utf-8"));
-    let products;
-
-    for (let i = 0; i < readCarritoArray.length; i++) {
-      const carrito = readCarritoArray[i];
-      products = carrito.products;
-    }
-
-    products.push(selectedProduct);
+    let selectedCarrito = readCarritoArray[req.params.idCarrito - 1].products;
+    selectedCarrito.push(selectedProduct);
 
     fs.writeFileSync("./src/api/db/carrito.txt", JSON.stringify(readCarritoArray, null, 2));
 
