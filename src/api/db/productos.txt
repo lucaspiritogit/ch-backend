@@ -1,37 +1,7 @@
 [
   {
     "id": 1,
-    "timestamp": "14/9/2022 13:12:28",
-    "title": "Product",
-    "description": "test",
-    "code": "code",
-    "thumbnail": "test",
-    "price": 1000,
-    "stock": "stock"
-  },
-  {
-    "id": 2,
-    "timestamp": "14/9/2022 13:14:28",
-    "title": "Product",
-    "description": "test",
-    "code": "code",
-    "thumbnail": "test",
-    "price": 1000,
-    "stock": "stock"
-  },
-  {
-    "id": 3,
-    "timestamp": "14/9/2022 13:14:35",
-    "title": "Product",
-    "description": "test",
-    "code": "code",
-    "thumbnail": "test",
-    "price": 1000,
-    "stock": "stock"
-  },
-  {
-    "id": 4,
-    "timestamp": "14/9/2022 13:27:41",
+    "timestamp": "15/9/2022 19:30:00",
     "title": "Product",
     "description": "test",
     "code": "code",

@@ -70,6 +70,10 @@ routerProductos.put("/:id", checkIfAdmin, (req, res, next) => {
       stock: data.stock,
     };
 
+    if (data.id == null) {
+      modifiedObj.id = originalObj.id;
+    }
+
     if (data.title == null) {
       modifiedObj.title = originalObj.title;
     }
