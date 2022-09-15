@@ -5,8 +5,8 @@ const routerProductos = express.Router();
 
 const Container = require("../service/Container.js");
 const container = new Container("./src/api/db/productos.txt");
-const Repository = require("../public/js/Repository.js");
-const repository = new Repository("productos");
+const RepositoryProducts = require("../public/js/RepositoryProduct.js");
+const repository = new RepositoryProducts("productos");
 
 app.use(express.static(path.join(__dirname, "./src/api/public")));
 
@@ -47,7 +47,6 @@ routerProductos.post("/", (req, res, next) => {
       stock: data.stock,
     };
     repository.insert(data);
-
     res.send(data);
   }
 });
