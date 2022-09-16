@@ -14,8 +14,10 @@ const PORT = 8080;
 const Container = require("./src/api/service/Container.js");
 const Repository = require("./src/api/public/js/Repository.js");
 
+const RepositoryProducts = require("./src/api/public/js/RepositoryProduct.js");
+const repositoryProducts = new RepositoryProducts("productos");
+
 /* ---------------------------- DB ------------------------- */
-const container = new Container("./src/api/db/productos.txt");
 const repository = new Repository("mensajes");
 
 /* ---------------------------- Middlewares ------------------------- */
@@ -52,14 +54,12 @@ app.get("/", (req, res) => {
 
 /* --------------------------- SocketIO ---------------------------------- */
 io.on("connection", async socket => {
-  socket.on("productos-cliente", data => {
-    let prods = JSON.parse(fs.readFileSync("./src/api/db/productos.txt", "utf-8"));
-    container.save(data);
-    prods.push(data);
-    io.sockets.emit("productos-server", prods);
+  socket.on("productos-cliente", async data => {
+    repositoryProducts.insert(data);
+    io.sockets.emit("productos-server", await repositoryProducts.findAll());
   });
 
-  socket.emit("productos-server", container.getAll());
+  socket.emit("productos-server", await repositoryProducts.findAll());
 
   socket.on("nuevo-mensaje-cliente", async data => {
     try {

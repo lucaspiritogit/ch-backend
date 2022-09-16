@@ -32,8 +32,11 @@ function renderProducts(productos) {
       <h3>Titulo:${product.title}</h3>
       <h3>Precio:${product.price}</h3>
       <div class="productoThumbnail">
-        <h3>Imagen representativa:</h3><img  src="${product.thumbnail}"/>
+        <h3>Image:</h3><img  src="${product.thumbnail}"/>
       </div>
+      <h3>Stock: ${product.stock}</h3>
+      <h3>Code: ${product.code}</h3>
+      <h3>Description: ${product.description}</h3>
     </div>
     `;
     })
