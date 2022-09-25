@@ -44,35 +44,6 @@ const routerCarrito = require("./src/api/routes/carrito.routes.js");
 app.use("/api/productos", routerProductos);
 app.use("/api/carrito", routerCarrito);
 
-app.get("/", (req, res) => {
-  try {
-    res.render("index.hbs", { data: container.getAll() });
-  } catch (error) {
-    res.render("index.hbs");
-  }
-});
-
-/* --------------------------- SocketIO ---------------------------------- */
-io.on("connection", async socket => {
-  socket.on("productos-cliente", async data => {
-    await repositoryProducts.insert(data);
-    io.sockets.emit("productos-server", await repositoryProducts.findAll());
-  });
-
-  socket.emit("productos-server", await repositoryProducts.findAll());
-
-  socket.on("nuevo-mensaje-cliente", async data => {
-    try {
-      await repository.insert(data);
-      io.sockets.emit("nuevo-mensaje-server", await repository.findAll());
-    } catch (error) {
-      throw error;
-    }
-  });
-
-  socket.emit("nuevo-mensaje-server", await repository.findAll());
-});
-
 server.listen(PORT, () => {
   console.log(`Server corriendo en http://localhost:${PORT}`);
 });

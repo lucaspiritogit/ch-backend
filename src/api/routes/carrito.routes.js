@@ -37,19 +37,13 @@ routerCarrito.get("/:id/productos", (req, res, next) => {
   res.json(selectedCarrito);
 });
 
-routerCarrito.post("/:id/productos", (req, res, next) => {
+routerCarrito.post("/:idCarrito/productos/:idProducto", (req, res, next) => {
   try {
-    let selectedProduct = productosContainer.getById(parseInt(req.params.id));
+    let selectedProduct = productosContainer.getById(parseInt(req.params.idProducto));
 
     let readCarritoArray = JSON.parse(fs.readFileSync("./src/api/db/carrito.txt", "utf-8"));
-    let products;
-
-    for (let i = 0; i < readCarritoArray.length; i++) {
-      const carrito = readCarritoArray[i];
-      products = carrito.products;
-    }
-
-    products.push(selectedProduct);
+    let selectedCarrito = readCarritoArray[req.params.idCarrito - 1].products;
+    selectedCarrito.push(selectedProduct);
 
     fs.writeFileSync("./src/api/db/carrito.txt", JSON.stringify(readCarritoArray, null, 2));
 
@@ -67,6 +61,10 @@ routerCarrito.delete("/:id/productos/:id_prod", (req, res, next) => {
       prod => prod.id === parseInt(req.params.id_prod)
     );
 
+    if (selectedProductIndex == -1) {
+      return res.json({ error: "Producto no encontrado" });
+    }
+
     selectedCarrito.products.splice(selectedProductIndex, 1);
 
     newProdArr.push(selectedCarrito);
@@ -75,7 +73,7 @@ routerCarrito.delete("/:id/productos/:id_prod", (req, res, next) => {
       if (err) throw err;
     });
 
-    res.send(201);
+    res.sendStatus(201);
   } catch (error) {
     throw error;
   }

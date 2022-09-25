@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "timestamp": "15/9/2022 19:30:00",
+    "title": "Product",
+    "description": "test",
+    "code": "code",
+    "thumbnail": "test",
+    "price": 1000,
+    "stock": "stock"
+  }
+]
