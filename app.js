@@ -55,7 +55,7 @@ app.get("/", (req, res) => {
 /* --------------------------- SocketIO ---------------------------------- */
 io.on("connection", async socket => {
   socket.on("productos-cliente", async data => {
-    repositoryProducts.insert(data);
+    await repositoryProducts.insert(data);
     io.sockets.emit("productos-server", await repositoryProducts.findAll());
   });
 
@@ -63,7 +63,7 @@ io.on("connection", async socket => {
 
   socket.on("nuevo-mensaje-cliente", async data => {
     try {
-      repository.insert(data);
+      await repository.insert(data);
       io.sockets.emit("nuevo-mensaje-server", await repository.findAll());
     } catch (error) {
       throw error;
