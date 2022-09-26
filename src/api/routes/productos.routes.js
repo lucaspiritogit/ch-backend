@@ -2,11 +2,10 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const routerProductos = express.Router();
+const configMariaDB = require("../utils/configMariaDB");
 
-const Container = require("../service/Container.js");
-const container = new Container("./src/api/db/productos.txt");
-const RepositoryProducts = require("../public/js/RepositoryProduct.js");
-const repository = new RepositoryProducts("productos");
+const Repository = require("../public/js/Repository.js");
+const repository = new Repository("productos", configMariaDB);
 
 app.use(express.static(path.join(__dirname, "./src/api/public")));
 
@@ -25,7 +24,7 @@ const checkIfAdmin = (req, res, next) => {
 
 routerProductos.get("/:id", (req, res) => {
   try {
-    res.send(container.getById(parseInt(req.params.id)));
+    res.send(repository.find(parseInt(req.params.id)));
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
   }
@@ -33,7 +32,7 @@ routerProductos.get("/:id", (req, res) => {
 
 routerProductos.get("/", (req, res, next) => {
   try {
-    res.send(container.getAll());
+    res.send(repository.findAll());
   } catch (error) {
     res.send({ error: "No existen objetos" });
   }
@@ -51,7 +50,7 @@ routerProductos.post("/", checkIfAdmin, (req, res, next) => {
     price: parseInt(data.price),
     stock: data.stock,
   };
-  container.save(data);
+  repository.insert(data);
 
   res.send(data);
 });
@@ -61,7 +60,7 @@ routerProductos.put("/:id", checkIfAdmin, (req, res, next) => {
     const time = new Date();
     let data = req.body;
 
-    let originalObj = container.getById(parseInt(req.params.id));
+    let originalObj = repository.find(parseInt(req.params.id));
 
     let modifiedObj = {
       timestamp: time.toLocaleDateString() + " " + time.toLocaleTimeString(),
@@ -101,8 +100,8 @@ routerProductos.put("/:id", checkIfAdmin, (req, res, next) => {
       modifiedObj.stock = originalObj.stock;
     }
 
-    container.deleteById(req.params.id);
-    container.save(modifiedObj);
+    repository.deleteById(req.params.id);
+    repository.insert(modifiedObj);
 
     res.status(201).send(modifiedObj);
   } catch (error) {
@@ -112,7 +111,7 @@ routerProductos.put("/:id", checkIfAdmin, (req, res, next) => {
 
 routerProductos.delete("/:id", checkIfAdmin, (req, res, next) => {
   try {
-    container.deleteById(req.params.id);
+    repository.deleteById(parseInt(req.params.id));
     res.send({ message: "Objeto eliminado" });
   } catch (error) {
     res.send({ message: "Objeto no encontrado" });

@@ -1,8 +1,7 @@
 const knex = require("knex");
-const config = require("../../utils/config.js");
 
 class Repository {
-  constructor(tableName) {
+  constructor(tableName, config) {
     this.knexCli = knex(config);
     this.tableName = tableName;
   }

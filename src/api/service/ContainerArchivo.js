@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-class Container {
+class ContenedorArchivo {
   constructor(filePath) {
     this.filePath = filePath;
   }
@@ -93,4 +93,4 @@ class Container {
   }
 }
 
-module.exports = Container;
+module.exports = ContenedorArchivo;
