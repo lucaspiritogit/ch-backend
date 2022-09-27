@@ -4,9 +4,11 @@ const path = require("path");
 const routerCarrito = express.Router();
 const fs = require("fs");
 
-const Container = require("../service/Container.js");
-const carritoContainer = new Container("./src/api/db/carrito.txt");
-const productosContainer = new Container("./src/api/db/productos.txt");
+const CarritoArchivoDAO = require("../dao/carrito/CarritoArchivoDAO.js");
+const carritoArchivoDAO = new CarritoArchivoDAO();
+
+const ProductosArchivoDAO = require("../dao/products/ProductosArchivoDAO.js");
+const productosArchivoDAO = new ProductosArchivoDAO();
 
 app.use(express.static(path.join(__dirname, "./src/api/public")));
 
@@ -18,13 +20,13 @@ routerCarrito.post("/", (req, res, next) => {
     products: [],
   };
 
-  carritoContainer.save(data);
+  carritoArchivoDAO.save(data);
   res.sendStatus(201);
 });
 
 routerCarrito.delete("/:id", (req, res, next) => {
   try {
-    carritoContainer.deleteById(req.params.id);
+    carritoArchivoDAO.deleteById(req.params.id);
     res.sendStatus(204);
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
@@ -32,14 +34,14 @@ routerCarrito.delete("/:id", (req, res, next) => {
 });
 
 routerCarrito.get("/:id/productos", (req, res, next) => {
-  let selectedCarrito = carritoContainer.getById(parseInt(req.params.id));
+  let selectedCarrito = carritoArchivoDAO.getById(parseInt(req.params.id));
 
   res.json(selectedCarrito);
 });
 
-routerCarrito.post("/:idCarrito/productos/:idProducto", (req, res, next) => {
+routerCarrito.post("/:idCarrito/productos/:idProducto", async (req, res, next) => {
   try {
-    let selectedProduct = productosContainer.getById(parseInt(req.params.idProducto));
+    let selectedProduct = await productosArchivoDAO.getById(parseInt(req.params.idProducto));
 
     let readCarritoArray = JSON.parse(fs.readFileSync("./src/api/db/carrito.txt", "utf-8"));
     let selectedCarrito = readCarritoArray[req.params.idCarrito - 1].products;
@@ -56,7 +58,7 @@ routerCarrito.post("/:idCarrito/productos/:idProducto", (req, res, next) => {
 routerCarrito.delete("/:id/productos/:id_prod", (req, res, next) => {
   try {
     let newProdArr = [];
-    let selectedCarrito = carritoContainer.getById(parseInt(req.params.id));
+    let selectedCarrito = carritoArchivoDAO.getById(parseInt(req.params.id));
     let selectedProductIndex = selectedCarrito.products.findIndex(
       prod => prod.id === parseInt(req.params.id_prod)
     );

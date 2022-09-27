@@ -4,10 +4,9 @@
   "description": "Coderhouse project",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
-    "tablesProductos": "node createTablesProducts.js",
-    "tablesMensajes": "node createTablesMensajes.js"
+    "tableProd": "node ./src/api/batch/createTableProducts.js",
+    "tableMsj": "node ./src/api/batch/createTableMensajes.js"
   },
   "repository": {
     "type": "git",

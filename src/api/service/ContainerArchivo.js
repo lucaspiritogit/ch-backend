@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-class ContenedorArchivo {
+class ContainerArchivo {
   constructor(filePath) {
     this.filePath = filePath;
   }
@@ -47,14 +47,24 @@ class ContenedorArchivo {
     });
   }
 
-  getById(objectId) {
+  async getById(objectId) {
     try {
-      let fileData = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
+      let fileData = await JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
 
       const foundObject = fileData.find(object => object.id === objectId);
       if (!foundObject) throw "Objeto no encontrado";
 
       return foundObject;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAll() {
+    await this.startDocument();
+    try {
+      let fileData = await fs.readFile(this.filePath, "utf-8");
+      return JSON.parse(fileData);
     } catch (error) {
       throw error;
     }
@@ -79,18 +89,6 @@ class ContenedorArchivo {
   deleteAll() {
     fs.writeFileSync(this.filePath, []);
   }
-
-  getAll() {
-    this.startDocument();
-    try {
-      let fileData = fs.readFileSync(this.filePath, "utf-8", err => {
-        if (err) throw err;
-      });
-      return JSON.parse(fileData);
-    } catch (error) {
-      throw error;
-    }
-  }
 }
 
-module.exports = ContenedorArchivo;
+module.exports = ContainerArchivo;

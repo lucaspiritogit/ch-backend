@@ -4,8 +4,8 @@ const path = require("path");
 const routerProductos = express.Router();
 const configMariaDB = require("../utils/configMariaDB");
 
-const Repository = require("../public/js/Repository.js");
-const repository = new Repository("productos", configMariaDB);
+const DAO = require("../dao/products/ProductosMariaDAO.js");
+const prodDAO = new DAO("productos", configMariaDB);
 
 app.use(express.static(path.join(__dirname, "./src/api/public")));
 
@@ -22,17 +22,23 @@ const checkIfAdmin = (req, res, next) => {
   }
 };
 
-routerProductos.get("/:id", (req, res) => {
+routerProductos.get("/:id", async (req, res) => {
   try {
-    res.send(repository.find(parseInt(req.params.id)));
+    let foundObject = await prodDAO.find(req.params.id);
+
+    if (foundObject == 0) {
+      throw error;
+    }
+
+    res.send(foundObject);
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
   }
 });
 
-routerProductos.get("/", (req, res, next) => {
+routerProductos.get("/", async (req, res, next) => {
   try {
-    res.send(repository.findAll());
+    res.send(await prodDAO.findAll());
   } catch (error) {
     res.send({ error: "No existen objetos" });
   }
@@ -50,68 +56,50 @@ routerProductos.post("/", checkIfAdmin, (req, res, next) => {
     price: parseInt(data.price),
     stock: data.stock,
   };
-  repository.insert(data);
+  prodDAO.insert(data);
 
   res.send(data);
 });
 
-routerProductos.put("/:id", checkIfAdmin, (req, res, next) => {
+routerProductos.put("/:id", checkIfAdmin, async (req, res, next) => {
   try {
     const time = new Date();
     let data = req.body;
 
-    let originalObj = repository.find(parseInt(req.params.id));
+    let foundObject = await prodDAO.find(req.params.id);
+    let idOfFoundObject = foundObject[0].id;
 
     let modifiedObj = {
+      id: data.id,
       timestamp: time.toLocaleDateString() + " " + time.toLocaleTimeString(),
       title: data.title,
       description: data.description,
       code: data.code,
       thumbnail: data.thumbnail,
-      price: parseInt(data.price),
+      price: data.price,
       stock: data.stock,
     };
 
-    if (data.id == null) {
-      modifiedObj.id = originalObj.id;
-    }
+    prodDAO.updateById(idOfFoundObject, modifiedObj);
 
-    if (data.title == null) {
-      modifiedObj.title = originalObj.title;
-    }
-
-    if (data.description == null) {
-      modifiedObj.description = originalObj.description;
-    }
-
-    if (data.code == null) {
-      modifiedObj.code = originalObj.code;
-    }
-
-    if (data.thumbnail == null) {
-      modifiedObj.thumbnail = originalObj.thumbnail;
-    }
-
-    if (data.price == null) {
-      modifiedObj.price = originalObj.price;
-    }
-
-    if (data.stock == null) {
-      modifiedObj.stock = originalObj.stock;
-    }
-
-    repository.deleteById(req.params.id);
-    repository.insert(modifiedObj);
-
-    res.status(201).send(modifiedObj);
+    res.status(201).send({
+      msg: "Product updated",
+      previousObject: foundObject[0],
+      newObject: modifiedObj,
+    });
   } catch (error) {
-    res.send({ error: "Objeto no encontrado" });
+    res.send({ error: "Product not found" }).status(404);
   }
 });
 
-routerProductos.delete("/:id", checkIfAdmin, (req, res, next) => {
+routerProductos.delete("/:id", checkIfAdmin, async (req, res, next) => {
   try {
-    repository.deleteById(parseInt(req.params.id));
+    let deletedObject = await prodDAO.deleteById(req.params.id);
+
+    if (!deletedObject) {
+      throw error;
+    }
+
     res.send({ message: "Objeto eliminado" });
   } catch (error) {
     res.send({ message: "Objeto no encontrado" });
