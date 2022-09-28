@@ -1,32 +1,32 @@
-const express = require("express");
+import express, { json, urlencoded } from "express";
+import { engine } from "express-handlebars";
+import { Server as HttpServer } from "http";
+import { join } from "path";
+
 const app = express();
-const path = require("path");
-const exphbs = require("express-handlebars");
-const { Server: HttpServer } = require("http");
 const server = new HttpServer(app);
 
 const PORT = 8080;
 
 /* ---------------------------- Middlewares ------------------------- */
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "./src/api/public")));
+app.use(json());
+app.use(urlencoded({ extended: true }));
 
 /* ---------------------------- Views ------------------------- */
-app.set("views", path.join(__dirname + "/views"));
+app.set("views", join("/views"));
 app.set("view engine", "hbs");
 
 app.engine(
   "hbs",
-  exphbs.engine({
+  engine({
     extname: "hbs",
     defaultLayout: "",
     layoutsDir: "",
   })
 );
 /* --------------------------- Router ---------------------------------- */
-const routerProductos = require("./src/api/routes/productos.routes.js");
-const routerCarrito = require("./src/api/routes/carrito.routes.js");
+import routerCarrito from "./src/api/routes/carrito.routes.js";
+import routerProductos from "./src/api/routes/productos.routes.js";
 
 app.use("/api/productos", routerProductos);
 app.use("/api/carrito", routerCarrito);

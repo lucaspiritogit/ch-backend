@@ -1,7 +1,17 @@
 [
   {
     "id": 1,
-    "timestamp": "15/9/2022 19:30:00",
+    "timestamp": "28/9/2022 12:44:47",
+    "title": "test",
+    "description": "test1",
+    "code": "2",
+    "thumbnail": "test",
+    "price": 1000,
+    "stock": "stock"
+  },
+  {
+    "id": 2,
+    "timestamp": "28/9/2022 11:41:16",
     "title": "Product",
     "description": "test",
     "code": "code",

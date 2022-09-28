@@ -1,13 +1,8 @@
-const express = require("express");
-const app = express();
-const path = require("path");
-const routerProductos = express.Router();
-const configMariaDB = require("../utils/configMariaDB");
-
-const DAO = require("../dao/products/ProductosMariaDAO.js");
-const prodDAO = new DAO("productos", configMariaDB);
-
-app.use(express.static(path.join(__dirname, "./src/api/public")));
+import * as dotenv from "dotenv";
+import { Router } from "express";
+import { productoDao } from "../dao/setDB.js";
+const routerProductos = Router();
+dotenv.config();
 
 const checkIfAdmin = (req, res, next) => {
   let isAdmin = true;
@@ -24,7 +19,11 @@ const checkIfAdmin = (req, res, next) => {
 
 routerProductos.get("/:id", async (req, res) => {
   try {
-    let foundObject = await prodDAO.find(req.params.id);
+    let foundObject = await productoDao.getById(parseInt(req.params.id));
+
+    if (process.env.DBTYPE == "mongo" || process.env.DBTYPE == "firebase") {
+      foundObject = await productoDao.getById(req.params.id);
+    }
 
     if (foundObject == 0) {
       throw error;
@@ -38,7 +37,7 @@ routerProductos.get("/:id", async (req, res) => {
 
 routerProductos.get("/", async (req, res, next) => {
   try {
-    res.send(await prodDAO.findAll());
+    res.send(await productoDao.getAll());
   } catch (error) {
     res.send({ error: "No existen objetos" });
   }
@@ -56,7 +55,7 @@ routerProductos.post("/", checkIfAdmin, (req, res, next) => {
     price: parseInt(data.price),
     stock: data.stock,
   };
-  prodDAO.insert(data);
+  productoDao.save(data);
 
   res.send(data);
 });
@@ -64,28 +63,59 @@ routerProductos.post("/", checkIfAdmin, (req, res, next) => {
 routerProductos.put("/:id", checkIfAdmin, async (req, res, next) => {
   try {
     const time = new Date();
-    let data = req.body;
+    let requestBody = req.body;
 
-    let foundObject = await prodDAO.find(req.params.id);
-    let idOfFoundObject = foundObject[0].id;
+    let originalObj = await productoDao.getById(parseInt(req.params.id));
+
+    if (process.env.DBTYPE == "mongo" || process.env.DBTYPE == "firebase") {
+      originalObj = await productoDao.getById(req.params.id);
+    }
 
     let modifiedObj = {
-      id: data.id,
+      id: requestBody.id,
       timestamp: time.toLocaleDateString() + " " + time.toLocaleTimeString(),
-      title: data.title,
-      description: data.description,
-      code: data.code,
-      thumbnail: data.thumbnail,
-      price: data.price,
-      stock: data.stock,
+      title: requestBody.title,
+      description: requestBody.description,
+      code: requestBody.code,
+      thumbnail: requestBody.thumbnail,
+      price: requestBody.price,
+      stock: requestBody.stock,
     };
 
-    prodDAO.updateById(idOfFoundObject, modifiedObj);
+    if (requestBody.id == null) {
+      modifiedObj.id = originalObj.id;
+    }
+
+    if (requestBody.title == null) {
+      modifiedObj.title = originalObj.title;
+    }
+
+    if (requestBody.description == null) {
+      modifiedObj.description = originalObj.description;
+    }
+
+    if (requestBody.code == null) {
+      modifiedObj.code = originalObj.code;
+    }
+
+    if (requestBody.thumbnail == null) {
+      modifiedObj.thumbnail = originalObj.thumbnail;
+    }
+
+    if (requestBody.price == null) {
+      modifiedObj.price = originalObj.price;
+    }
+
+    if (requestBody.stock == null) {
+      modifiedObj.stock = originalObj.stock;
+    }
+
+    productoDao.updateById(req.params.id, modifiedObj);
 
     res.status(201).send({
       msg: "Product updated",
-      previousObject: foundObject[0],
-      newObject: modifiedObj,
+      oldProduct: originalObj,
+      newProduct: modifiedObj,
     });
   } catch (error) {
     res.send({ error: "Product not found" }).status(404);
@@ -94,16 +124,20 @@ routerProductos.put("/:id", checkIfAdmin, async (req, res, next) => {
 
 routerProductos.delete("/:id", checkIfAdmin, async (req, res, next) => {
   try {
-    let deletedObject = await prodDAO.deleteById(req.params.id);
+    let deletedObject = await productoDao.deleteById(parseInt(req.params.id));
+
+    if (process.env.DBTYPE == "mongo" || process.env.DBTYPE == "firebase") {
+      deletedObject = await productoDao.getById(req.params.id);
+    }
 
     if (!deletedObject) {
       throw error;
     }
 
-    res.send({ message: "Objeto eliminado" });
+    res.send({ message: "Product deleted" });
   } catch (error) {
-    res.send({ message: "Objeto no encontrado" });
+    res.send({ message: "Product not found" });
   }
 });
 
-module.exports = routerProductos;
+export default routerProductos;

@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Coderhouse project",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon --experimental-json-modules app.js",
+    "start:text": "SET DBTYPE=text && npm start",
+    "start:firebase": "SET DBTYPE=firebase && npm start",
     "tableProd": "node ./src/api/batch/createTableProducts.js",
     "tableMsj": "node ./src/api/batch/createTableMensajes.js"
   },
@@ -21,10 +24,12 @@
   "dependencies": {
     "better-sqlite3": "^7.6.2",
     "body-parser": "^1.20.0",
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "express-handlebars": "^6.0.6",
     "firebase-admin": "^11.0.1",
     "knex": "^2.3.0",
+    "mongoose": "^6.6.2",
     "mysql": "^2.18.1",
     "node-fetch": "^3.2.10",
     "nodemon": "^2.0.19",

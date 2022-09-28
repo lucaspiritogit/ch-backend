@@ -1,16 +1,17 @@
-const knex = require("knex");
+import knex from "knex";
 
-class Repository {
+console.log("Using MariaDB");
+class ContainerMariaDB {
   constructor(tableName, config) {
     this.knexCli = knex(config);
     this.tableName = tableName;
   }
 
-  async findAll() {
+  async getAll() {
     return await this.knexCli.from(this.tableName).select("*");
   }
 
-  async find(id) {
+  async getById(id) {
     return await this.knexCli.from(this.tableName).select("*").where({ id: id });
   }
 
@@ -18,7 +19,7 @@ class Repository {
     return await this.knexCli.from(this.tableName).select("*").where({ id: id }).update(obj);
   }
 
-  async insert(obj) {
+  async save(obj) {
     return await this.knexCli.from(this.tableName).insert(obj);
   }
 
@@ -27,4 +28,4 @@ class Repository {
   }
 }
 
-module.exports = Repository;
+export default ContainerMariaDB;

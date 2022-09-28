@@ -1,4 +1,4 @@
-const knex = require("knex");
+import knex from "knex";
 
 class CarritoSqliteDAO {
   constructor(tableName, config) {
@@ -27,4 +27,4 @@ class CarritoSqliteDAO {
   }
 }
 
-module.exports = CarritoSqliteDAO;
+export default CarritoSqliteDAO;

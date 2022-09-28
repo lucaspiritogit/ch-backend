@@ -1,55 +1,52 @@
-const express = require("express");
-const app = express();
-const path = require("path");
-const routerCarrito = express.Router();
-const fs = require("fs");
+import * as dotenv from "dotenv";
+import { Router } from "express";
+import { writeFile } from "fs";
+import { carritoDao, productoDao } from "../dao/setDB.js";
+const routerCarrito = Router();
+dotenv.config();
 
-const CarritoArchivoDAO = require("../dao/carrito/CarritoArchivoDAO.js");
-const carritoArchivoDAO = new CarritoArchivoDAO();
-
-const ProductosArchivoDAO = require("../dao/products/ProductosArchivoDAO.js");
-const productosArchivoDAO = new ProductosArchivoDAO();
-
-app.use(express.static(path.join(__dirname, "./src/api/public")));
-
-routerCarrito.post("/", (req, res, next) => {
+routerCarrito.post("/", async (req, res, next) => {
   const time = new Date();
 
   let data = {
     timestamp: time.toLocaleDateString() + " " + time.toLocaleTimeString(),
     products: [],
   };
-
-  carritoArchivoDAO.save(data);
-  res.sendStatus(201);
+  await carritoDao.save(data);
+  res.json({ msg: "Carrito created", contentCreated: data });
 });
-
-routerCarrito.delete("/:id", (req, res, next) => {
+routerCarrito.delete("/:id", async (req, res, next) => {
   try {
-    carritoArchivoDAO.deleteById(req.params.id);
-    res.sendStatus(204);
+    await carritoDao.deleteById(req.params.id);
+    res.json({ msg: "Carrito deleted" });
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
   }
 });
 
-routerCarrito.get("/:id/productos", (req, res, next) => {
-  let selectedCarrito = carritoArchivoDAO.getById(parseInt(req.params.id));
+routerCarrito.get("/", async (req, res, next) => {
+  res.json(await carritoDao.getAll());
+});
+
+routerCarrito.get("/:id/productos", async (req, res, next) => {
+  let selectedCarrito = await carritoDao.getById(req.params.id);
 
   res.json(selectedCarrito);
 });
 
 routerCarrito.post("/:idCarrito/productos/:idProducto", async (req, res, next) => {
   try {
-    let selectedProduct = await productosArchivoDAO.getById(parseInt(req.params.idProducto));
+    let selectedProduct = await productoDao.getById(parseInt(req.params.idProducto));
 
-    let readCarritoArray = JSON.parse(fs.readFileSync("./src/api/db/carrito.txt", "utf-8"));
-    let selectedCarrito = readCarritoArray[req.params.idCarrito - 1].products;
+    // let readCarritoArray = JSON.parse(readFileSync("./src/api/db/carrito.txt", "utf-8"));
+    // let readCarritoArray = await carritoDao.getById(req.params.idCarrito);
+    // let selectedCarrito = readCarritoArray[req.params.idCarrito - 1].products;
+    let selectedCarrito = await carritoDao.getById(parseInt(req.params.idCarrito));
     selectedCarrito.push(selectedProduct);
 
-    fs.writeFileSync("./src/api/db/carrito.txt", JSON.stringify(readCarritoArray, null, 2));
+    carritoDao.save(selectedCarrito);
 
-    res.send(readCarritoArray).status(201);
+    res.send(selectedCarrito).status(201);
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
   }
@@ -71,7 +68,7 @@ routerCarrito.delete("/:id/productos/:id_prod", (req, res, next) => {
 
     newProdArr.push(selectedCarrito);
 
-    fs.writeFile("./src/api/db/carrito.txt", JSON.stringify(newProdArr, null, 2), err => {
+    writeFile("./src/api/db/carrito.txt", JSON.stringify(newProdArr, null, 2), err => {
       if (err) throw err;
     });
 
@@ -81,4 +78,4 @@ routerCarrito.delete("/:id/productos/:id_prod", (req, res, next) => {
   }
 });
 
-module.exports = routerCarrito;
+export default routerCarrito;
