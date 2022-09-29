@@ -1,7 +1,6 @@
 import knex from "knex";
 
-console.log("Connected with MariaDB");
-class ContainerMariaDB {
+class ContainerSqliteDAO {
   constructor(tableName, config) {
     this.knexCli = knex(config);
     this.tableName = tableName;
@@ -28,4 +27,4 @@ class ContainerMariaDB {
   }
 }
 
-export default ContainerMariaDB;
+export default ContainerSqliteDAO;

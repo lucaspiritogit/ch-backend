@@ -1,10 +1,9 @@
-const path = require("path");
 const config = {
   client: "better-sqlite3",
   connection: {
-    filename: path.join(__dirname, "../db/mensajes.db3"),
+    filename: "./src/api/db/carritos.db3",
   },
   useNullAsDefault: true,
 };
 
-module.exports = config;
+export default config;

@@ -5,11 +5,9 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon --experimental-json-modules app.js",
-    "start:text": "SET DBTYPE=text && npm start",
-    "start:firebase": "SET DBTYPE=firebase && npm start",
+    "start": "nodemon app.js",
     "tableProd": "node ./src/api/batch/createTableProducts.js",
-    "tableMsj": "node ./src/api/batch/createTableMensajes.js"
+    "tableCarrito": "node ./src/api/batch/createTableCarritos.js"
   },
   "repository": {
     "type": "git",

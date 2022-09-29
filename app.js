@@ -24,6 +24,7 @@ app.engine(
     layoutsDir: "",
   })
 );
+
 /* --------------------------- Router ---------------------------------- */
 import routerCarrito from "./src/api/routes/carrito.routes.js";
 import routerProductos from "./src/api/routes/productos.routes.js";
@@ -32,5 +33,5 @@ app.use("/api/productos", routerProductos);
 app.use("/api/carrito", routerCarrito);
 
 server.listen(PORT, () => {
-  console.log(`Server corriendo en http://localhost:${PORT}`);
+  console.log(`Server up at http://localhost:${PORT}`);
 });

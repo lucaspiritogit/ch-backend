@@ -10,7 +10,7 @@ knexCli.schema
     table.integer("price");
     table.string("timestamp", 50);
     table.string("code", 50);
-    table.string("stock", 50);
+    table.string("stock", 250);
     table.string("description", 250);
     table.string("thumbnail", 250);
   })

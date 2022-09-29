@@ -110,7 +110,11 @@ routerProductos.put("/:id", checkIfAdmin, async (req, res, next) => {
       modifiedObj.stock = originalObj.stock;
     }
 
-    productoDao.updateById(req.params.id, modifiedObj);
+    productoDao.updateById(parseInt(req.params.id), modifiedObj);
+
+    if (process.env.DBTYPE == "mongo" || process.env.DBTYPE == "firebase") {
+      productoDao.updateById(req.params.id, modifiedObj);
+    }
 
     res.status(201).send({
       msg: "Product updated",

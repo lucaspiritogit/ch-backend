@@ -1,4 +1,4 @@
-import { readFile, readFileSync, writeFile, writeFileSync } from "fs";
+import { readFile, readFileSync, writeFileSync } from "fs";
 
 console.log("Using .txt files");
 class ContainerArchivo {
@@ -32,7 +32,7 @@ class ContainerArchivo {
         data.push(newObj);
         data.sort((firstObj, secondObj) => firstObj.id - secondObj.id);
 
-        await writeFile(this.filePath, JSON.stringify(data, null, 2), err => {
+        writeFileSync(this.filePath, JSON.stringify(data, null, 2), err => {
           if (err) throw err;
         });
 
@@ -71,7 +71,7 @@ class ContainerArchivo {
     }
   }
 
-  deleteById(objectId) {
+  async deleteById(objectId) {
     try {
       let fileData = JSON.parse(readFileSync(this.filePath, "utf-8"));
       let index = fileData.findIndex(object => object.id == objectId);

@@ -13,13 +13,6 @@ switch (process.env.DBTYPE) {
     carritoDao = new CarritoArchivoDAO();
     break;
 
-  case "sqlite":
-    const { default: CarritoSqliteDAO } = await import("./carrito/CarritoSqliteDAO.js");
-
-    productoDao = new ProductosArchivoDAO();
-    carritoDao = new CarritoSqliteDAO();
-
-    break;
   case "mariadb":
     const { default: ProductosMariaDAO } = await import("./products/ProductosMariaDAO.js");
 
@@ -27,8 +20,10 @@ switch (process.env.DBTYPE) {
     break;
   case "mongo":
     const { default: ProductosMongoDAO } = await import("./products/ProductosMongoDAO.js");
-    productoDao = new ProductosMongoDAO();
+    const { default: CarritoMongoDAO } = await import("./carrito/CarritoMongoDAO.js");
 
+    productoDao = new ProductosMongoDAO();
+    carritoDao = new CarritoMongoDAO();
     break;
 
   case "firebase":
