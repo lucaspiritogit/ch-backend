@@ -40,14 +40,34 @@ app.engine(
   })
 );
 
-/* --------------------------- Mocks Productos ---------------------------------- */
+/* --------------------------- Mock Productos ---------------------------------- */
 
 app.get("/api/productos-test", (req, res) => {
-  const mockProduct = {
+  const mockProduct = [{
     name: faker.commerce.productName(),
     price: faker.commerce.price(100, 10000, '$'),
     thumbnail: faker.image.imageUrl(640, 480, 'product')
-  }
+  },
+  {
+    name: faker.commerce.productName(),
+    price: faker.commerce.price(100, 10000, '$'),
+    thumbnail: faker.image.imageUrl(640, 480, 'product')
+  },
+  {
+    name: faker.commerce.productName(),
+    price: faker.commerce.price(100, 10000, '$'),
+    thumbnail: faker.image.imageUrl(640, 480, 'product')
+  },
+  {
+    name: faker.commerce.productName(),
+    price: faker.commerce.price(100, 10000, '$'),
+    thumbnail: faker.image.imageUrl(640, 480, 'product')
+  },
+  {
+    name: faker.commerce.productName(),
+    price: faker.commerce.price(100, 10000, '$'),
+    thumbnail: faker.image.imageUrl(640, 480, 'product')
+  }]
   res.json(mockProduct)
 })
 

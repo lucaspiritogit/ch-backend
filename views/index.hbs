@@ -8,10 +8,17 @@
   </head>
   <body>
 
-<form action="/api/productos-test" method="get">
-  
-  <button type="submit">Generate product mock</button>
-</form>
+  <button type="submit" id="renderMock">Generate product mock</button>
+
+<div> 
+  <h2>name:</h2>
+  <h3 id="mockName"></h3>
+  <br>
+  <h2>price:</h2>
+  <h3 id="mockPrice"></h3>
+  <h2>thumbnail:</h2>
+  <img id="mockThumbnail"></h3>
+</div>
 
     <hr>
     {{! <form action="/api/productos" method="post">

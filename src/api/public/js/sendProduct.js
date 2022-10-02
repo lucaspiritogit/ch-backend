@@ -48,3 +48,28 @@ function renderProducts(productos) {
 socket.on("productos-server", productos => {
   renderProducts(productos);
 });
+
+const mockName = document.getElementById("mockName")
+const mockPrice = document.getElementById("mockPrice")
+const mockThumbnail = document.getElementById("mockThumbnail")
+const mockRendered = document.getElementById("mockRendered")
+
+async function sendMock() {
+  const mock = await fetch("http://localhost:8080/api/productos-test")
+  const mockJson = await mock.json()
+
+  const html = mockJson.forEach(element => {
+    mockName.innerText = element.name
+    mockPrice.innerText = element.price
+    mockThumbnail.innerText = element.thumbnail
+    
+  });
+
+}
+
+
+const renderMock = document.getElementById("renderMock")
+
+renderMock.addEventListener('click', () => {
+  sendMock()
+})
