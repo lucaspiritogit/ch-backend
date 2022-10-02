@@ -8,6 +8,8 @@ const server = new HttpServer(app);
 const io = new IOServer(server);
 const fs = require("fs");
 
+const { faker } = require('@faker-js/faker');
+
 const PORT = 8080;
 
 /* ---------------------------- Instances ------------------------- */
@@ -37,6 +39,19 @@ app.engine(
     layoutsDir: "",
   })
 );
+
+/* --------------------------- Mocks Productos ---------------------------------- */
+
+app.get("/api/productos-test", (req, res) => {
+  const mockProduct = {
+    name: faker.commerce.productName(),
+    price: faker.commerce.price(100, 10000, '$'),
+    thumbnail: faker.image.imageUrl(640, 480, 'product')
+  }
+  res.json(mockProduct)
+})
+
+
 /* --------------------------- Router ---------------------------------- */
 const routerProductos = require("./src/api/routes/productos.routes.js");
 const routerCarrito = require("./src/api/routes/carrito.routes.js");

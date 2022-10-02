@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const routerProductos = express.Router();
+const { faker } = require('@faker-js/faker');
 
 const Container = require("../service/Container.js");
 const container = new Container("./src/api/db/productos.txt");
@@ -99,5 +100,7 @@ routerProductos.delete("/:id", (req, res, next) => {
     res.send({ message: "Objeto no encontrado" });
   }
 });
+
+
 
 module.exports = routerProductos;
