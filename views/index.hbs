@@ -7,51 +7,13 @@
     <title>Backend | Lucas Pirito</title>
   </head>
   <body>
+    <button type="submit" id="renderMock">Generate product mock</button>
 
-  <button type="submit" id="renderMock">Generate product mock</button>
-
-<div> 
-  <h2>name:</h2>
-  <h3 id="mockName"></h3>
-  <br>
-  <h2>price:</h2>
-  <h3 id="mockPrice"></h3>
-  <h2>thumbnail:</h2>
-  <img id="mockThumbnail"></h3>
-</div>
-
-    <hr>
-    {{! <form action="/api/productos" method="post">
-      <div class="container">
-        <label for="title">Title</label>
-        <input id="title" type="text" name="title" placeholder="title" />
-        <label for="price">Price</label>
-        <input id="price" type="text" name="price" placeholder="price" />
-        <label for="thumbnail">Thumbnail</label>
-        <input id="thumbnail" type="text" name="thumbnail" placeholder="url" />
-        <button type="submit">Enviar</button>
-      </div>
-    </form> }}
-
-    <form onsubmit="return sendProduct(this)">
-      <div class="container">
-        <label for="title">Title</label>
-        <input id="title" type="text" name="title" placeholder="title" />
-        <label for="price">Price</label>
-        <input id="price" type="text" name="price" placeholder="price" />
-        <label for="thumbnail">Thumbnail</label>
-        <input id="thumbnail" type="text" name="thumbnail" placeholder="url" />
-        <label for="thumbnail">stock</label>
-        <input id="stock" type="text" name="stock" placeholder="stock" />
-        <label for="thumbnail">code</label>
-        <input id="code" type="text" name="code" placeholder="code" />
-        <label for="description">description</label>
-        <input id="description" type="text" name="description" placeholder="url" />
-        <button type="submit">Enviar</button>
-      </div>
-    </form>
-    <div id="listadoProductos">
+    <div id="mockList">
     </div>
+
+    <hr />
+
     <form id="chatBox" onsubmit="return sendMessage(this)">
       <h1>chat</h1>
       <label for="email">Email</label>
@@ -64,5 +26,6 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="./js/sendMessage.js"></script>
     <script src="./js/sendProduct.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.min.js"></script>
   </body>
 </html>

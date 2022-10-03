@@ -1,14 +1,11 @@
-const express = require("express");
+import express, { Router } from "express";
+import { readFileSync, writeFile, writeFileSync } from "fs";
 const app = express();
-const path = require("path");
-const routerCarrito = express.Router();
-const fs = require("fs");
+const routerCarrito = Router();
 
-const Container = require("../service/Container.js");
+import Container from "../service/Container.js";
 const carritoContainer = new Container("./src/api/db/carrito.txt");
 const productosContainer = new Container("./src/api/db/productos.txt");
-
-app.use(express.static(path.join(__dirname, "./src/api/public")));
 
 routerCarrito.post("/", (req, res, next) => {
   const time = new Date();
@@ -41,7 +38,7 @@ routerCarrito.post("/:id/productos", (req, res, next) => {
   try {
     let selectedProduct = productosContainer.getById(parseInt(req.params.id));
 
-    let readCarritoArray = JSON.parse(fs.readFileSync("./src/api/db/carrito.txt", "utf-8"));
+    let readCarritoArray = JSON.parse(readFileSync("./src/api/db/carrito.txt", "utf-8"));
     let products;
 
     for (let i = 0; i < readCarritoArray.length; i++) {
@@ -51,7 +48,7 @@ routerCarrito.post("/:id/productos", (req, res, next) => {
 
     products.push(selectedProduct);
 
-    fs.writeFileSync("./src/api/db/carrito.txt", JSON.stringify(readCarritoArray, null, 2));
+    writeFileSync("./src/api/db/carrito.txt", JSON.stringify(readCarritoArray, null, 2));
 
     res.send(readCarritoArray).status(201);
   } catch (error) {
@@ -71,7 +68,7 @@ routerCarrito.delete("/:id/productos/:id_prod", (req, res, next) => {
 
     newProdArr.push(selectedCarrito);
 
-    fs.writeFile("./src/api/db/carrito.txt", JSON.stringify(newProdArr, null, 2), err => {
+    writeFile("./src/api/db/carrito.txt", JSON.stringify(newProdArr, null, 2), err => {
       if (err) throw err;
     });
 
@@ -81,4 +78,4 @@ routerCarrito.delete("/:id/productos/:id_prod", (req, res, next) => {
   }
 });
 
-module.exports = routerCarrito;
+export default routerCarrito;

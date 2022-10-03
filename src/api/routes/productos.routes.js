@@ -1,15 +1,11 @@
-const express = require("express");
+import express, { Router } from "express";
 const app = express();
-const path = require("path");
-const routerProductos = express.Router();
-const { faker } = require('@faker-js/faker');
+const routerProductos = Router();
 
-const Container = require("../service/Container.js");
+import RepositoryProducts from "../public/js/Repository.js";
+import Container from "../service/Container.js";
 const container = new Container("./src/api/db/productos.txt");
-const RepositoryProducts = require("../public/js/RepositoryProduct.js");
 const repository = new RepositoryProducts("productos");
-
-app.use(express.static(path.join(__dirname, "./src/api/public")));
 
 let isAdmin = true;
 routerProductos.get("/:id", (req, res, next) => {
@@ -101,6 +97,4 @@ routerProductos.delete("/:id", (req, res, next) => {
   }
 });
 
-
-
-module.exports = routerProductos;
+export default routerProductos;

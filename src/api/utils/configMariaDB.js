@@ -8,4 +8,4 @@ const configMariaDB = {
   },
 };
 
-module.exports = configMariaDB;
+export default configMariaDB;

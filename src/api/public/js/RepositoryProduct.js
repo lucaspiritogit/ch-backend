@@ -1,5 +1,5 @@
-const knex = require("knex");
-const config = require("../../utils/configMariaDB.js");
+import knex from "knex";
+import config from "../../utils/configMariaDB.js";
 
 class RepositoryProducts {
   constructor(tableName) {
@@ -28,4 +28,4 @@ class RepositoryProducts {
   }
 }
 
-module.exports = RepositoryProducts;
+export default RepositoryProducts;

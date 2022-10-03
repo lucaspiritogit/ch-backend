@@ -1,39 +1,37 @@
-const express = require("express");
+import express, { json, urlencoded } from "express";
+import { engine } from "express-handlebars";
+import { Server as HttpServer } from "http";
+import normlizr from "normalizr";
+import { Server as IOServer } from "socket.io";
 const app = express();
-const path = require("path");
-const exphbs = require("express-handlebars");
-const { Server: HttpServer } = require("http");
-const { Server: IOServer } = require("socket.io");
 const server = new HttpServer(app);
 const io = new IOServer(server);
-const fs = require("fs");
 
-const { faker } = require('@faker-js/faker');
+import { faker } from "@faker-js/faker";
 
 const PORT = 8080;
 
 /* ---------------------------- Instances ------------------------- */
-const Container = require("./src/api/service/Container.js");
-const Repository = require("./src/api/public/js/Repository.js");
 
-const RepositoryProducts = require("./src/api/public/js/RepositoryProduct.js");
+import RepositoryProducts from "./src/api/public/js/RepositoryProduct.js";
 const repositoryProducts = new RepositoryProducts("productos");
 
 /* ---------------------------- DB ------------------------- */
-const repository = new Repository("mensajes");
+import daoMensajes from "./src/api/dao/MensajesMongoDAO.js";
+const dao = new daoMensajes();
 
 /* ---------------------------- Middlewares ------------------------- */
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "./src/api/public")));
+app.use(express.static("./src/api/public"));
+app.use(json());
+app.use(urlencoded({ extended: true }));
 
 /* ---------------------------- Views ------------------------- */
-app.set("views", path.join(__dirname + "/views"));
+app.set("views", "./views");
 app.set("view engine", "hbs");
 
 app.engine(
   "hbs",
-  exphbs.engine({
+  engine({
     extname: "hbs",
     defaultLayout: "",
     layoutsDir: "",
@@ -43,38 +41,39 @@ app.engine(
 /* --------------------------- Mock Productos ---------------------------------- */
 
 app.get("/api/productos-test", (req, res) => {
-  const mockProduct = [{
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(100, 10000, '$'),
-    thumbnail: faker.image.imageUrl(640, 480, 'product')
-  },
-  {
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(100, 10000, '$'),
-    thumbnail: faker.image.imageUrl(640, 480, 'product')
-  },
-  {
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(100, 10000, '$'),
-    thumbnail: faker.image.imageUrl(640, 480, 'product')
-  },
-  {
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(100, 10000, '$'),
-    thumbnail: faker.image.imageUrl(640, 480, 'product')
-  },
-  {
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(100, 10000, '$'),
-    thumbnail: faker.image.imageUrl(640, 480, 'product')
-  }]
-  res.json(mockProduct)
-})
-
+  const mockProduct = [
+    {
+      name: faker.commerce.productName(),
+      price: faker.commerce.price(),
+      thumbnail: faker.image.image(),
+    },
+    {
+      name: faker.commerce.productName(),
+      price: faker.commerce.price(),
+      thumbnail: faker.image.image(),
+    },
+    {
+      name: faker.commerce.productName(),
+      price: faker.commerce.price(),
+      thumbnail: faker.image.image(),
+    },
+    {
+      name: faker.commerce.productName(),
+      price: faker.commerce.price(),
+      thumbnail: faker.image.image(),
+    },
+    {
+      name: faker.commerce.productName(),
+      price: faker.commerce.price(),
+      thumbnail: faker.image.image(),
+    },
+  ];
+  res.json(mockProduct);
+});
 
 /* --------------------------- Router ---------------------------------- */
-const routerProductos = require("./src/api/routes/productos.routes.js");
-const routerCarrito = require("./src/api/routes/carrito.routes.js");
+import routerCarrito from "./src/api/routes/carrito.routes.js";
+import routerProductos from "./src/api/routes/productos.routes.js";
 
 app.use("/api/productos", routerProductos);
 app.use("/api/carrito", routerCarrito);
@@ -88,6 +87,13 @@ app.get("/", (req, res) => {
 });
 
 /* --------------------------- SocketIO ---------------------------------- */
+const authorSchema = new normlizr.schema.Entity("author", { idAttribute: "id" });
+const messageSchema = new normlizr.schema.Entity("message", { idAttribute: "id" });
+const messagessSchema = new normlizr.schema.Entity("messages", {
+  author: authorSchema,
+  messages: messageSchema,
+});
+
 io.on("connection", async socket => {
   socket.on("productos-cliente", async data => {
     repositoryProducts.insert(data);
@@ -98,16 +104,19 @@ io.on("connection", async socket => {
 
   socket.on("nuevo-mensaje-cliente", async data => {
     try {
-      repository.insert(data);
-      io.sockets.emit("nuevo-mensaje-server", await repository.findAll());
+      await dao.save(data);
+      const normalizedData = normlizr.normalize(data, messagessSchema, { idAttribute: "id" });
+      console.log("🚀 ~ file: app.js ~ line 112 ~ normalizedData", normalizedData);
+      const denormalizedData = normlizr.denormalize(data, messagessSchema);
+      console.log("🚀 ~ file: app.js ~ line 115 ~ denormalizedData", denormalizedData);
+      io.sockets.emit("nuevo-mensaje-server", await dao.getAll());
     } catch (error) {
       throw error;
     }
   });
 
-  socket.emit("nuevo-mensaje-server", await repository.findAll());
+  socket.emit("nuevo-mensaje-server", await dao.getAll());
 });
-
 server.listen(PORT, () => {
   console.log(`Server corriendo en http://localhost:${PORT}`);
 });

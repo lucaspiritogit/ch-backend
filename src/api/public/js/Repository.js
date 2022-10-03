@@ -1,5 +1,5 @@
-const knex = require("knex");
-const config = require("../../utils/config.js");
+import knex from "knex";
+import config from "../../utils/config.js";
 
 class Repository {
   constructor(tableName) {
@@ -28,4 +28,4 @@ class Repository {
   }
 }
 
-module.exports = Repository;
+export default Repository;
