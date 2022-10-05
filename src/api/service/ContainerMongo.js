@@ -34,11 +34,18 @@ class ContainerMongo {
 
   async getById(id) {
     try {
-      return await this.col.findOne({ id: id });
+      return await this.col.findOne({ _id: id });
     } catch (error) {
       throw error;
     }
   }
+
+  async updateById(id, obj) {
+    try {
+      return await this.col.updateOne({ _id: id }, [{ $set: { obj } }]);
+    } catch (error) {}
+  }
+
   async getAll() {
     try {
       return await this.col.find({});

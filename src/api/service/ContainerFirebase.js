@@ -12,9 +12,9 @@ class ContainerFirebase {
     this.col = db.collection(collectionName);
   }
 
-  async save(carrito) {
+  async save(obj) {
     try {
-      await this.col.add({ carrito });
+      await this.col.add({ obj });
     } catch (error) {
       throw error;
     }
@@ -42,6 +42,14 @@ class ContainerFirebase {
     } catch (error) {
       throw error;
     }
+  }
+
+  async updateById(id, obj) {
+    const doc = await this.getById(id);
+    await doc.update({ obj });
+
+    try {
+    } catch (error) {}
   }
 
   async deleteById(id) {
