@@ -12,35 +12,32 @@ routerCarrito.post("/", async (req, res, next) => {
     products: [],
   };
   await carritoDao.save(data);
-  res.json({ msg: "Carrito created", contentCreated: data });
+  res.json({ msg: `Carrito created`, contentCreated: data });
 });
 
 routerCarrito.get("/", async (req, res, next) => {
   res.json(await carritoDao.getAll());
 });
 
-routerCarrito.get("/:id/productos", async (req, res, next) => {
-  try {
-    if (process.env.DBTYPE == "mongo" || process.env.DBTYPE == "firebase") {
-      let selectedCarrito = await carritoDao.getById(req.params.id);
-      res.json(selectedCarrito);
-    } else {
-      let selectedCarrito = await carritoDao.getById(parseInt(req.params.id));
-
-      res.json(selectedCarrito);
-    }
-  } catch (error) {
-    throw error;
-  }
-});
-
 routerCarrito.delete("/:idCarrito/productos/:idProducto", async (req, res, next) => {
   try {
+    if (process.env.DBTYPE == "mongo") {
+      let selectedCarrito = await carritoDao.getById(req.params.idCarrito);
+      let selectedProducto = await productoDao.getById(req.params.idProducto);
+      console.log(
+        "🚀 ~ file: carrito.routes.js ~ line 28 ~ routerCarrito.delete ~ selectedProducto",
+        selectedCarrito
+      );
+    } else if (process.env.DBTYPE == "firebase") {
+      let selectedCarrito = await carritoDao.getById(req.params.idCarrito);
+      await carritoDao.updateById(selectedCarrito.id, { products: {} });
+    } else {
+    }
     let selectedCarrito = await carritoDao.getById(parseInt(req.params.idCarrito));
 
     res.json({ msg: "Product deleted" });
   } catch (error) {
-    throw error;
+    res.json({ msg: "Carrito or Product not found" });
   }
 });
 
@@ -55,9 +52,9 @@ routerCarrito.post("/:idCarrito/productos/:idProducto", async (req, res, next) =
     } else if (process.env.DBTYPE == "firebase") {
       let selectedCarrito = await carritoDao.getById(req.params.idCarrito);
       let selectedProduct = await productoDao.getById(req.params.idProducto);
-      const prodArray = selectedCarrito.products;
+      const prodArray = [];
       prodArray.push(selectedProduct);
-      await carritoDao.save(selectedCarrito);
+      await carritoDao.updateById(selectedCarrito.id, { products: prodArray });
     } else {
       let selectedCarrito = await carritoDao.getById(parseInt(req.params.idCarrito));
       let selectedProduct = await productoDao.getById(parseInt(req.params.idProducto));
@@ -83,6 +80,16 @@ routerCarrito.delete("/:id", async (req, res, next) => {
     res.json({ msg: "Carrito deleted" });
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
+  }
+});
+
+routerCarrito.get("/:id/productos", async (req, res, next) => {
+  try {
+    let selectedCarrito = await carritoDao.getById(req.params.id);
+
+    res.json(selectedCarrito);
+  } catch (error) {
+    res.json({ error: "Carrito not found" });
   }
 });
 

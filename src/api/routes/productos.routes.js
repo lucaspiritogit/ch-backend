@@ -19,17 +19,19 @@ const checkIfAdmin = (req, res, next) => {
 
 routerProductos.get("/:id", async (req, res) => {
   try {
-    let foundObject = await productoDao.getById(parseInt(req.params.id));
-
     if (process.env.DBTYPE == "mongo" || process.env.DBTYPE == "firebase") {
-      foundObject = await productoDao.getById(req.params.id);
-    }
+      let foundObject = await productoDao.getById(req.params.id);
 
-    if (foundObject == 0) {
-      throw error;
-    }
+      res.json(foundObject);
+      return;
+    } else {
+      let foundObject = await productoDao.getById(parseInt(req.params.id));
 
-    res.send(foundObject);
+      if (foundObject == 0) {
+        throw error;
+      }
+      res.send(foundObject);
+    }
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
   }

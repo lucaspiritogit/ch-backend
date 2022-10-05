@@ -45,11 +45,13 @@ class ContainerFirebase {
   }
 
   async updateById(id, obj) {
-    const doc = await this.getById(id);
-    await doc.update({ obj });
-
     try {
-    } catch (error) {}
+      const doc = this.col.doc(`${id}`);
+
+      await doc.update({ obj });
+    } catch (error) {
+      throw error;
+    }
   }
 
   async deleteById(id) {
