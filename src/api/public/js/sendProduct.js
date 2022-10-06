@@ -49,26 +49,26 @@
 //   renderProducts(productos);
 // });
 
-// async function sendMock() {
-//   const mock = await fetch("http://localhost:8080/api/productos-test");
-//   const mockJson = await mock.json();
+async function sendMock() {
+  const mock = await fetch("http://localhost:8080/api/productos-test");
+  const mockJson = await mock.json();
 
-//   const html = mockJson.map(element => {
-//     return `
-//       <h1>name: ${element.name}</h1>
-//       <h1>price: ${element.price}</h1>
-//       <div>
-//       <h1>Image:</h1>
-//       <img src="${element.thumbnail}" />
-//       </div>
-//       `;
-//   });
+  const html = mockJson.map(element => {
+    return `
+      <h1>name: ${element.name}</h1>
+      <h1>price: ${element.price}</h1>
+      <div>
+      <h1>Image:</h1>
+      <img src="${element.thumbnail}" />
+      </div>
+      `;
+  });
 
-//   document.getElementById("mockList").innerHTML = html;
-// }
+  document.getElementById("mockList").innerHTML = html;
+}
 
-// const renderMock = document.getElementById("renderMock");
+const renderMock = document.getElementById("renderMock");
 
-// renderMock.addEventListener("click", () => {
-//   sendMock();
-// });
+renderMock.addEventListener("click", () => {
+  sendMock();
+});

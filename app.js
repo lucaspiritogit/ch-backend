@@ -13,9 +13,6 @@ const PORT = 8080;
 
 /* ---------------------------- Instances ------------------------- */
 
-import RepositoryProducts from "./src/api/public/js/RepositoryProduct.js";
-const repositoryProducts = new RepositoryProducts("productos");
-
 /* ---------------------------- DB ------------------------- */
 import daoMensajes from "./src/api/dao/MensajesMongoDAO.js";
 const dao = new daoMensajes();
@@ -93,22 +90,28 @@ const messagessSchema = new normlizr.schema.Entity("messages", {
   author: authorSchema,
   messages: messageSchema,
 });
-
 io.on("connection", async socket => {
-  socket.on("productos-cliente", async data => {
-    repositoryProducts.insert(data);
-    io.sockets.emit("productos-server", await repositoryProducts.findAll());
-  });
-
-  socket.emit("productos-server", await repositoryProducts.findAll());
-
   socket.on("nuevo-mensaje-cliente", async data => {
     try {
       await dao.save(data);
       const normalizedData = normlizr.normalize(data, messagessSchema, { idAttribute: "id" });
-      console.log("🚀 ~ file: app.js ~ line 112 ~ normalizedData", normalizedData);
+      console.log(
+        "data normalizada:",
+        "🚀 ~ file: app.js ~ line 112 ~ normalizedData",
+        normalizedData
+      );
       const denormalizedData = normlizr.denormalize(data, messagessSchema);
-      console.log("🚀 ~ file: app.js ~ line 115 ~ denormalizedData", denormalizedData);
+      console.log(
+        "data desnormalizada:",
+        "🚀 ~ file: app.js ~ line 115 ~ denormalizedData",
+        denormalizedData
+      );
+      const longOriginal = JSON.stringify(data).length;
+      const longNormalizada = JSON.stringify(normalizedData).length;
+
+      const porcentaje = ((longOriginal * 100) / longNormalizada).toFixed(2);
+      console.log("🚀 ~ file: app.js ~ line 113 ~ porcentaje", `%${porcentaje}`);
+
       io.sockets.emit("nuevo-mensaje-server", await dao.getAll());
     } catch (error) {
       throw error;
@@ -117,6 +120,7 @@ io.on("connection", async socket => {
 
   socket.emit("nuevo-mensaje-server", await dao.getAll());
 });
+
 server.listen(PORT, () => {
   console.log(`Server corriendo en http://localhost:${PORT}`);
 });
