@@ -23,20 +23,19 @@ routerCarrito.delete("/:idCarrito/productos/:idProducto", async (req, res, next)
   try {
     if (process.env.DBTYPE == "mongo") {
       const selectedCarrito = await carritoDao.getById(req.params.idCarrito);
-      const indexOfSelectedProduct = selectedCarrito.products.findIndex(
-        p => p.id == req.params.idProducto
-      );
-      console.log(indexOfSelectedProduct);
-      selectedCarrito.products.splice(indexOfSelectedProduct, 1);
-      await carritoDao.updateById(selectedCarrito, req.params.idCarrito);
+      const prodArray = selectedCarrito.products;
+
+      const indexOfProduct = prodArray.findIndex(prod => prod._id == req.params.idProducto);
+      prodArray.splice(indexOfProduct, 1);
+
+      await carritoDao.save(selectedCarrito);
+      res.json({ msg: "Product deleted" });
     } else if (process.env.DBTYPE == "firebase") {
       let selectedCarrito = await carritoDao.getById(req.params.idCarrito);
       await carritoDao.updateById(selectedCarrito.id, { products: {} });
     } else {
+      res.json({ msg: "Product deleted" });
     }
-    let selectedCarrito = await carritoDao.getById(parseInt(req.params.idCarrito));
-
-    res.json({ msg: "Product deleted" });
   } catch (error) {
     res.json({ msg: "Carrito or Product not found" });
   }
