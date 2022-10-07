@@ -22,12 +22,13 @@ routerCarrito.get("/", async (req, res, next) => {
 routerCarrito.delete("/:idCarrito/productos/:idProducto", async (req, res, next) => {
   try {
     if (process.env.DBTYPE == "mongo") {
-      let selectedCarrito = await carritoDao.getById(req.params.idCarrito);
-      let selectedProducto = await productoDao.getById(req.params.idProducto);
-      console.log(
-        "🚀 ~ file: carrito.routes.js ~ line 28 ~ routerCarrito.delete ~ selectedProducto",
-        selectedCarrito
+      const selectedCarrito = await carritoDao.getById(req.params.idCarrito);
+      const indexOfSelectedProduct = selectedCarrito.products.findIndex(
+        p => p.id == req.params.idProducto
       );
+      console.log(indexOfSelectedProduct);
+      selectedCarrito.products.splice(indexOfSelectedProduct, 1);
+      await carritoDao.updateById(selectedCarrito, req.params.idCarrito);
     } else if (process.env.DBTYPE == "firebase") {
       let selectedCarrito = await carritoDao.getById(req.params.idCarrito);
       await carritoDao.updateById(selectedCarrito.id, { products: {} });

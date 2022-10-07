@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import ContainerMongo from "../../service/ContainerMongo.js";
 
 const carritoSchema = new mongoose.Schema({
-  products: [String],
+  products: [],
   timestamp: { type: String, require: true, max: 10000 },
 });
 
