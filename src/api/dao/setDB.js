@@ -5,6 +5,7 @@ let productoDao;
 let carritoDao;
 
 switch (process.env.DBTYPE) {
+  
   case "text":
     const { default: ProductosArchivoDAO } = await import("./products/ProductosArchivoDAO.js");
     const { default: CarritoArchivoDAO } = await import("./carrito/CarritoArchivoDAO.js");
@@ -15,9 +16,9 @@ switch (process.env.DBTYPE) {
 
   case "mariadb":
     const { default: ProductosMariaDAO } = await import("./products/ProductosMariaDAO.js");
-
     productoDao = new ProductosMariaDAO();
     break;
+
   case "mongo":
     const { default: ProductosMongoDAO } = await import("./products/ProductosMongoDAO.js");
     const { default: CarritoMongoDAO } = await import("./carrito/CarritoMongoDAO.js");

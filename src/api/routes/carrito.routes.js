@@ -33,7 +33,15 @@ routerCarrito.delete("/:idCarrito/productos/:idProducto", async (req, res, next)
     } else if (process.env.DBTYPE == "firebase") {
       let selectedCarrito = await carritoDao.getById(req.params.idCarrito);
       await carritoDao.updateById(selectedCarrito.id, { products: {} });
+      res.json({ msg: "Product deleted" });
     } else {
+      const selectedCarrito = await carritoDao.getById(req.params.idCarrito);
+      const prodArray = selectedCarrito.products;
+
+      const indexOfProduct = prodArray.findIndex(prod => prod._id == req.params.idProducto);
+      prodArray.splice(indexOfProduct, 1);
+
+      await carritoDao.save(selectedCarrito);
       res.json({ msg: "Product deleted" });
     }
   } catch (error) {
@@ -52,9 +60,9 @@ routerCarrito.post("/:idCarrito/productos/:idProducto", async (req, res, next) =
     } else if (process.env.DBTYPE == "firebase") {
       let selectedCarrito = await carritoDao.getById(req.params.idCarrito);
       let selectedProduct = await productoDao.getById(req.params.idProducto);
-      const prodArray = [];
+      const prodArray = selectedCarrito.products;
       prodArray.push(selectedProduct);
-      await carritoDao.updateById(selectedCarrito.id, { products: prodArray });
+      await carritoDao.updateById(selectedCarrito);
     } else {
       let selectedCarrito = await carritoDao.getById(parseInt(req.params.idCarrito));
       let selectedProduct = await productoDao.getById(parseInt(req.params.idProducto));
