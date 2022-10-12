@@ -2,15 +2,17 @@ import express, { json, urlencoded } from "express";
 import { engine } from "express-handlebars";
 import { Server as HttpServer } from "http";
 import normlizr from "normalizr";
-import { Server as IOServer } from "socket.io";
+import { Server as Socket } from "socket.io";
 const app = express();
 const server = new HttpServer(app);
-const io = new IOServer(server);
+const io = new Socket(server);
 
 import { faker } from "@faker-js/faker";
 
 const PORT = 8080;
 
+//// public
+app.use(express.static("public"));
 /* ---------------------------- Instances ------------------------- */
 
 /* ---------------------------- DB ------------------------- */
@@ -84,41 +86,44 @@ app.get("/", (req, res) => {
 });
 
 /* --------------------------- SocketIO ---------------------------------- */
-const authorSchema = new normlizr.schema.Entity("author", { idAttribute: "id" });
-const messageSchema = new normlizr.schema.Entity("message", { idAttribute: "id" });
-const messagessSchema = new normlizr.schema.Entity("messages", {
-  author: authorSchema,
-  messages: messageSchema,
-});
+
+const authorSchema = new normlizr.schema.Entity("author", {}, { idAttribute: "email" });
+const messageSchema = new normlizr.schema.Entity(
+  "message",
+  { author: authorSchema },
+  { idAttribute: "id" }
+);
+const messagesSchema = new normlizr.schema.Entity(
+  "messages",
+  {
+    messages: [messageSchema],
+  },
+  { idAttribute: "id" }
+);
+//////////////////////
+
+const normalizarMsj = msjs => {
+  return normlizr.normalize(msjs, messagesSchema);
+};
+
+async function mostrarMensajesNormalizados() {
+  const allMessages = await dao.getAll();
+  const normalizedMessages = normalizarMsj({ id: "msj", allMessages });
+  return normalizedMessages;
+}
+
 io.on("connection", async socket => {
   socket.on("nuevo-mensaje-cliente", async data => {
     try {
       await dao.save(data);
-      const normalizedData = normlizr.normalize(data, messagessSchema, { idAttribute: "id" });
-      console.log(
-        "data normalizada:",
-        "🚀 ~ file: app.js ~ line 112 ~ normalizedData",
-        normalizedData
-      );
-      const denormalizedData = normlizr.denormalize(data, messagessSchema);
-      console.log(
-        "data desnormalizada:",
-        "🚀 ~ file: app.js ~ line 115 ~ denormalizedData",
-        denormalizedData
-      );
-      const longOriginal = JSON.stringify(data).length;
-      const longNormalizada = JSON.stringify(normalizedData).length;
 
-      const porcentaje = ((longOriginal * 100) / longNormalizada).toFixed(2);
-      console.log("🚀 ~ file: app.js ~ line 113 ~ porcentaje", `%${porcentaje}`);
-
-      io.sockets.emit("nuevo-mensaje-server", await dao.getAll());
+      io.sockets.emit("nuevo-mensaje-server", await mostrarMensajesNormalizados());
     } catch (error) {
       throw error;
     }
   });
 
-  socket.emit("nuevo-mensaje-server", await dao.getAll());
+  socket.emit("nuevo-mensaje-server", await mostrarMensajesNormalizados());
 });
 
 server.listen(PORT, () => {

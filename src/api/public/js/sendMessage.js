@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io.connect();
 /* --------------------------- Messages ---------------------------------- */
 const sendMessage = () => {
   const inputEmail = document.getElementById("email");
@@ -18,8 +18,39 @@ const sendMessage = () => {
   return false;
 };
 
+// When messages are received, render them in HTML format.
+
+const authorSchema = new normalizr.schema.Entity("author", {}, { idAttribute: "email" });
+const messageSchema = new normalizr.schema.Entity(
+  "message",
+  { author: authorSchema },
+  { idAttribute: "id" }
+);
+const messagesSchema = new normalizr.schema.Entity(
+  "messages",
+  {
+    messages: [messageSchema],
+  },
+  { idAttribute: "id" }
+);
+socket.on("nuevo-mensaje-server", messages => {
+  let mensajesNormalizedSize = JSON.stringify(messages).length;
+  let denormalizedMessages = normalizr.denormalize(
+    messages.result,
+    messagesSchema,
+    messages.entities
+  );
+  let denormalizedMessagesSize = JSON.stringify(denormalizedMessages).length;
+
+  let percentage = parseInt((mensajesNormalizedSize * 100) / denormalizedMessagesSize);
+
+  document.getElementById("compressionRate").innerHTML = percentage;
+
+  renderMessages(denormalizedMessages);
+});
+
 function renderMessages(mensajes) {
-  const html = mensajes
+  const html = mensajes.allMessages
     .map(msj => {
       return `
         <div class="mensajes">
@@ -32,8 +63,3 @@ function renderMessages(mensajes) {
     .join("<br>");
   document.getElementById("chatLog").innerHTML = html;
 }
-
-// When messages are received, render them in HTML format.
-socket.on("nuevo-mensaje-server", messages => {
-  renderMessages(messages);
-});

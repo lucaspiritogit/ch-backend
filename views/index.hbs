@@ -14,18 +14,33 @@
 
     <hr />
 
+    <div>
+      <h1>Compresion de chat:</h1>
+      <h2 id="compressionRate"></h2>
+    </div>
     <form id="chatBox" onsubmit="return sendMessage(this)">
       <h1>chat</h1>
       <label for="email">Email</label>
       <input type="email" name="email" id="email" placeholder="email" required />
       <label for="mensaje">Mensaje</label>
       <input type="text" name="mensaje" id="mensaje" placeholder="mensaje" />
+      <label for="mensaje">Nombre:</label>
+      <input type="text" name="name" id="name" placeholder="Nombre" />
+      <label for="mensaje">Edad:</label>
+      <input type="number" name="age" id="age" placeholder="Edad" />
+      <label for="mensaje">Alias:</label>
+      <input type="text" name="alias" id="alias" placeholder="Alias" />
+
       <button type="submit">Enviar</button>
     </form>
     <div id="chatLog"></div>
-    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.min.js"></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"
+    ></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="./js/sendMessage.js"></script>
-    <script src="./js/sendProduct.js"></script>
+    <script src="/js/sendProduct.js"></script>
+    <script src="/js/sendMessage.js"></script>
+
   </body>
 </html>
