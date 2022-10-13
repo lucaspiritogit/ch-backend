@@ -7,34 +7,20 @@
     <title>Backend | Lucas Pirito</title>
   </head>
   <body>
-    <button type="submit" id="renderMock">Generate product mock</button>
-
-    <div id="mockList">
-    </div>
-
-    <hr />
 
     <div>
-      <h1>Compresion de chat:</h1>
-      <h2 id="compressionRate"></h2>
+      <h1 id="mensaje"></h1>
     </div>
-    <form id="chatBox" onsubmit="return sendMessage(this)">
-      <h1>chat</h1>
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" placeholder="email" required />
-      <label for="mensaje">Mensaje</label>
-      <input type="text" name="mensaje" id="mensaje" placeholder="mensaje" />
-      <label for="mensaje">Nombre:</label>
-      <input type="text" name="name" id="name" placeholder="Nombre" />
-      <label for="mensaje">Edad:</label>
-      <input type="number" name="age" id="age" placeholder="Edad" />
-      <label for="mensaje">Alias:</label>
-      <input type="text" name="alias" id="alias" placeholder="Alias" />
-
-      <button type="submit">Enviar</button>
+    <h1>Login de usuario</h1>
+    <form action="/login">
+      <label for="nombreUsuario">Ingrese su nombre</label>
+      <input type="text" name="nombreUsuario" id="nombreUsuario" placeholder="nombre" required />
+      <button type="submit">Logear</button>
     </form>
-    <div id="chatLog"></div>
 
+    <form action="/logout">
+      <button type="submit">Deslogear</button>
+    </form>
     <script
       src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"
     ></script>

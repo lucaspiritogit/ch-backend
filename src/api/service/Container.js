@@ -46,7 +46,6 @@ class Container {
       }
     });
   }
-
   getById(objectId) {
     try {
       let fileData = JSON.parse(readFileSync(this.filePath, "utf-8"));
