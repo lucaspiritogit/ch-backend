@@ -12,6 +12,13 @@
       <h1 id="mensaje"></h1>
     </div>
     <h1>Login de usuario</h1>
+    <div id="username">
+      {{! style="background-color: rgb(62, 238, 46);width:500px; padding:10px" }}
+      <h1>
+        {{{user}}}
+
+      </h1>
+    </div>
     <form action="/login">
       <label for="nombreUsuario">Ingrese su nombre</label>
       <input type="text" name="nombreUsuario" id="nombreUsuario" placeholder="nombre" required />

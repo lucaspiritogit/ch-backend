@@ -30,7 +30,7 @@ app.use(
     secret: "asd123",
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 20000 },
+    cookie: { maxAge: 200000 },
   })
 );
 app.use(cookieParser());
@@ -90,21 +90,20 @@ app.use("/api/productos", routerProductos);
 app.use("/api/carrito", routerCarrito);
 
 app.get("/", (req, res) => {
-  try {
-    res.render("index.hbs", { data: container.getAll() });
-  } catch (error) {
-    res.render("index.hbs");
-  }
+  req.session.usuario;
+  const user = JSON.stringify(req.session.usuario);
+  res.render("index.hbs", { user });
 });
 
 app.get("/login", (req, res) => {
   const nombreUsuario = req.query;
-  console.log("🚀 ~ file: app.js ~ line 102 ~ app.get ~ nombreUsuario", nombreUsuario.toString());
 
   req.session.usuario = nombreUsuario;
 
   res.send(
-    `Hola ${JSON.stringify(nombreUsuario.nombreUsuario)}!, <a href='/logout'>click to logout</a>`
+    `Hola ${JSON.stringify(
+      nombreUsuario.nombreUsuario
+    )}!, podes <a href='/logout'>deslogear</a> o volver al <a href="/">inicio</a> para ver tu usuario`
   );
 });
 
