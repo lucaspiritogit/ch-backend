@@ -1,3 +1,4 @@
+import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 import express, { json, urlencoded } from "express";
 import { engine } from "express-handlebars";
@@ -19,18 +20,22 @@ app.use(express.static("public"));
 
 /* ---------------------------- DB ------------------------- */
 import daoMensajes from "./src/api/dao/MensajesMongoDAO.js";
+import daoSesiones from "./src/api/dao/SesionesMongoDAO.js";
 const dao = new daoMensajes();
-
+const daoLogin = new daoSesiones();
 /* ---------------------------- Middlewares ------------------------- */
 app.use(express.static("./src/api/public"));
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(
   session({
+    store: MongoStore.create({ mongoUrl: "mongodb://localhost:27017/sesiones" }),
     secret: "asd123",
-    resave: true,
+    resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 200000 },
+    cookie: {
+      maxAge: 1000000,
+    },
   })
 );
 app.use(cookieParser());
@@ -48,39 +53,6 @@ app.engine(
   })
 );
 
-/* --------------------------- Mock Productos ---------------------------------- */
-import { faker } from "@faker-js/faker";
-
-app.get("/api/productos-test", (req, res) => {
-  const mockProduct = [
-    {
-      name: faker.commerce.productName(),
-      price: faker.commerce.price(),
-      thumbnail: faker.image.image(),
-    },
-    {
-      name: faker.commerce.productName(),
-      price: faker.commerce.price(),
-      thumbnail: faker.image.image(),
-    },
-    {
-      name: faker.commerce.productName(),
-      price: faker.commerce.price(),
-      thumbnail: faker.image.image(),
-    },
-    {
-      name: faker.commerce.productName(),
-      price: faker.commerce.price(),
-      thumbnail: faker.image.image(),
-    },
-    {
-      name: faker.commerce.productName(),
-      price: faker.commerce.price(),
-      thumbnail: faker.image.image(),
-    },
-  ];
-  res.json(mockProduct);
-});
 /* --------------------------- Router ---------------------------------- */
 import routerCarrito from "./src/api/routes/carrito.routes.js";
 import routerProductos from "./src/api/routes/productos.routes.js";
@@ -92,9 +64,16 @@ app.get("/", (req, res) => {
   res.redirect("/login");
 });
 
-app.get("/login", (req, res) => {
-  const nombreUsuario = req.query;
-  const user = nombreUsuario.nombreUsuario;
+function checkAuth(req, res, next) {
+  if (req.session?.user) return next();
+
+  return res.status(401).send("Error de auth, el usuario no existe");
+}
+
+app.get("/login", async (req, res) => {
+  const nombreUsuario = req.query.nombreUsuario;
+  const user = nombreUsuario;
+  req.session.user = user;
 
   res.render("index.hbs", { user });
 });
@@ -106,6 +85,10 @@ app.get("/logout", (req, res) => {
     }
     res.redirect("/");
   });
+});
+
+app.get("/testAuth", checkAuth, (req, res) => {
+  res.send("Logged");
 });
 
 /* --------------------------- SocketIO ---------------------------------- */

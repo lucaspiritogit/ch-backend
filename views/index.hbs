@@ -13,9 +13,13 @@
     </div>
     <h1>Login de usuario</h1>
     <div id="username">
-      {{! style="background-color: rgb(62, 238, 46);width:500px; padding:10px" }}
       <h1>
-        {{{user}}}
+        {{#if user}}
+          Bienvenido
+          {{user}}
+        {{else}}
+          Usted no se encuentra logeado
+        {{/if}}
 
       </h1>
     </div>

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const URL = "mongodb://localhost:27017/ecommerce";
+const URL = "mongodb://localhost:27017/sesiones";
 let rta = await mongoose.connect(URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
