@@ -81,7 +81,6 @@ app.get("/api/productos-test", (req, res) => {
   ];
   res.json(mockProduct);
 });
-
 /* --------------------------- Router ---------------------------------- */
 import routerCarrito from "./src/api/routes/carrito.routes.js";
 import routerProductos from "./src/api/routes/productos.routes.js";
@@ -90,21 +89,14 @@ app.use("/api/productos", routerProductos);
 app.use("/api/carrito", routerCarrito);
 
 app.get("/", (req, res) => {
-  req.session.usuario;
-  const user = JSON.stringify(req.session.usuario);
-  res.render("index.hbs", { user });
+  res.redirect("/login");
 });
 
 app.get("/login", (req, res) => {
   const nombreUsuario = req.query;
+  const user = nombreUsuario.nombreUsuario;
 
-  req.session.usuario = nombreUsuario;
-
-  res.send(
-    `Hola ${JSON.stringify(
-      nombreUsuario.nombreUsuario
-    )}!, podes <a href='/logout'>deslogear</a> o volver al <a href="/">inicio</a> para ver tu usuario`
-  );
+  res.render("index.hbs", { user });
 });
 
 app.get("/logout", (req, res) => {
