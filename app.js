@@ -12,8 +12,6 @@ const server = new HttpServer(app);
 const io = new Socket(server);
 const PORT = 8080;
 
-//// mocks
-
 //// public
 app.use(express.static("public"));
 /* ---------------------------- Instances ------------------------- */
