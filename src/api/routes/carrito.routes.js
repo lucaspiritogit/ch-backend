@@ -6,7 +6,7 @@ import Container from "../service/Container.js";
 const carritoContainer = new Container("./src/api/db/carrito.txt");
 const productosContainer = new Container("./src/api/db/productos.txt");
 
-routerCarrito.post("/", (req, res, next) => {
+routerCarrito.post("/", async (req, res, next) => {
   const time = new Date();
 
   let data = {
@@ -53,29 +53,6 @@ routerCarrito.delete("/:idCarrito/productos/:idProducto", async (req, res, next)
 
 routerCarrito.post("/:idCarrito/productos/:idProducto", async (req, res, next) => {
   try {
-<<<<<<< HEAD
-    if (process.env.DBTYPE == "mongo") {
-      let selectedCarrito = await carritoDao.getById(req.params.idCarrito);
-      let selectedProduct = await productoDao.getById(req.params.idProducto);
-      const prodArray = selectedCarrito.products;
-      prodArray.push(selectedProduct);
-      await carritoDao.save(selectedCarrito);
-    } else if (process.env.DBTYPE == "firebase") {
-      let selectedCarrito = await carritoDao.getById(req.params.idCarrito);
-      let selectedProduct = await productoDao.getById(req.params.idProducto);
-      const prodArray = selectedCarrito.products;
-      prodArray.push(selectedProduct);
-      await carritoDao.updateById(selectedCarrito);
-    } else {
-      let selectedCarrito = await carritoDao.getById(parseInt(req.params.idCarrito));
-      let selectedProduct = await productoDao.getById(parseInt(req.params.idProducto));
-      const prodArray = selectedCarrito.products;
-      prodArray.push(selectedProduct);
-      await carritoDao.save(selectedProduct);
-    }
-
-    res.json({ msg: `Added product ${req.params.idProducto} in carrito ${req.params.idCarrito}` });
-=======
     let selectedProduct = productosContainer.getById(parseInt(req.params.id));
 
     let readCarritoArray = JSON.parse(readFileSync("./src/api/db/carrito.txt", "utf-8"));
@@ -91,7 +68,6 @@ routerCarrito.post("/:idCarrito/productos/:idProducto", async (req, res, next) =
     writeFileSync("./src/api/db/carrito.txt", JSON.stringify(readCarritoArray, null, 2));
 
     res.send(readCarritoArray).status(201);
->>>>>>> clase24
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
   }
@@ -105,9 +81,6 @@ routerCarrito.delete("/:id", async (req, res, next) => {
       await carritoDao.deleteById(parseInt(req.params.id));
     }
 
-<<<<<<< HEAD
-    res.json({ msg: "Carrito deleted" });
-=======
     selectedCarrito.products.splice(selectedProductIndex, 1);
 
     newProdArr.push(selectedCarrito);
@@ -117,23 +90,9 @@ routerCarrito.delete("/:id", async (req, res, next) => {
     });
 
     res.send(201);
->>>>>>> clase24
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
   }
 });
 
-<<<<<<< HEAD
-routerCarrito.get("/:id/productos", async (req, res, next) => {
-  try {
-    let selectedCarrito = await carritoDao.getById(req.params.id);
-
-    res.json(selectedCarrito);
-  } catch (error) {
-    res.json({ error: "Carrito not found" });
-  }
-});
-
-=======
->>>>>>> clase24
 export default routerCarrito;
