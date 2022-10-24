@@ -3,8 +3,11 @@ import express, { json, urlencoded } from "express";
 import { engine } from "express-handlebars";
 import session from "express-session";
 import { Server as HttpServer } from "http";
-import normlizr from "normalizr";
+import normalizr from "normalizr";
 import { Server as Socket } from "socket.io";
+import Container from "./src/api/dao/products/ProductosMongoDAO.js";
+
+const containerProdMongo = new Container();
 
 const app = express();
 const server = new HttpServer(app);
@@ -61,13 +64,13 @@ app.get("/", (req, res) => {
 
 /* --------------------------- SocketIO ---------------------------------- */
 
-const authorSchema = new normlizr.schema.Entity("author", {}, { idAttribute: "email" });
-const messageSchema = new normlizr.schema.Entity(
+const authorSchema = new normalizr.schema.Entity("author", {}, { idAttribute: "email" });
+const messageSchema = new normalizr.schema.Entity(
   "message",
   { author: authorSchema },
   { idAttribute: "id" }
 );
-const messagesSchema = new normlizr.schema.Entity(
+const messagesSchema = new normalizr.schema.Entity(
   "messages",
   {
     messages: [messageSchema],
@@ -77,7 +80,7 @@ const messagesSchema = new normlizr.schema.Entity(
 //////////////////////
 
 const normalizarMsj = msjs => {
-  return normlizr.normalize(msjs, messagesSchema);
+  return normalizr.normalize(msjs, messagesSchema);
 };
 
 async function mostrarMensajesNormalizados() {
@@ -85,8 +88,17 @@ async function mostrarMensajesNormalizados() {
   const normalizedMessages = normalizarMsj({ id: "msj", allMessages });
   return normalizedMessages;
 }
-
 io.on("connection", async socket => {
+  // productos
+  socket.on("productos-cliente", async data => {
+    await containerProdMongo.save(data);
+
+    io.sockets.emit("productos-server", await containerProdMongo.getAll());
+  });
+
+  socket.emit("productos-server", await containerProdMongo.getAll());
+
+  // chat
   socket.on("nuevo-mensaje-cliente", async data => {
     try {
       await dao.save(data);

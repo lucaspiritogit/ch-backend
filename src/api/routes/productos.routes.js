@@ -1,11 +1,5 @@
-import express, { Router } from "express";
-const app = express();
+import { Router } from "express";
 const routerProductos = Router();
-
-import RepositoryProducts from "../public/js/Repository.js";
-import Container from "../service/Container.js";
-const container = new Container("./src/api/db/productos.txt");
-const repository = new RepositoryProducts("productos");
 
 let isAdmin = true;
 routerProductos.get("/:id", (req, res, next) => {

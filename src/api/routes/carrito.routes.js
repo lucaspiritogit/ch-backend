@@ -1,10 +1,5 @@
-import express, { Router } from "express";
-const app = express();
+import { Router } from "express";
 const routerCarrito = Router();
-
-import Container from "../service/Container.js";
-const carritoContainer = new Container("./src/api/db/carrito.txt");
-const productosContainer = new Container("./src/api/db/productos.txt");
 
 routerCarrito.post("/", async (req, res, next) => {
   const time = new Date();
