@@ -34,11 +34,16 @@ class ContainerMongo {
 
   async getById(id) {
     try {
+<<<<<<< HEAD
       return await this.col.findOne({ _id: id });
+=======
+      return await this.col.findOne({ id: id });
+>>>>>>> clase24
     } catch (error) {
       throw error;
     }
   }
+<<<<<<< HEAD
 
   async updateById(id, obj) {
     try {
@@ -46,6 +51,8 @@ class ContainerMongo {
     } catch (error) {}
   }
 
+=======
+>>>>>>> clase24
   async getAll() {
     try {
       return await this.col.find({});

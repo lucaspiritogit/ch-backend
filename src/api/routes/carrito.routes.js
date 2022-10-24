@@ -1,10 +1,12 @@
-import * as dotenv from "dotenv";
-import { Router } from "express";
-import { carritoDao, productoDao } from "../dao/setDB.js";
+import express, { Router } from "express";
+const app = express();
 const routerCarrito = Router();
-dotenv.config();
 
-routerCarrito.post("/", async (req, res, next) => {
+import Container from "../service/Container.js";
+const carritoContainer = new Container("./src/api/db/carrito.txt");
+const productosContainer = new Container("./src/api/db/productos.txt");
+
+routerCarrito.post("/", (req, res, next) => {
   const time = new Date();
 
   let data = {
@@ -51,6 +53,7 @@ routerCarrito.delete("/:idCarrito/productos/:idProducto", async (req, res, next)
 
 routerCarrito.post("/:idCarrito/productos/:idProducto", async (req, res, next) => {
   try {
+<<<<<<< HEAD
     if (process.env.DBTYPE == "mongo") {
       let selectedCarrito = await carritoDao.getById(req.params.idCarrito);
       let selectedProduct = await productoDao.getById(req.params.idProducto);
@@ -72,6 +75,23 @@ routerCarrito.post("/:idCarrito/productos/:idProducto", async (req, res, next) =
     }
 
     res.json({ msg: `Added product ${req.params.idProducto} in carrito ${req.params.idCarrito}` });
+=======
+    let selectedProduct = productosContainer.getById(parseInt(req.params.id));
+
+    let readCarritoArray = JSON.parse(readFileSync("./src/api/db/carrito.txt", "utf-8"));
+    let products;
+
+    for (let i = 0; i < readCarritoArray.length; i++) {
+      const carrito = readCarritoArray[i];
+      products = carrito.products;
+    }
+
+    products.push(selectedProduct);
+
+    writeFileSync("./src/api/db/carrito.txt", JSON.stringify(readCarritoArray, null, 2));
+
+    res.send(readCarritoArray).status(201);
+>>>>>>> clase24
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
   }
@@ -85,12 +105,25 @@ routerCarrito.delete("/:id", async (req, res, next) => {
       await carritoDao.deleteById(parseInt(req.params.id));
     }
 
+<<<<<<< HEAD
     res.json({ msg: "Carrito deleted" });
+=======
+    selectedCarrito.products.splice(selectedProductIndex, 1);
+
+    newProdArr.push(selectedCarrito);
+
+    writeFile("./src/api/db/carrito.txt", JSON.stringify(newProdArr, null, 2), err => {
+      if (err) throw err;
+    });
+
+    res.send(201);
+>>>>>>> clase24
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
   }
 });
 
+<<<<<<< HEAD
 routerCarrito.get("/:id/productos", async (req, res, next) => {
   try {
     let selectedCarrito = await carritoDao.getById(req.params.id);
@@ -101,4 +134,6 @@ routerCarrito.get("/:id/productos", async (req, res, next) => {
   }
 });
 
+=======
+>>>>>>> clase24
 export default routerCarrito;

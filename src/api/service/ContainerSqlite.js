@@ -1,4 +1,8 @@
 import knex from "knex";
+<<<<<<< HEAD:src/api/service/ContainerSqlite.js
+=======
+import config from "../../utils/config.js";
+>>>>>>> clase24:src/api/public/js/Repository.js
 
 class ContainerSqliteDAO {
   constructor(tableName, config) {
@@ -27,4 +31,8 @@ class ContainerSqliteDAO {
   }
 }
 
+<<<<<<< HEAD:src/api/service/ContainerSqlite.js
 export default ContainerSqliteDAO;
+=======
+export default Repository;
+>>>>>>> clase24:src/api/public/js/Repository.js

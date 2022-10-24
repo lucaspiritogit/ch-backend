@@ -1,37 +1,64 @@
-const socket = io();
+// const socket = io.connect();
+// /* --------------------------- Messages ---------------------------------- */
+// const sendMessage = () => {
+//   const inputEmail = document.getElementById("email");
+//   const inputMensaje = document.getElementById("mensaje");
 
-/* --------------------------- Messages ---------------------------------- */
-const sendMessage = () => {
-  const inputEmail = document.getElementById("email");
-  const inputMensaje = document.getElementById("mensaje");
-  const time = new Date();
+//   const time = new Date();
 
-  const mensaje = {
-    usuario: inputEmail.value,
-    mensaje: inputMensaje.value,
-    timestamp: time.toLocaleDateString() + " " + time.toLocaleTimeString(),
-  };
+//   const mensaje = {
+//     author: {
+//       id: inputEmail.value,
+//       timestamp: time.toLocaleDateString() + " " + time.toLocaleTimeString(),
+//     },
+//     message: inputMensaje.value,
+//   };
 
-  socket.emit("nuevo-mensaje-cliente", mensaje);
-  return false;
-};
+//   socket.emit("nuevo-mensaje-cliente", mensaje);
+//   return false;
+// };
 
-function renderMessages(mensajes) {
-  const html = mensajes
-    .map(msj => {
-      return `
-        <div class="mensajes">
-          <h3 class="usuario">${msj.usuario}:</h3>
-          <h3 class="mensaje">&nbsp${msj.mensaje}&nbsp</h3>
-          <h3 class="timestamp">| [${msj.timestamp}]</h3>                        
-         </div
-          `;
-    })
-    .join("<br>");
-  document.getElementById("chatLog").innerHTML = html;
-}
+// // When messages are received, render them in HTML format.
+// const authorSchema = new normalizr.schema.Entity("author", {}, { idAttribute: "email" });
+// const messageSchema = new normalizr.schema.Entity(
+//   "message",
+//   { author: authorSchema },
+//   { idAttribute: "id" }
+// );
+// const messagesSchema = new normalizr.schema.Entity(
+//   "messages",
+//   {
+//     messages: [messageSchema],
+//   },
+//   { idAttribute: "id" }
+// );
+// socket.on("nuevo-mensaje-server", messages => {
+//   let mensajesNormalizedSize = JSON.stringify(messages).length;
+//   let denormalizedMessages = normalizr.denormalize(
+//     messages.result,
+//     messagesSchema,
+//     messages.entities
+//   );
+//   let denormalizedMessagesSize = JSON.stringify(denormalizedMessages).length;
 
-// When messages are received, render them in HTML format.
-socket.on("nuevo-mensaje-server", messages => {
-  renderMessages(messages);
-});
+//   let percentage = parseInt((mensajesNormalizedSize * 100) / denormalizedMessagesSize);
+
+//   document.getElementById("compressionRate").innerHTML = percentage;
+
+//   renderMessages(denormalizedMessages);
+// });
+
+// function renderMessages(mensajes) {
+//   const html = mensajes.allMessages
+//     .map(msj => {
+//       return `
+//         <div class="mensajes">
+//           <h3 class="timestamp">[${msj.author.timestamp}]&nbsp</h3>
+//           <h3 class="usuario">${msj.author.id}:</h3>
+//           <h3 class="mensaje">&nbsp${msj.message}&nbsp</h3>
+//          </div
+//           `;
+//     })
+//     .join("<br>");
+//   document.getElementById("chatLog").innerHTML = html;
+// }

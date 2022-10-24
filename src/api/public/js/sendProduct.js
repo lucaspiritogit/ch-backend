@@ -1,24 +1,24 @@
-/* --------------------------- Products ---------------------------------- */
+// /* --------------------------- Products ---------------------------------- */
 
-const sendProduct = () => {
-  const title = document.getElementById("title");
-  const price = document.getElementById("price");
-  const thumbnail = document.getElementById("thumbnail");
-  const stock = document.getElementById("stock");
-  const code = document.getElementById("code");
-  const description = document.getElementById("description");
+// const sendProduct = () => {
+//   const title = document.getElementById("title");
+//   const price = document.getElementById("price");
+//   const thumbnail = document.getElementById("thumbnail");
+//   const stock = document.getElementById("stock");
+//   const code = document.getElementById("code");
+//   const description = document.getElementById("description");
 
-  const prod = {
-    title: title.value,
-    price: price.value,
-    thumbnail: thumbnail.value,
-    stock: stock.value,
-    code: code.value,
-    description: description.value,
-  };
-  socket.emit("productos-cliente", prod);
-  return false;
-};
+//   const prod = {
+//     title: title.value,
+//     price: price.value,
+//     thumbnail: thumbnail.value,
+//     stock: stock.value,
+//     code: code.value,
+//     description: description.value,
+//   };
+//   socket.emit("productos-cliente", prod);
+//   return false;
+// };
 
 function renderProducts(productos) {
   // const html = productos
@@ -44,7 +44,8 @@ function renderProducts(productos) {
   // document.querySelector("#listadoProductos").innerHTML = html;
 }
 
-// When products are received, render them in HTML format.
-socket.on("productos-server", productos => {
-  renderProducts(productos);
+const renderMock = document.getElementById("renderMock");
+
+renderMock.addEventListener("click", () => {
+  sendMock();
 });

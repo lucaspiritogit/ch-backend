@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/api/service/ContainerArchivo.js
 import { readFile, readFileSync, writeFileSync } from "fs";
+=======
+import { readFile, readFileSync, writeFile, writeFileSync } from "fs";
+>>>>>>> clase24:src/api/service/Container.js
 
 console.log("Using .txt files");
 class ContainerArchivo {
@@ -32,7 +36,11 @@ class ContainerArchivo {
         data.push(newObj);
         data.sort((firstObj, secondObj) => firstObj.id - secondObj.id);
 
+<<<<<<< HEAD:src/api/service/ContainerArchivo.js
         writeFileSync(this.filePath, JSON.stringify(data, null, 2), err => {
+=======
+        await writeFile(this.filePath, JSON.stringify(data, null, 2), err => {
+>>>>>>> clase24:src/api/service/Container.js
           if (err) throw err;
         });
 
@@ -47,10 +55,16 @@ class ContainerArchivo {
       }
     });
   }
+<<<<<<< HEAD:src/api/service/ContainerArchivo.js
 
   async getById(objectId) {
     try {
       let fileData = await JSON.parse(readFileSync(this.filePath, "utf-8"));
+=======
+  getById(objectId) {
+    try {
+      let fileData = JSON.parse(readFileSync(this.filePath, "utf-8"));
+>>>>>>> clase24:src/api/service/Container.js
 
       const foundObject = fileData.find(object => object.id === objectId);
       if (!foundObject) throw "Objeto no encontrado";
@@ -64,6 +78,7 @@ class ContainerArchivo {
   async getAll() {
     await this.startDocument();
     try {
+<<<<<<< HEAD:src/api/service/ContainerArchivo.js
       let fileData = readFileSync(this.filePath, "utf-8");
       return JSON.parse(fileData);
     } catch (error) {
@@ -73,6 +88,8 @@ class ContainerArchivo {
 
   async deleteById(objectId) {
     try {
+=======
+>>>>>>> clase24:src/api/service/Container.js
       let fileData = JSON.parse(readFileSync(this.filePath, "utf-8"));
       let index = fileData.findIndex(object => object.id == objectId);
 
@@ -93,12 +110,23 @@ class ContainerArchivo {
 
   async updateById(id, modifiedObj) {
     try {
+<<<<<<< HEAD:src/api/service/ContainerArchivo.js
       await this.deleteById(id);
       await this.save(modifiedObj);
+=======
+      let fileData = readFileSync(this.filePath, "utf-8", err => {
+        if (err) throw err;
+      });
+      return JSON.parse(fileData);
+>>>>>>> clase24:src/api/service/Container.js
     } catch (error) {
       throw error;
     }
   }
 }
 
+<<<<<<< HEAD:src/api/service/ContainerArchivo.js
 export default ContainerArchivo;
+=======
+export default Container;
+>>>>>>> clase24:src/api/service/Container.js

@@ -1,4 +1,8 @@
 import knex from "knex";
+<<<<<<< HEAD:src/api/service/ContainerMariaDB.js
+=======
+import config from "../../utils/configMariaDB.js";
+>>>>>>> clase24:src/api/public/js/RepositoryProduct.js
 
 console.log("Connected with MariaDB");
 class ContainerMariaDB {
@@ -28,4 +32,8 @@ class ContainerMariaDB {
   }
 }
 
+<<<<<<< HEAD:src/api/service/ContainerMariaDB.js
 export default ContainerMariaDB;
+=======
+export default RepositoryProducts;
+>>>>>>> clase24:src/api/public/js/RepositoryProduct.js
