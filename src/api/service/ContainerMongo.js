@@ -39,6 +39,15 @@ class ContainerMongo {
       throw error;
     }
   }
+
+  async findUser(username) {
+    try {
+      return await this.col.findOne({ username: username });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getAll() {
     try {
       return await this.col.find({});

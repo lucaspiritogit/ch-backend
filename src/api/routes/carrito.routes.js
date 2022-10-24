@@ -1,5 +1,8 @@
+import * as dotenv from "dotenv";
 import { Router } from "express";
+import { carritoDao, productoDao } from "../dao/setDB.js";
 const routerCarrito = Router();
+dotenv.config();
 
 routerCarrito.post("/", async (req, res, next) => {
   const time = new Date();

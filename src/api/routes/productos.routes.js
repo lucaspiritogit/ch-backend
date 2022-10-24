@@ -1,4 +1,7 @@
+import * as dotenv from "dotenv";
 import { Router } from "express";
+import { carritoDao, productoDao } from "../dao/setDB.js";
+dotenv.config();
 const routerProductos = Router();
 
 let isAdmin = true;
