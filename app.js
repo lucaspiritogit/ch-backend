@@ -71,7 +71,6 @@ passport.use(
       const userExists = await User.findOne({ username });
 
       if (userExists) {
-        console.log("User already exists!");
         return done(null, false);
       }
 
@@ -88,7 +87,6 @@ passport.use(
   new LocalStrategy(async function (username, password, done) {
     try {
       const user = await User.findOne({ username: username });
-      console.log(user);
       if (!user) return done(null, false);
       const isMatch = await user.matchPassword(password);
       if (!isMatch) return done(null, false);
@@ -119,8 +117,12 @@ app.get("/login", (req, res) => {
 
 app.post(
   "/login",
-  passport.authenticate("local-login", { successRedirect: "/", failureRedirect: "/login" })
+  passport.authenticate("local-login", { successRedirect: "/", failureRedirect: "/loginError" })
 );
+
+app.get("/loginError", (req, res) => {
+  res.render("./loginError.hbs");
+});
 
 // register
 
@@ -132,9 +134,13 @@ app.post(
   "/register",
   passport.authenticate("local-register", {
     successRedirect: "/login",
-    failureRedirect: "/register",
+    failureRedirect: "/registerError",
   })
 );
+
+app.get("/registerError", (req, res) => {
+  res.render("./registerError.hbs");
+});
 
 /* --------------------------- SocketIO ---------------------------------- */
 
