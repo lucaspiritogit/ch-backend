@@ -1,13 +1,12 @@
 import knex from "knex";
-<<<<<<< HEAD:src/api/service/ContainerMariaDB.js
-=======
-import config from "../../utils/configMariaDB.js";
->>>>>>> clase24:src/api/public/js/RepositoryProduct.js
+import * as dotenv from "dotenv";
+dotenv.config();
+const configMariaDB = process.env.configMariaDB;
 
 console.log("Connected with MariaDB");
 class ContainerMariaDB {
-  constructor(tableName, config) {
-    this.knexCli = knex(config);
+  constructor(tableName, configMariaDB) {
+    this.knexCli = knex(configMariaDB);
     this.tableName = tableName;
   }
 
@@ -32,8 +31,4 @@ class ContainerMariaDB {
   }
 }
 
-<<<<<<< HEAD:src/api/service/ContainerMariaDB.js
 export default ContainerMariaDB;
-=======
-export default RepositoryProducts;
->>>>>>> clase24:src/api/public/js/RepositoryProduct.js

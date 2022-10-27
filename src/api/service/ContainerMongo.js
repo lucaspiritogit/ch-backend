@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-const URL = "mongodb://localhost:27017/ecommerce";
+const URL = process.env.MONGO_CONNECTION_URL;
 let rta = await mongoose.connect(URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

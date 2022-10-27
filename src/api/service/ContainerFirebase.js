@@ -1,8 +1,12 @@
 import admin from "firebase-admin";
 import serviceAccount from "../db/certificateFirebase/coderhouse-backend-lp-firebase-adminsdk-56jxd-1dc3e4d9d1.json";
+import * as dotenv from "dotenv";
+dotenv.config();
+
+const FIREBASE_CERTIFICATE = JSON.parse(process.env.FIREBASE_CERTIFICATE);
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(FIREBASE_CERTIFICATE),
 });
 
 console.log("Connected with firebase");
