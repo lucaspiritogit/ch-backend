@@ -9,6 +9,10 @@ import ProductosMongoDAO from "./src/api/dao/products/ProductosMongoDAO.js";
 import passport from "passport";
 import { Strategy } from "passport-local";
 import User from "./src/api/models/userModel.js";
+import minimist from "minimist";
+
+let options = { alias: { p: "puerto" } };
+let args = minimist(process.argv.slice(2), options);
 
 const LocalStrategy = Strategy;
 
@@ -17,17 +21,17 @@ const containerProdMongo = new ProductosMongoDAO();
 const app = express();
 const server = new HttpServer(app);
 const io = new Socket(server);
-const PORT = 8080;
-
-//// public
-app.use(express.static("public"));
-/* ---------------------------- Instances ------------------------- */
+let PORT = args._[0];
+if (args._[0] === null || args._[0] === undefined) {
+  PORT = 8080;
+}
 
 /* ---------------------------- DB ------------------------- */
 import daoMensajes from "./src/api/dao/MensajesMongoDAO.js";
 const dao = new daoMensajes();
 
 /* ---------------------------- Middlewares ------------------------- */
+app.use(express.static("public"));
 app.use(express.static("./src/api/public"));
 app.use(json());
 app.use(urlencoded({ extended: true }));
@@ -105,12 +109,27 @@ import routerProductos from "./src/api/routes/productos.routes.js";
 app.use("/api/productos", routerProductos);
 app.use("/api/carrito", routerCarrito);
 
+// home
 app.get("/", (req, res) => {
   res.render("./index.hbs");
 });
 
-// login
+//info - clase28
+app.get("/info", (req, res) => {
+  let vars = process.argv;
+  let projectPath = vars[1];
+  let os = process.platform;
+  let nodeVersion = process.version;
+  let rss = process.memoryUsage().heapUsed;
+  let processId = process.pid;
+  let processCwd = process.cwd();
 
+  res.render("./info.hbs", { projectPath, vars, os, nodeVersion, rss, processId, processCwd });
+});
+
+app.get("/api/randoms", (req, res) => {});
+
+// login
 app.get("/login", (req, res) => {
   res.render("./login.hbs");
 });
@@ -125,7 +144,6 @@ app.get("/loginError", (req, res) => {
 });
 
 // register
-
 app.get("/register", (req, res) => {
   res.render("./register.hbs");
 });
@@ -168,29 +186,6 @@ async function mostrarMensajesNormalizados() {
   const normalizedMessages = normalizarMsj({ id: "msj", allMessages });
   return normalizedMessages;
 }
-io.on("connection", async socket => {
-  // productos
-  socket.on("productos-cliente", async data => {
-    await containerProdMongo.save(data);
-
-    io.sockets.emit("productos-server", await containerProdMongo.getAll());
-  });
-
-  socket.emit("productos-server", await containerProdMongo.getAll());
-
-  // chat
-  socket.on("nuevo-mensaje-cliente", async data => {
-    try {
-      await dao.save(data);
-
-      io.sockets.emit("nuevo-mensaje-server", await mostrarMensajesNormalizados());
-    } catch (error) {
-      throw error;
-    }
-  });
-
-  socket.emit("nuevo-mensaje-server", await mostrarMensajesNormalizados());
-});
 
 server.listen(PORT, () => {
   console.log(`Server up at http://localhost:${PORT}`);
