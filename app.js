@@ -10,6 +10,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import User from "./src/api/models/userModel.js";
 import minimist from "minimist";
+import { fork } from "child_process";
 
 let options = { alias: { p: "puerto" } };
 let args = minimist(process.argv.slice(2), options);
@@ -127,7 +128,20 @@ app.get("/info", (req, res) => {
   res.render("./info.hbs", { projectPath, vars, os, nodeVersion, rss, processId, processCwd });
 });
 
-app.get("/api/randoms", (req, res) => {});
+app.get("/api/randoms", (req, res) => {
+  let number = req.query.number;
+
+  const operation = fork("./operation.js");
+  operation.send("start");
+  operation.on("number", n => {
+    res.send(n);
+  });
+
+  if (!req.query.number) {
+    number = 10000000;
+  }
+  console.log("🚀 ~ file: app.js ~ line 132 ~ app.get ~ number", number);
+});
 
 // login
 app.get("/login", (req, res) => {
