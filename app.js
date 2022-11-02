@@ -32,7 +32,6 @@ import daoMensajes from "./src/api/dao/MensajesMongoDAO.js";
 const dao = new daoMensajes();
 
 /* ---------------------------- Middlewares ------------------------- */
-app.use(express.static("public"));
 app.use(express.static("./src/api/public"));
 app.use(json());
 app.use(urlencoded({ extended: true }));
@@ -129,18 +128,20 @@ app.get("/info", (req, res) => {
 });
 
 app.get("/api/randoms", (req, res) => {
-  let number = req.query.number;
+  let cant = req.query.cant;
 
-  const operation = fork("./operation.js");
-  operation.send("start");
-  operation.on("number", n => {
-    res.send(n);
-  });
-
-  if (!req.query.number) {
-    number = 10000000;
+  if (!req.query.cant) {
+    cant = 10000000;
   }
-  console.log("🚀 ~ file: app.js ~ line 132 ~ app.get ~ number", number);
+
+  const child = fork("./src/api/public/js/operation.js");
+  child.send(cant, () => {});
+
+  child.on("message", message => {
+    console.log(message, "from child");
+    res.json({ message });
+  });
+  res.json({});
 });
 
 // login
