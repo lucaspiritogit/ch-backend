@@ -22,11 +22,11 @@ const containerProdMongo = new ProductosMongoDAO();
 const app = express();
 const server = new HttpServer(app);
 const io = new Socket(server);
-let PORT = args._[0];
-if (args._[0] === null || args._[0] === undefined) {
+let PORT = args.p;
+if (args.p === null || args.p === undefined) {
   PORT = 8080;
 }
-
+console.log(args);
 /* ---------------------------- DB ------------------------- */
 import daoMensajes from "./src/api/dao/MensajesMongoDAO.js";
 const dao = new daoMensajes();
@@ -105,6 +105,7 @@ passport.use(
 /* --------------------------- Router ---------------------------------- */
 import routerCarrito from "./src/api/routes/carrito.routes.js";
 import routerProductos from "./src/api/routes/productos.routes.js";
+import { log } from "console";
 
 app.use("/api/productos", routerProductos);
 app.use("/api/carrito", routerCarrito);
