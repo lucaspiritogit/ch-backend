@@ -8,19 +8,20 @@ El servidor se puede levantar de las siguientes maneras:
 
 ### Forever
 
-- npm run forever
+- `npm run forever`
   Inicia el servidor con forever en modo cluster
-- npm run foreverStop
+- `npm run foreverStop`
   Stoppea todas las instancias forever del servidor.
 
 ### PM2
 
-- npm run pm2Fork
+- `npm run pm2Fork`
   Inicia el servidor con PM2 en modo fork junto a 2 instancias en los puertos 8080 y 8081 dandole mas peso al 8080
 
-- npm run pm2Cluster
+- `npm run pm2Cluster`
   Inicia el servidor con PM2 en modo cluster a partir del puerto 8080
-- npm run pm2Stop
+
+- `npm run pm2Stop`
   Stoppea todas las instancias PM2 activas
 
 ## package.json
