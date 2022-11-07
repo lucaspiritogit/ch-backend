@@ -13,6 +13,8 @@ const User = require("./src/api/models/userModel.js");
 const minimist = require("minimist");
 const { fork } = require("child_process");
 const normalizr = require("normalizr");
+const cluster = require("cluster");
+const numCPUs = require("os");
 
 /* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
@@ -20,14 +22,16 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 /* ---------------------------- args ------------------------- */
-let options = { alias: { p: "puerto", c: "cluster" } };
+let options = { alias: { p: "puerto", m: "modo" }, default: { p: 8080, m: "fork" } };
 let args = minimist(process.argv.slice(2), options);
-
 let PORT = args.p;
-let enableClusterMode = args.c;
-if (args.p === null || args.p === undefined) {
-  PORT = 8080;
+let changeInitMode = args.m;
+
+if (args.m === "cluster") {
+  changeInitMode = "cluster";
+  console.log(`Mode is now: ${args.m}`);
 }
+console.table(args);
 
 /* ---------------------------- Middlewares ------------------------- */
 app.use(express.static("./src/api/public"));
@@ -57,7 +61,6 @@ app.engine(
 );
 
 /* --------------------------- Passport ---------------------------------- */
-
 const LocalStrategy = Strategy;
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -127,8 +130,18 @@ app.get("/info", (req, res) => {
   let rss = process.memoryUsage().heapUsed;
   let processId = process.pid;
   let processCwd = process.cwd();
+  let cpus = numCPUs.cpus().length;
 
-  res.render("./info.hbs", { projectPath, vars, os, nodeVersion, rss, processId, processCwd });
+  res.render("./info.hbs", {
+    projectPath,
+    vars,
+    os,
+    nodeVersion,
+    rss,
+    processId,
+    processCwd,
+    cpus,
+  });
 });
 
 app.get("/api/randoms", (req, res) => {
