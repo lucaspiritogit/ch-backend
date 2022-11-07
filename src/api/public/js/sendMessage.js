@@ -53,11 +53,11 @@ function renderMessages(mensajes) {
     .map(msj => {
       return `
         <div class="mensajes">
-          <h3 class="timestamp">[${msj.timestamp}]&nbsp</h3>
-          <h3 class="usuario">${msj.id}:</h3>
+          <h3 class="timestamp">[${msj.author.timestamp}]&nbsp</h3>
+          <h3 class="usuario">${msj.author.id}:</h3>
           <h3 class="mensaje">&nbsp${msj.message}&nbsp</h3>
          </div
-          `;
+         `;
     })
     .join("<br>");
   document.getElementById("chatLog").innerHTML = html;

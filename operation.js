@@ -4,6 +4,7 @@ process.on("message", message => {
   console.log(message);
   const response = calcularCantidad(message.cant);
   process.send(response);
+  process.exit();
 });
 
 function calcularCantidad(cant) {

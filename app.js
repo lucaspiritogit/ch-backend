@@ -6,6 +6,7 @@ const session = require("express-session");
 const http = require("http");
 const { Server } = require("socket.io");
 const ProductosMongoDAO = require("./src/api/dao/products/ProductosMongoDAO.js");
+const daoMensajes = require("./src/api/dao/MensajesMongoDAO.js");
 const passport = require("passport");
 const { Strategy } = require("passport-local");
 const User = require("./src/api/models/userModel.js");
@@ -13,24 +14,20 @@ const minimist = require("minimist");
 const { fork } = require("child_process");
 const normalizr = require("normalizr");
 
-let options = { alias: { p: "puerto" } };
-let args = minimist(process.argv.slice(2), options);
-
-const LocalStrategy = Strategy;
-
-const containerProdMongo = new ProductosMongoDAO();
-
+/* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
+
+/* ---------------------------- args ------------------------- */
+let options = { alias: { p: "puerto", c: "cluster" } };
+let args = minimist(process.argv.slice(2), options);
+
 let PORT = args.p;
+let enableClusterMode = args.c;
 if (args.p === null || args.p === undefined) {
   PORT = 8080;
 }
-console.log(args);
-/* ---------------------------- DB ------------------------- */
-const daoMensajes = require("./src/api/dao/MensajesMongoDAO.js");
-const dao = new daoMensajes();
 
 /* ---------------------------- Middlewares ------------------------- */
 app.use(express.static("./src/api/public"));
@@ -61,6 +58,7 @@ app.engine(
 
 /* --------------------------- Passport ---------------------------------- */
 
+const LocalStrategy = Strategy;
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
@@ -103,6 +101,10 @@ passport.use(
   })
 );
 
+/* ---------------------------- Retrieve Messages & Products from DB ------------------------- */
+const dao = new daoMensajes();
+const containerProdMongo = new ProductosMongoDAO();
+
 /* --------------------------- Router ---------------------------------- */
 const routerCarrito = require("./src/api/routes/carrito.routes.js");
 const routerProductos = require("./src/api/routes/productos.routes.js");
@@ -116,7 +118,7 @@ app.get("/", (req, res) => {
   res.render("./index.hbs");
 });
 
-//info - clase28
+// info - clase28
 app.get("/info", (req, res) => {
   let vars = process.argv;
   let projectPath = vars[1];
@@ -176,7 +178,6 @@ app.get("/registerError", (req, res) => {
 });
 
 /* --------------------------- SocketIO ---------------------------------- */
-
 const authorSchema = new normalizr.schema.Entity("author", {}, { idAttribute: "email" });
 const messageSchema = new normalizr.schema.Entity(
   "message",

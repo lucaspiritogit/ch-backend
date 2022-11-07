@@ -9,13 +9,13 @@ const connectMongo = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
+    console.log("Connected with MongoDB");
   } catch (error) {
-    console.log(error);
+    console.error(`Connection to MongoDB wasnt successful: ${error}`);
   }
 };
 
 connectMongo();
-console.log("Connected with MongoDB");
 class ContainerMongo {
   constructor(collectionName, scheme) {
     this.col = mongoose.model(collectionName, scheme);
