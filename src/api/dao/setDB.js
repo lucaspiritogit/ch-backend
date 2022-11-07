@@ -1,39 +1,38 @@
-import * as dotenv from "dotenv";
+const dotenv = require("dotenv");
 dotenv.config();
 
 let productoDao;
 let carritoDao;
 
 switch (process.env.DBTYPE) {
-  
   case "text":
-    const { default: ProductosArchivoDAO } = await import("./products/ProductosArchivoDAO.js");
-    const { default: CarritoArchivoDAO } = await import("./carrito/CarritoArchivoDAO.js");
+    const { default: ProductosArchivoDAO } = require("./products/ProductosArchivoDAO.js");
+    const { default: CarritoArchivoDAO } = require("./carrito/CarritoArchivoDAO.js");
 
     productoDao = new ProductosArchivoDAO();
     carritoDao = new CarritoArchivoDAO();
     break;
 
   case "mariadb":
-    const { default: ProductosMariaDAO } = await import("./products/ProductosMariaDAO.js");
+    const { default: ProductosMariaDAO } = require("./products/ProductosMariaDAO.js");
     productoDao = new ProductosMariaDAO();
     break;
 
   case "mongo":
-    const { default: ProductosMongoDAO } = await import("./products/ProductosMongoDAO.js");
-    const { default: CarritoMongoDAO } = await import("./carrito/CarritoMongoDAO.js");
+    const ProductosMongoDAO = require("./products/ProductosMongoDAO.js");
+    const CarritoMongoDAO = require("./carrito/CarritoMongoDAO.js");
 
     productoDao = new ProductosMongoDAO();
     carritoDao = new CarritoMongoDAO();
     break;
 
   case "firebase":
-    const { default: ProductosFirebaseDAO } = await import("./products/ProductosFirebaseDAO.js");
-    const { default: CarritoFirebaseDAO } = await import("./carrito/CarritoFirebaseDAO.js");
+    const { default: ProductosFirebaseDAO } = require("./products/ProductosFirebaseDAO.js");
+    const { default: CarritoFirebaseDAO } = require("./carrito/CarritoFirebaseDAO.js");
 
     productoDao = new ProductosFirebaseDAO();
     carritoDao = new CarritoFirebaseDAO();
     break;
 }
 
-export { carritoDao, productoDao };
+module.exports = { carritoDao, productoDao };

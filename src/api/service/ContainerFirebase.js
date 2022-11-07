@@ -1,6 +1,6 @@
-import admin from "firebase-admin";
-import serviceAccount from "../db/certificateFirebase/coderhouse-backend-lp-firebase-adminsdk-56jxd-1dc3e4d9d1.json";
-import * as dotenv from "dotenv";
+const admin = require("firebase-admin");
+const serviceAccount = require("../db/certificateFirebase/coderhouse-backend-lp-firebase-adminsdk-56jxd-1dc3e4d9d1.json");
+const dotenv = require("dotenv");
 dotenv.config();
 
 const FIREBASE_CERTIFICATE = JSON.parse(process.env.FIREBASE_CERTIFICATE);
@@ -67,4 +67,4 @@ class ContainerFirebase {
   }
 }
 
-export default ContainerFirebase;
+module.exports = ContainerFirebase;

@@ -1,4 +1,4 @@
-import ContainerArchivo from "../../service/ContainerArchivo.js";
+const ContainerArchivo = require( "../../service/ContainerArchivo.js");
 
 class ProductosArchivoDAO extends ContainerArchivo {
   constructor() {
@@ -6,4 +6,4 @@ class ProductosArchivoDAO extends ContainerArchivo {
   }
 }
 
-export default ProductosArchivoDAO;
+module.exports = ProductosArchivoDAO;

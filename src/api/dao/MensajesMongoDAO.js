@@ -1,5 +1,5 @@
-import { Schema } from "mongoose";
-import ContainerMongo from "../service/ContainerMongo.js";
+const { Schema } = require("mongoose");
+const ContainerMongo = require("../service/ContainerMongo.js");
 
 const authorSchema = new Schema({
   id: { type: String, require: true, max: 1000 },
@@ -22,4 +22,4 @@ class MensajesMongoDAO extends ContainerMongo {
   }
 }
 
-export default MensajesMongoDAO;
+module.exports = MensajesMongoDAO;

@@ -1,4 +1,4 @@
-import ContainerFirebase from "../../service/ContainerFirebase.js";
+const ContainerFirebase = require("../../service/ContainerFirebase.js");
 
 class CarritoFirebaseDAO extends ContainerFirebase {
   constructor() {
@@ -6,4 +6,4 @@ class CarritoFirebaseDAO extends ContainerFirebase {
   }
 }
 
-export default CarritoFirebaseDAO;
+module.exports = CarritoFirebaseDAO;

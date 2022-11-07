@@ -1,5 +1,5 @@
-import ContainerSqlite from "../../service/ContainerSqlite.js";
-import configSQLite from "../../utils/configSQLite.js";
+const ContainerSqlite = require("../../service/ContainerSqlite.js");
+const configSQLite = require("../../utils/configSQLite.js");
 
 class CarritoSqliteDAO extends ContainerSqlite {
   constructor() {
@@ -7,4 +7,4 @@ class CarritoSqliteDAO extends ContainerSqlite {
   }
 }
 
-export default CarritoSqliteDAO;
+module.exports = CarritoSqliteDAO;

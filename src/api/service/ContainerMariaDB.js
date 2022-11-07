@@ -1,5 +1,5 @@
-import knex from "knex";
-import * as dotenv from "dotenv";
+const knex = require("knex");
+const dotenv = require("dotenv");
 dotenv.config();
 const configMariaDB = process.env.configMariaDB;
 
@@ -31,4 +31,4 @@ class ContainerMariaDB {
   }
 }
 
-export default ContainerMariaDB;
+module.exports = ContainerMariaDB;

@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import ContainerMongo from "../../service/ContainerMongo.js";
+const mongoose = require("mongoose");
+const ContainerMongo = require("../../service/ContainerMongo.js");
 
 const productoSchema = new mongoose.Schema({
   title: { type: String, require: true, max: 100 },
@@ -17,4 +17,4 @@ class ProductosMongoDAO extends ContainerMongo {
   }
 }
 
-export default ProductosMongoDAO;
+module.exports = ProductosMongoDAO;

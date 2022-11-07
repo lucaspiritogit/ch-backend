@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "Coderhouse project",
   "main": "app.js",
-  "type": "module",
   "scripts": {
-    "start": "node --experimental-json-modules app.js",
+    "start": "nodemon --experimental-json-modules app.js",
     "tableProd": "node ./src/api/batch/createTableProducts.js",
     "tableCarrito": "node ./src/api/batch/createTableCarritos.js"
   },

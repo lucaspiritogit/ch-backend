@@ -1,15 +1,20 @@
-import mongoose from "mongoose";
-import * as dotenv from "dotenv";
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 dotenv.config();
 
-const URL = process.env.MONGO_CONNECTION_URL;
-let rta = await mongoose.connect(URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const connectMongo = async () => {
+  try {
+    const URL = process.env.MONGO_CONNECTION_URL;
+    await mongoose.connect(URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-await mongoose.connect(URL, rta);
-
+connectMongo();
 console.log("Connected with MongoDB");
 class ContainerMongo {
   constructor(collectionName, scheme) {
@@ -59,4 +64,4 @@ class ContainerMongo {
   }
 }
 
-export default ContainerMongo;
+module.exports = ContainerMongo;

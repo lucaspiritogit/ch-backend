@@ -1,16 +1,17 @@
-import cookieParser from "cookie-parser";
-import express, { json, urlencoded } from "express";
-import { engine } from "express-handlebars";
-import session from "express-session";
-import { Server as HttpServer } from "http";
-import normalizr from "normalizr";
-import { Server as Socket } from "socket.io";
-import ProductosMongoDAO from "./src/api/dao/products/ProductosMongoDAO.js";
-import passport from "passport";
-import { Strategy } from "passport-local";
-import User from "./src/api/models/userModel.js";
-import minimist from "minimist";
-import { fork } from "child_process";
+const cookieParser = require("cookie-parser");
+const express = require("express");
+const { json, urlencoded } = require("express");
+const { engine } = require("express-handlebars");
+const session = require("express-session");
+const http = require("http");
+const { Server } = require("socket.io");
+const ProductosMongoDAO = require("./src/api/dao/products/ProductosMongoDAO.js");
+const passport = require("passport");
+const { Strategy } = require("passport-local");
+const User = require("./src/api/models/userModel.js");
+const minimist = require("minimist");
+const { fork } = require("child_process");
+const normalizr = require("normalizr");
 
 let options = { alias: { p: "puerto" } };
 let args = minimist(process.argv.slice(2), options);
@@ -20,15 +21,15 @@ const LocalStrategy = Strategy;
 const containerProdMongo = new ProductosMongoDAO();
 
 const app = express();
-const server = new HttpServer(app);
-const io = new Socket(server);
+const server = http.createServer(app);
+const io = new Server(server);
 let PORT = args.p;
 if (args.p === null || args.p === undefined) {
   PORT = 8080;
 }
 console.log(args);
 /* ---------------------------- DB ------------------------- */
-import daoMensajes from "./src/api/dao/MensajesMongoDAO.js";
+const daoMensajes = require("./src/api/dao/MensajesMongoDAO.js");
 const dao = new daoMensajes();
 
 /* ---------------------------- Middlewares ------------------------- */
@@ -103,9 +104,9 @@ passport.use(
 );
 
 /* --------------------------- Router ---------------------------------- */
-import routerCarrito from "./src/api/routes/carrito.routes.js";
-import routerProductos from "./src/api/routes/productos.routes.js";
-import { log } from "console";
+const routerCarrito = require("./src/api/routes/carrito.routes.js");
+const routerProductos = require("./src/api/routes/productos.routes.js");
+const { log } = require("console");
 
 app.use("/api/productos", routerProductos);
 app.use("/api/carrito", routerCarrito);
@@ -129,20 +130,18 @@ app.get("/info", (req, res) => {
 });
 
 app.get("/api/randoms", (req, res) => {
-  let cant = req.query.cant;
+  let cant = parseInt(req.query.cant);
 
   if (!req.query.cant) {
     cant = 10000000;
   }
 
-  const child = fork("./src/api/public/js/operation.js");
-  child.send(cant, () => {});
+  const child = fork("./operation.js");
+  child.send({ cant: cant });
 
   child.on("message", message => {
-    console.log(message, "from child");
-    res.json({ message });
+    res.send(message);
   });
-  res.json({});
 });
 
 // login
@@ -191,7 +190,6 @@ const messagesSchema = new normalizr.schema.Entity(
   },
   { idAttribute: "id" }
 );
-//////////////////////
 
 const normalizarMsj = msjs => {
   return normalizr.normalize(msjs, messagesSchema);
@@ -202,6 +200,31 @@ async function mostrarMensajesNormalizados() {
   const normalizedMessages = normalizarMsj({ id: "msj", allMessages });
   return normalizedMessages;
 }
+
+io.on("connection", async socket => {
+  console.log("user connected with socket id:", socket.id);
+
+  // productos
+  socket.on("productos-cliente", async data => {
+    await containerProdMongo.save(data);
+
+    io.sockets.emit("productos-server", await containerProdMongo.getAll());
+  });
+
+  socket.emit("productos-server", await containerProdMongo.getAll());
+
+  // chat
+  socket.on("nuevo-mensaje-cliente", async data => {
+    try {
+      await dao.save(data);
+      io.sockets.emit("nuevo-mensaje-server", await mostrarMensajesNormalizados());
+    } catch (error) {
+      throw error;
+    }
+  });
+
+  socket.emit("nuevo-mensaje-server", await mostrarMensajesNormalizados());
+});
 
 server.listen(PORT, () => {
   console.log(`Server up at http://localhost:${PORT}`);

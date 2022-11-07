@@ -1,4 +1,4 @@
-import { readFile, readFileSync, writeFileSync } from "fs";
+const { readFile, readFileSync, writeFileSync } = require("fs");
 
 console.log("Using .txt files");
 class ContainerArchivo {
@@ -101,4 +101,4 @@ class ContainerArchivo {
   }
 }
 
-export default ContainerArchivo;
+module.exports = ContainerArchivo;

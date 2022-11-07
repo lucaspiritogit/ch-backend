@@ -1,6 +1,6 @@
-import * as dotenv from "dotenv";
-import { Router } from "express";
-import { carritoDao, productoDao } from "../dao/setDB.js";
+const dotenv = require("dotenv");
+const { Router } = require("express");
+const { carritoDao, productoDao } = require("../dao/setDB.js");
 dotenv.config();
 const routerProductos = Router();
 
@@ -61,4 +61,4 @@ routerProductos.get("/", async (req, res, next) => {
   }
 });
 
-export default routerProductos;
+module.exports = routerProductos;

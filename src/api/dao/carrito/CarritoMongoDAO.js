@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import ContainerMongo from "../../service/ContainerMongo.js";
+const mongoose = require("mongoose");
+const ContainerMongo = require("../../service/ContainerMongo.js");
 
 const carritoSchema = new mongoose.Schema({
   products: [],
@@ -12,4 +12,4 @@ class CarritoMongoDAO extends ContainerMongo {
   }
 }
 
-export default CarritoMongoDAO;
+module.exports = CarritoMongoDAO;

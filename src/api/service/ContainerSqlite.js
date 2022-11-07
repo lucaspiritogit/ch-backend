@@ -1,5 +1,5 @@
-import knex from "knex";
-import config from "../../utils/config.js";
+const knex = require("knex");
+const config = require("../../utils/config.js");
 
 class ContainerSqliteDAO {
   constructor(tableName, config) {
@@ -28,4 +28,4 @@ class ContainerSqliteDAO {
   }
 }
 
-export default ContainerSqliteDAO;
+module.exports = ContainerSqliteDAO;
