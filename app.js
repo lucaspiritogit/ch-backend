@@ -28,9 +28,9 @@ let changeInitMode = args.m;
 
 if (args.m === "cluster") {
   changeInitMode = "cluster";
-  console.log(`Mode is now: ${args.m}`);
 }
 console.table(args);
+console.log(`Mode is now: ${args.m}`);
 console.log("processes", process.pid);
 
 if (cluster.isPrimary && args.m === "cluster") {
@@ -153,7 +153,7 @@ if (cluster.isPrimary && args.m === "cluster") {
     let cant = parseInt(req.query.cant);
 
     if (!req.query.cant) {
-      cant = 10000000;
+      cant = 1000000;
     }
 
     const child = fork("./operation.js");
