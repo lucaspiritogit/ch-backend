@@ -11,6 +11,8 @@ import { Strategy } from "passport-local";
 import User from "./src/api/models/userModel.js";
 import minimist from "minimist";
 import { fork } from "child_process";
+import cluster from "cluster";
+import numCPUs from "os";
 
 let options = { alias: { p: "puerto" } };
 let args = minimist(process.argv.slice(2), options);
@@ -26,7 +28,6 @@ let PORT = args.p;
 if (args.p === null || args.p === undefined) {
   PORT = 8080;
 }
-console.log(args);
 /* ---------------------------- DB ------------------------- */
 import daoMensajes from "./src/api/dao/MensajesMongoDAO.js";
 const dao = new daoMensajes();
@@ -124,8 +125,18 @@ app.get("/info", (req, res) => {
   let rss = process.memoryUsage().heapUsed;
   let processId = process.pid;
   let processCwd = process.cwd();
+  let cpus = numCPUs.cpus.length;
 
-  res.render("./info.hbs", { projectPath, vars, os, nodeVersion, rss, processId, processCwd });
+  res.render("./info.hbs", {
+    projectPath,
+    vars,
+    os,
+    nodeVersion,
+    rss,
+    processId,
+    processCwd,
+    cpus,
+  });
 });
 
 app.get("/api/randoms", (req, res) => {
@@ -191,7 +202,6 @@ const messagesSchema = new normalizr.schema.Entity(
   },
   { idAttribute: "id" }
 );
-//////////////////////
 
 const normalizarMsj = msjs => {
   return normalizr.normalize(msjs, messagesSchema);
@@ -202,6 +212,8 @@ async function mostrarMensajesNormalizados() {
   const normalizedMessages = normalizarMsj({ id: "msj", allMessages });
   return normalizedMessages;
 }
+
+/* --------------------------- Cluster ---------------------------------- */
 
 server.listen(PORT, () => {
   console.log(`Server up at http://localhost:${PORT}`);
