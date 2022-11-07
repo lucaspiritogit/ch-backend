@@ -6,6 +6,8 @@
   "scripts": {
     "start": "nodemon --experimental-json-modules app.js",
     "dev": "node app.js",
+    "forever": "forever start app.js -m 'cluster'",
+    "foreverStop": "forever stopall",
     "tableProd": "node ./src/api/batch/createTableProducts.js",
     "tableCarrito": "node ./src/api/batch/createTableCarritos.js"
   },
@@ -24,6 +26,7 @@
     "bcryptjs": "^2.4.3",
     "better-sqlite3": "^7.6.2",
     "body-parser": "^1.20.0",
+    "cluster": "^0.7.7",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
