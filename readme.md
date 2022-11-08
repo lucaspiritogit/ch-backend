@@ -28,12 +28,12 @@ El servidor se puede levantar de las siguientes maneras:
 
 ```js
   "scripts": {
-    "start": "nodemon --experimental-json-modules app.js",
-    "dev": "node app.js",
-    "forever": "forever start app.js -m 'cluster' --watch",
-    "foreverStop": "forever stopall",
-    "pm2Fork": "pm2 start app.js --name='ForkServer' --watch -- 8080 & pm2 start app.js --name='ForkServer2' --watch -- 8081",
-    "pm2Cluster": "pm2 start app.js --name='Server1' -i max --watch -- 8080",
-    "pm2Stop": "pm2 kill",
+      "start": "nodemon --experimental-json-modules app.js",
+      "dev": "node app.js",
+      "forever": "forever start app.js -m 'cluster' --watch",
+      "foreverStop": "forever stopall",
+      "pm2Fork": "pm2 start app.js --name='ForkServer' --watch -- 8080 & pm2 start app.js --name='ForkServer2' --watch -- 8081",
+      "pm2Cluster": "pm2 start app.js --name='Server1' -i max --watch -- 8080",
+      "pm2Stop": "pm2 kill",
     }
 ```
