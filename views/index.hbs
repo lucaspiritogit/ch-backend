@@ -4,9 +4,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/navbar.css" />
     <title>Backend | Lucas Pirito</title>
   </head>
   <body>
+    {{! Commented for future uses }}
     {{! <form action="/api/productos" method="post">
       <div class="container">
         <label for="title">Title</label>
@@ -18,40 +20,58 @@
         <button type="submit">Enviar</button>
       </div>
     </form> }}
-
-    <div>
-      <h1>Compresion de chat:</h1>
-      <h2 id="compressionRate"></h2>
-    </div>
-
-    <form onsubmit="return sendProduct(this)">
-      <div class="container">
-        <label for="title">Title</label>
-        <input id="title" type="text" name="title" placeholder="title" />
-        <label for="price">Price</label>
-        <input id="price" type="text" name="price" placeholder="price" />
-        <label for="thumbnail">Thumbnail</label>
-        <input id="thumbnail" type="text" name="thumbnail" placeholder="url" />
-        <label for="thumbnail">stock</label>
-        <input id="stock" type="text" name="stock" placeholder="stock" />
-        <label for="thumbnail">code</label>
-        <input id="code" type="text" name="code" placeholder="code" />
-        <label for="description">description</label>
-        <input id="description" type="text" name="description" placeholder="url" />
-        <button type="submit">Enviar</button>
+    <nav class="navbar">
+      <div class="navbarTitle">
+        <h1>
+          Coderhouse back-end | Lucas Pirito
+        </h1>
       </div>
-    </form>
+      <ol class="navbarLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+      </ol>
+    </nav>
+
+    <div class="postProduct">
+      <h1 style="text-align: center; font-size:3.2rem;">Ingresar un producto</h1>
+      <form id="postProductForm" onsubmit="return sendProduct(this)">
+        <div class="container">
+          <label for="title">Title</label>
+          <input id="title" type="text" name="title" placeholder="title" />
+          <label for="price">Price</label>
+          <input id="price" type="text" name="price" placeholder="price" />
+          <label for="thumbnail">Thumbnail</label>
+          <input id="thumbnail" type="text" name="thumbnail" placeholder="url" />
+          <label for="thumbnail">stock</label>
+          <input id="stock" type="text" name="stock" placeholder="stock" />
+          <label for="thumbnail">code</label>
+          <input id="code" type="text" name="code" placeholder="code" />
+          <label for="description">description</label>
+          <input id="description" type="text" name="description" placeholder="description" />
+          <button class="submitProductButton" type="submit">Enviar</button>
+        </div>
+      </form>
+    </div>
+    <div class="productListIntro">
+      <h1 style="text-align: center; font-size:3.2rem;">Listado de productos:</h1>
+    </div>
     <div id="listadoProductos">
     </div>
     <form id="chatBox" onsubmit="return sendMessage(this)">
-      <h1>chat</h1>
+      <h2>Live Chat</h2>
       <label for="email">Email</label>
       <input type="email" name="email" id="email" placeholder="email" required />
       <label for="mensaje">Mensaje</label>
       <input type="text" name="mensaje" id="mensaje" placeholder="mensaje" />
-      <button type="submit">Enviar</button>
+      <button id="submitChatMessageButton" type="submit">Enviar</button>
     </form>
+    <small>chatbox</small>
     <div id="chatLog"></div>
+    <div>
+      <h1>Compresion de chat:</h1>
+      <h2 id="compressionRate"></h2>
+    </div>
     <script
       src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"
     ></script>

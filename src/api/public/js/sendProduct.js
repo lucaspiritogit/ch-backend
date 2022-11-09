@@ -1,6 +1,7 @@
 // /* --------------------------- Products ---------------------------------- */
 
 const sendProduct = () => {
+  const id = document.getElementById("id");
   const title = document.getElementById("title");
   const price = document.getElementById("price");
   const thumbnail = document.getElementById("thumbnail");
@@ -28,7 +29,7 @@ function renderProducts(productos) {
       }
       return `
     <div class="producto">
-      <h3>Id: ${product.id}</h3>
+      <h3>Id: ${product._id}</h3>
       <h3>Titulo:${product.title}</h3>
       <h3>Precio:${product.price}</h3>
       <div class="productoThumbnail">

@@ -1,0 +1,32 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(255, 255, 255);
+  padding: 10px;
+}
+
+.navbar > * {
+  color: rgba(255, 255, 255, 0.632);
+}
+
+.navbarTitle {
+  font-size: 1.2rem;
+}
+
+.navbarLinks {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  align-self: center;
+}
+
+.navbarLinks li {
+  list-style-type: none;
+  color: rgba(143, 239, 70, 0.632);
+}
+
+.navbarLinks li a {
+  display: inline-flex;
+  color: rgba(143, 239, 70, 0.802);
+}

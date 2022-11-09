@@ -116,7 +116,6 @@ if (cluster.isPrimary && args.m === "cluster") {
   /* --------------------------- Router ---------------------------------- */
   const routerCarrito = require("./src/api/routes/carrito.routes.js");
   const routerProductos = require("./src/api/routes/productos.routes.js");
-  const { log, table } = require("console");
 
   app.use("/api/productos", routerProductos);
   app.use("/api/carrito", routerCarrito);

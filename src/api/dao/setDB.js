@@ -33,6 +33,11 @@ switch (process.env.DBTYPE) {
     productoDao = new ProductosFirebaseDAO();
     carritoDao = new CarritoFirebaseDAO();
     break;
+
+  default:
+    console.error(
+      "Se ingreso un parametro que no existe para conectarse a la base de datos, proba con 'mongo' o 'firebase'. De todas maneras, la aplicacion se levantara."
+    );
 }
 
 module.exports = { carritoDao, productoDao };

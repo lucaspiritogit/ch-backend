@@ -1,5 +1,5 @@
 const socket = io.connect();
-/* --------------------------- Messages ---------------------------------- */
+
 const sendMessage = () => {
   const inputEmail = document.getElementById("email");
   const inputMensaje = document.getElementById("mensaje");
@@ -32,6 +32,7 @@ const messagesSchema = new normalizr.schema.Entity(
   },
   { idAttribute: "id" }
 );
+
 socket.on("nuevo-mensaje-server", messages => {
   let mensajesNormalizedSize = JSON.stringify(messages).length;
   let denormalizedMessages = normalizr.denormalize(
@@ -43,13 +44,13 @@ socket.on("nuevo-mensaje-server", messages => {
 
   let percentage = parseInt((mensajesNormalizedSize * 100) / denormalizedMessagesSize);
 
-  document.getElementById("compressionRate").innerHTML = percentage;
+  document.getElementById("compressionRate").innerHTML = `${percentage}%`;
 
   renderMessages(denormalizedMessages);
 });
 
 function renderMessages(mensajes) {
-  const html = mensajes.allMessages
+  const chatLog = mensajes.allMessages
     .map(msj => {
       return `
         <div class="mensajes">
@@ -60,5 +61,5 @@ function renderMessages(mensajes) {
          `;
     })
     .join("<br>");
-  document.getElementById("chatLog").innerHTML = html;
+  document.getElementById("chatLog").innerHTML = chatLog;
 }
