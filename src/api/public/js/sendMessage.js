@@ -1,7 +1,4 @@
-const Logger = require("../../../../logs/logger.js");
-
 const socket = io.connect();
-const logger = new Logger();
 const sendMessage = () => {
   const inputEmail = document.getElementById("email");
   const inputMensaje = document.getElementById("mensaje");
@@ -66,7 +63,6 @@ function renderMessages(mensajes) {
       .join("<br>");
     document.getElementById("chatLog").innerHTML = chatLog;
   } catch (error) {
-    logger.logError(error);
     throw error;
   }
 }

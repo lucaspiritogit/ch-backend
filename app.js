@@ -16,7 +16,6 @@ const normalizr = require("normalizr");
 const cluster = require("cluster");
 const os = require("os");
 const compression = require("compression");
-const log4js = require("log4js");
 const Logger = require("./logs/logger.js");
 /* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
@@ -243,9 +242,13 @@ if (cluster.isPrimary && args.m === "cluster") {
 
     // productos
     socket.on("productos-cliente", async data => {
-      await containerProdMongo.save(data);
-
-      io.sockets.emit("productos-server", await containerProdMongo.getAll());
+      try {
+        await containerProdMongo.save(data);
+        io.sockets.emit("productos-server", await containerProdMongo.getAll());
+      } catch (error) {
+        logger.logError(error);
+        throw error;
+      }
     });
 
     socket.emit("productos-server", await containerProdMongo.getAll());
@@ -256,6 +259,7 @@ if (cluster.isPrimary && args.m === "cluster") {
         await dao.save(data);
         io.sockets.emit("nuevo-mensaje-server", await mostrarMensajesNormalizados());
       } catch (error) {
+        logger.logError(error);
         throw error;
       }
     });
