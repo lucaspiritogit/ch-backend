@@ -3,14 +3,6 @@ const { Router } = require("express");
 const { carritoDao, productoDao } = require("../dao/setDB.js");
 const routerCarrito = Router();
 dotenv.config();
-const log4js = require("log4js");
-log4js.configure({
-  appenders: {
-    loggerAll: { type: "console" },
-  },
-  categories: { default: { appenders: ["loggerAll"], level: "all" } },
-});
-const logger = log4js.getLogger();
 
 routerCarrito.post("/", async (req, res, next) => {
   const time = new Date();
@@ -53,7 +45,6 @@ routerCarrito.delete("/:idCarrito/productos/:idProducto", async (req, res, next)
       res.json({ msg: "Product deleted" });
     }
   } catch (error) {
-    logger.error("Carrito not found");
     res.json({ msg: "Carrito or Product not found" });
   }
 });
@@ -98,7 +89,6 @@ routerCarrito.delete("/:id", async (req, res, next) => {
 
     res.send(201);
   } catch (error) {
-    logger.error("Carrito not found");
     res.send({ error: "Carrito not found" });
   }
 });

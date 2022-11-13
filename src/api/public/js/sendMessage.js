@@ -1,5 +1,7 @@
-const socket = io.connect();
+const Logger = require("../../../../logs/logger.js");
 
+const socket = io.connect();
+const logger = new Logger();
 const sendMessage = () => {
   const inputEmail = document.getElementById("email");
   const inputMensaje = document.getElementById("mensaje");
@@ -50,16 +52,21 @@ socket.on("nuevo-mensaje-server", messages => {
 });
 
 function renderMessages(mensajes) {
-  const chatLog = mensajes.allMessages
-    .map(msj => {
-      return `
-        <div class="mensajes">
-          <h3 class="timestamp">[${msj.author.timestamp}]&nbsp</h3>
-          <h3 class="usuario">${msj.author.id}:</h3>
-          <h3 class="mensaje">&nbsp${msj.message}&nbsp</h3>
-         </div
-         `;
-    })
-    .join("<br>");
-  document.getElementById("chatLog").innerHTML = chatLog;
+  try {
+    const chatLog = mensajes.allMessages
+      .map(msj => {
+        return `
+          <div class="mensajes">
+            <h3 class="timestamp">[${msj.author.timestamp}]&nbsp</h3>
+            <h3 class="usuario">${msj.author.id}:</h3>
+            <h3 class="mensaje">&nbsp${msj.message}&nbsp</h3>
+           </div
+           `;
+      })
+      .join("<br>");
+    document.getElementById("chatLog").innerHTML = chatLog;
+  } catch (error) {
+    logger.logError(error);
+    throw error;
+  }
 }

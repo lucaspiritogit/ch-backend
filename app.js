@@ -17,21 +17,12 @@ const cluster = require("cluster");
 const os = require("os");
 const compression = require("compression");
 const log4js = require("log4js");
+const Logger = require("./logs/logger.js");
 /* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
-
-/* ---------------------------- Log4js Config ------------------------- */
-// Esto deberia de moverlo a un archivo separado despues
-log4js.configure({
-  appenders: {
-    loggerAll: { type: "console" },
-  },
-  categories: { default: { appenders: ["loggerAll"], level: "all" } },
-});
-
-const logger = log4js.getLogger();
+const logger = new Logger();
 
 /* ---------------------------- args ------------------------- */
 let options = { alias: { p: "puerto", m: "modo" }, default: { p: 8080, m: "fork" } };
@@ -141,7 +132,7 @@ if (cluster.isPrimary && args.m === "cluster") {
 
   // info - clase28
   app.get("/info", (req, res) => {
-    logger.info(`Requesting: ${req.url} from server`);
+    logger.logInfoRoute(req.url);
     let vars = process.argv;
     let projectPath = vars[1];
     let operativeSystem = os.platform;
@@ -272,8 +263,9 @@ if (cluster.isPrimary && args.m === "cluster") {
     socket.emit("nuevo-mensaje-server", await mostrarMensajesNormalizados());
   });
 
+  // Check for missing routes
   app.get("*", (req, res) => {
-    logger.warn("Route does not exist");
+    logger.logMissingRoute(req.url);
   });
 
   server.listen(PORT, () => {
