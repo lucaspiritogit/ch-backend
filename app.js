@@ -155,12 +155,25 @@ if (cluster.isPrimary && args.m === "cluster") {
       cant = 1000000;
     }
 
-    const child = fork("./operation.js");
-    child.send({ cant: cant });
+    if (changeInitMode == "cluster") {
+      function calcularCantidad(cant) {
+        let arrOfNumbers = [];
+        for (let i = 1; i <= cant; i++) {
+          arrOfNumbers.push({
+            num: i,
+          });
+        }
+        return arrOfNumbers;
+      }
+      res.send(calcularCantidad(cant));
+    } else {
+      const child = fork("./operation.js");
+      child.send({ cant: cant });
 
-    child.on("message", message => {
-      res.send(message);
-    });
+      child.on("message", message => {
+        res.send(message);
+      });
+    }
   });
 
   // login
