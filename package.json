@@ -4,7 +4,7 @@
   "description": "Coderhouse project",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --experimental-json-modules app.js",
+    "start": "node app.js",
     "dev": "node app.js",
     "forever": "forever start app.js -m 'cluster' --watch && forever list",
     "foreverStop": "forever stopall && forever list",
