@@ -26,7 +26,7 @@ const logger = new Logger();
 /* ---------------------------- args ------------------------- */
 let options = { alias: { p: "puerto", m: "modo" }, default: { p: 8080, m: "fork" } };
 let args = minimist(process.argv.slice(2), options);
-let PORT = args.p;
+let PORT = args.p || process.env.PORT || 8080;
 let changeInitMode = args.m;
 
 if (args.m === "cluster") {
@@ -272,7 +272,7 @@ if (cluster.isPrimary && args.m === "cluster") {
     logger.logMissingRoute(req.url);
   });
 
-  server.listen(PORT || process.env.PORT, () => {
+  server.listen(PORT, () => {
     console.log(`Server up at http://localhost:${PORT}`);
   });
 }
