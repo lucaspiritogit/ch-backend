@@ -26,7 +26,7 @@ const logger = new Logger();
 /* ---------------------------- args ------------------------- */
 let options = { alias: { p: "puerto", m: "modo" }, default: { p: 8080, m: "fork" } };
 let args = minimist(process.argv.slice(2), options);
-let PORT = args.p;
+let PORT = args.p || 8080;
 let changeInitMode = args.m;
 
 if (args.m === "cluster") {
