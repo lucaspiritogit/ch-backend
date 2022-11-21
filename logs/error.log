@@ -39,3 +39,4 @@
 [2022-11-14T20:01:46.028] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
 [2022-11-14T20:01:46.028] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
 [2022-11-14T20:03:46.391] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
+[2022-11-21T14:36:04.341] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
