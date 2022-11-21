@@ -272,7 +272,7 @@ if (cluster.isPrimary && args.m === "cluster") {
     logger.logMissingRoute(req.url);
   });
 
-  server.listen(PORT || process.env.port || 8080, () => {
+  server.listen(PORT || process.env.PORT, () => {
     console.log(`Server up at http://localhost:${PORT}`);
   });
 }
