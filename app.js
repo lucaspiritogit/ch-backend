@@ -247,7 +247,7 @@ if (cluster.isPrimary && args.m === "cluster") {
         io.sockets.emit("productos-server", await containerProdMongo.getAll());
       } catch (error) {
         logger.logError(error);
-        throw error;
+        throw { error: "MongoDB connection failed" };
       }
     });
 
@@ -260,16 +260,11 @@ if (cluster.isPrimary && args.m === "cluster") {
         io.sockets.emit("nuevo-mensaje-server", await mostrarMensajesNormalizados());
       } catch (error) {
         logger.logError(error);
-        throw error;
+        throw { error: "MongoDB connection failed" };
       }
     });
 
     socket.emit("nuevo-mensaje-server", await mostrarMensajesNormalizados());
-  });
-
-  // Check for missing routes
-  app.get("*", (req, res) => {
-    logger.logMissingRoute(req.url);
   });
 
   server.listen(PORT, () => {

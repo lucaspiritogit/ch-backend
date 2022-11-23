@@ -1,5 +1,4 @@
 const admin = require("firebase-admin");
-const serviceAccount = require("../db/certificateFirebase/coderhouse-backend-lp-firebase-adminsdk-56jxd-1dc3e4d9d1.json");
 const dotenv = require("dotenv");
 dotenv.config();
 

@@ -43,3 +43,15 @@
 [2022-11-14T20:01:46.028] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
 [2022-11-14T20:03:46.391] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
 [2022-11-21T14:36:04.341] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
+[2022-11-23T20:32:44.903] [ERROR] default - Error thrown: MongooseError: Operation `productos.insertOne()` buffering timed out after 10000ms
+[2022-11-23T20:35:37.871] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
+[2022-11-23T20:39:14.446] [ERROR] default - Error thrown: MongooseError: Operation `productos.insertOne()` buffering timed out after 10000ms
+[2022-11-23T20:39:51.495] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
+[2022-11-23T20:40:25.815] [WARN] default - Route: /favicon.ico does not exist
+[2022-11-23T20:40:35.765] [WARN] default - Route: /favicon.ico does not exist
+[2022-11-23T20:40:36.244] [WARN] default - Route: /favicon.ico does not exist
+[2022-11-23T20:40:51.470] [WARN] default - Route: /favicon.ico does not exist
+[2022-11-23T20:40:51.699] [WARN] default - Route: /favicon.ico does not exist
+[2022-11-23T20:40:51.870] [WARN] default - Route: /favicon.ico does not exist
+[2022-11-23T20:40:52.017] [WARN] default - Route: /favicon.ico does not exist
+[2022-11-23T20:40:52.208] [WARN] default - Route: /favicon.ico does not exist

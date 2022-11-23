@@ -27,8 +27,8 @@ switch (process.env.DBTYPE) {
     break;
 
   case "firebase":
-    const { default: ProductosFirebaseDAO } = require("./products/ProductosFirebaseDAO.js");
-    const { default: CarritoFirebaseDAO } = require("./carrito/CarritoFirebaseDAO.js");
+    const ProductosFirebaseDAO = require("./products/ProductosFirebaseDAO.js");
+    const CarritoFirebaseDAO = require("./carrito/CarritoFirebaseDAO.js");
 
     productoDao = new ProductosFirebaseDAO();
     carritoDao = new CarritoFirebaseDAO();

@@ -40,3 +40,7 @@
 [2022-11-14T20:01:46.028] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
 [2022-11-14T20:03:46.391] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
 [2022-11-21T14:36:04.341] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
+[2022-11-23T20:32:44.903] [ERROR] default - Error thrown: MongooseError: Operation `productos.insertOne()` buffering timed out after 10000ms
+[2022-11-23T20:35:37.871] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
+[2022-11-23T20:39:14.446] [ERROR] default - Error thrown: MongooseError: Operation `productos.insertOne()` buffering timed out after 10000ms
+[2022-11-23T20:39:51.495] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
