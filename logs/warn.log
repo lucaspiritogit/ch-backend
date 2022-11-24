@@ -55,3 +55,4 @@
 [2022-11-23T20:40:51.870] [WARN] default - Route: /favicon.ico does not exist
 [2022-11-23T20:40:52.017] [WARN] default - Route: /favicon.ico does not exist
 [2022-11-23T20:40:52.208] [WARN] default - Route: /favicon.ico does not exist
+[2022-11-24T00:36:01.999] [ERROR] default - Error thrown: MongoServerError: bad auth : Authentication failed.

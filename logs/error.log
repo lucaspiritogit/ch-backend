@@ -44,3 +44,4 @@
 [2022-11-23T20:35:37.871] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
 [2022-11-23T20:39:14.446] [ERROR] default - Error thrown: MongooseError: Operation `productos.insertOne()` buffering timed out after 10000ms
 [2022-11-23T20:39:51.495] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
+[2022-11-24T00:36:01.999] [ERROR] default - Error thrown: MongoServerError: bad auth : Authentication failed.
