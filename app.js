@@ -54,6 +54,8 @@ if (cluster.isPrimary && args.m === "cluster") {
       cookie: { maxAge: 200000 },
     })
   );
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.use(cookieParser());
 
   /* ---------------------------- Views ------------------------- */
@@ -125,7 +127,7 @@ if (cluster.isPrimary && args.m === "cluster") {
   app.use("/api/carrito", routerCarrito);
 
   // home
-  app.get("/", (req, res) => {
+  app.get("/", passport.authenticate("local-login", { failureRedirect: "/login" }), (req, res) => {
     res.render("./index.hbs");
   });
 
@@ -188,9 +190,11 @@ if (cluster.isPrimary && args.m === "cluster") {
 
   app.post(
     "/login",
-    passport.authenticate("local-login", { successRedirect: "/", failureRedirect: "/loginError" })
+    passport.authenticate("local-login", { failureRedirect: "/loginError" }),
+    (req, res) => {
+      res.render("./index.hbs");
+    }
   );
-
   app.get("/loginError", (req, res) => {
     res.render("./loginError.hbs");
   });
