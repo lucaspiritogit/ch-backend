@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "build": "webpack --config webpack.config.js",
+    "build": "node app.js",
     "forever": "forever start app.js -m 'cluster' --watch && forever list",
     "foreverStop": "forever stopall && forever list",
     "pm2Fork": "pm2 start app.js --name='ForkServer' --watch -- 8080 && pm2 start app.js --name='ForkServer2' --watch -- 8081",
