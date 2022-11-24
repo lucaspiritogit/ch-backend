@@ -24,6 +24,10 @@
   "bugs": {
     "url": "https://github.com/lucaspiritogit/ch-backend/issues"
   },
+  "os": [
+    "darwin",
+    "win32"
+  ],
   "homepage": "https://github.com/lucaspiritogit/ch-backend#readme",
   "dependencies": {
     "@faker-js/faker": "^7.5.0",
