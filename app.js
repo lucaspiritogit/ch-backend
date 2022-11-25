@@ -17,6 +17,8 @@ const cluster = require("cluster");
 const os = require("os");
 const compression = require("compression");
 const Logger = require("./logs/logger.js");
+const serverless = require("serverless-http");
+const router = express.Router();
 /* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
 const server = http.createServer(app);
@@ -274,4 +276,7 @@ if (cluster.isPrimary && args.m === "cluster") {
   server.listen(PORT, () => {
     console.log(`Server up at http://localhost:${PORT}`);
   });
+
+  app.use("/.netlify/functions/api", router);
+  module.exports.handler = serverless(server);
 }

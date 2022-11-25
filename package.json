@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "build": "node app.js",
+    "build": "./node_modules/.bin/netlify-lambda build src",
     "forever": "forever start app.js -m 'cluster' --watch && forever list",
     "foreverStop": "forever stopall && forever list",
     "pm2Fork": "pm2 start app.js --name='ForkServer' --watch -- 8080 && pm2 start app.js --name='ForkServer2' --watch -- 8081",
@@ -45,12 +45,14 @@
     "minimist": "^1.2.7",
     "mongoose": "^6.6.3",
     "mysql": "^2.18.1",
+    "netlify-lambda": "^2.0.15",
     "node-fetch": "^3.2.10",
     "nodemon": "^2.0.19",
     "normalizr": "^3.6.2",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pug": "^3.0.2",
+    "serverless-http": "^3.1.0",
     "socket.io": "^4.5.1",
     "sqlite3": "^5.1.1"
   }
