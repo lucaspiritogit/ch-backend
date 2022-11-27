@@ -17,7 +17,6 @@ const cluster = require("cluster");
 const os = require("os");
 const compression = require("compression");
 const Logger = require("./logs/logger.js");
-const { log } = require("console");
 /* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
 const server = http.createServer(app);
@@ -201,10 +200,12 @@ if (cluster.isPrimary && args.m === "cluster") {
     "/login",
     passport.authenticate("local-login", { failureRedirect: "/loginError", successRedirect: "/" }),
     (req, res) => {
+      logger.logInfoRoute("Login succesful")
       res.render("./index.hbs");
     }
   );
   app.get("/loginError", (req, res) => {
+    logger.logError("The user doesnt exist or the login values are incorrect.")
     res.render("./loginError.hbs");
   });
 
@@ -225,6 +226,17 @@ if (cluster.isPrimary && args.m === "cluster") {
     res.render("./registerError.hbs");
   });
 
+  // logout
+app.get('/logout', (req,res) => {
+  res.render("./logout.hbs")
+})
+
+  app.post('/logout', function(req, res, next){
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
+  });
   /* --------------------------- SocketIO ---------------------------------- */
   const authorSchema = new normalizr.schema.Entity("author", {}, { idAttribute: "email" });
   const messageSchema = new normalizr.schema.Entity(

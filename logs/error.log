@@ -45,3 +45,18 @@
 [2022-11-23T20:39:14.446] [ERROR] default - Error thrown: MongooseError: Operation `productos.insertOne()` buffering timed out after 10000ms
 [2022-11-23T20:39:51.495] [ERROR] default - Error thrown: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
 [2022-11-24T00:36:01.999] [ERROR] default - Error thrown: MongoServerError: bad auth : Authentication failed.
+[2022-11-27T01:59:18.818] [ERROR] default - Error thrown: MongooseError: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+[2022-11-27T02:02:16.461] [ERROR] default - Error thrown: MongoServerError: bad auth : Authentication failed.
+[2022-11-27T02:02:59.816] [ERROR] default - Error thrown: MongoServerError: bad auth : Authentication failed.
+[2022-11-27T02:06:32.840] [ERROR] default - Error thrown: The user doesnt exist or the login values are incorrect.
+[2022-11-27T02:08:43.410] [ERROR] default - Error thrown: The user doesnt exist or the login values are incorrect.. Printing stack trace: Error
+    at Logger.logError (C:\Users\lpiri\OneDrive\Escritorio\Projects\ch-backend\logs\logger.js:32:15)
+    at C:\Users\lpiri\OneDrive\Escritorio\Projects\ch-backend\app.js:208:12
+    at Layer.handle [as handle_request] (C:\Users\lpiri\OneDrive\Escritorio\Projects\ch-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lpiri\OneDrive\Escritorio\Projects\ch-backend\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\lpiri\OneDrive\Escritorio\Projects\ch-backend\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\lpiri\OneDrive\Escritorio\Projects\ch-backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lpiri\OneDrive\Escritorio\Projects\ch-backend\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lpiri\OneDrive\Escritorio\Projects\ch-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lpiri\OneDrive\Escritorio\Projects\ch-backend\node_modules\express\lib\router\index.js:280:10)
+    at cookieParser (C:\Users\lpiri\OneDrive\Escritorio\Projects\ch-backend\node_modules\cookie-parser\index.js:71:5)

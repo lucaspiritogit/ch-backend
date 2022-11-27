@@ -7,14 +7,12 @@ A partir de la clase 30 se introdujo nginx para utilizar como balanceador de car
 El servidor se puede levantar de las siguientes maneras:
 
 ### Forever
-
 - `npm run forever`
   Inicia el servidor con forever en modo cluster
 - `npm run foreverStop`
   Stoppea todas las instancias forever del servidor.
 
 ### PM2
-
 - `npm run pm2Fork`
   Inicia el servidor con PM2 en modo fork junto a 2 instancias en los puertos 8080 y 8081 dandole mas peso al 8080
 
@@ -25,7 +23,6 @@ El servidor se puede levantar de las siguientes maneras:
   Stoppea todas las instancias PM2 activas
 
 ## package.json
-
 ```js
   "scripts": {
       "start": "nodemon --experimental-json-modules app.js",
@@ -37,3 +34,18 @@ El servidor se puede levantar de las siguientes maneras:
       "pm2Stop": "pm2 kill",
     }
 ```
+# Glitch
+El proyecto se hosteara en glitch.com debido a que Heroku dejara de ser gratis a partir del 28 de Noviembre de 2022.
+
+## Glitch TextEncoder error / dependency error
+Me tope con un error donde Glitch tiene problemas con una dependencia que utiliza Textencoder. Agregando la siguiente linea al `package.json`:
+```json
+  "engines": { "node": "12.x" },
+```
+Soluciono el problema ya que Glitch viene con node 6 por default, el cual genera conflictos con algunas dependencias.
+
+# API Routes
+
+## Carrito
+
+## Productos

@@ -29,7 +29,8 @@ class Logger {
   }
 
   logError(error) {
-    logger.error(`Error thrown: ${error}`);
+    let err = new Error()
+    logger.error(`Error thrown: ${error}. Printing stack trace: ${err.stack}`);
   }
 }
 
