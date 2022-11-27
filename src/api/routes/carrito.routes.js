@@ -12,7 +12,9 @@ routerCarrito.post("/", async (req, res, next) => {
 
 // Obtener todos los carritos
 routerCarrito.get("/", async (req, res, next) => {
+  // let allCarts = await carritoDao.getAll()
   res.json(await carritoDao.getAll());
+  // res.render("./cart.hbs")
 });
 
 // Remover producto de carrito
