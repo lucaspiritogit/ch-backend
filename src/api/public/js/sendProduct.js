@@ -1,7 +1,6 @@
 // /* --------------------------- Products ---------------------------------- */
 
 const sendProduct = () => {
-  const id = document.getElementById("id");
   const title = document.getElementById("title");
   const price = document.getElementById("price");
   const thumbnail = document.getElementById("thumbnail");

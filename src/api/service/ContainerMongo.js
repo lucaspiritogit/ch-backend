@@ -26,7 +26,6 @@ class ContainerMongo {
   async save(obj) {
     try {
       const prodModel = new this.col(obj);
-
       return await prodModel.save();
     } catch (error) {
       throw error;
@@ -35,7 +34,7 @@ class ContainerMongo {
 
   async deleteById(id) {
     try {
-      await this.col.deleteOne({ id: id });
+      await this.col.findByIdAndDelete({ _id: id });
     } catch (error) {
       throw error;
     }
@@ -43,7 +42,7 @@ class ContainerMongo {
 
   async getById(id) {
     try {
-      return await this.col.findOne({ id: id });
+      return await this.col.find({ _id: id });
     } catch (error) {
       throw error;
     }

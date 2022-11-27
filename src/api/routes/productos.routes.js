@@ -5,23 +5,8 @@ dotenv.config();
 const routerProductos = Router();
 
 let isAdmin = true;
-routerProductos.get("/:id", (req, res, next) => {
-  try {
-    res.send(container.getById(parseInt(req.params.id)));
-  } catch (error) {
-    res.send({ error: "Objeto no encontrado" });
-  }
-});
 
-routerProductos.get("/", (req, res, next) => {
-  try {
-    res.send(container.getAll());
-  } catch (error) {
-    res.send({ error: "No existen objetos" });
-  }
-});
-
-routerProductos.post("/", (req, res, next) => {
+function checkAdmin(req, res, next) {
   if (req.headers.authorization !== "Bearer admin") {
     isAdmin = false;
     res.json({
@@ -31,23 +16,10 @@ routerProductos.post("/", (req, res, next) => {
   } else {
     next();
   }
-});
-
-routerProductos.get("/:id", async (req, res) => {
+}
+routerProductos.get("/:id", (req, res, next) => {
   try {
-    if (process.env.DBTYPE == "mongo" || process.env.DBTYPE == "firebase") {
-      let foundObject = await productoDao.getById(req.params.id);
-
-      res.json(foundObject);
-      return;
-    } else {
-      let foundObject = await productoDao.getById(parseInt(req.params.id));
-
-      if (foundObject == 0) {
-        throw error;
-      }
-      res.send(foundObject);
-    }
+    res.send(productoDao.getById(parseInt(req.params.id)));
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
   }
@@ -56,6 +28,34 @@ routerProductos.get("/:id", async (req, res) => {
 routerProductos.get("/", async (req, res, next) => {
   try {
     res.send(await productoDao.getAll());
+  } catch (error) {
+    res.send({ error: "No existen objetos" });
+  }
+});
+
+routerProductos.post("/", checkAdmin, async (req, res) => {
+  try {
+    let producto = await productoDao.save(req.body);
+    res.json({ "Producto creado:": producto });
+  } catch (error) {
+    throw error;
+  }
+});
+
+routerProductos.get("/:id", async (req, res) => {
+  try {
+    let foundObject = await productoDao.getById(req.params.id);
+
+    res.json(foundObject);
+    return;
+  } catch (error) {
+    res.send({ error: "Objeto no encontrado" });
+  }
+});
+
+routerProductos.get("/", async (req, res, next) => {
+  try {
+    return await productoDao.getAll();
   } catch (error) {
     res.send({ error: "No existen objetos" });
   }

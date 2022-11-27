@@ -11,7 +11,7 @@
 }
 
 .navbarTitle {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .navbarLinks {
@@ -23,10 +23,10 @@
 
 .navbarLinks li {
   list-style-type: none;
-  color: rgba(143, 239, 70, 0.632);
 }
 
 .navbarLinks li a {
   display: inline-flex;
   color: rgba(143, 239, 70, 0.802);
+  text-decoration: none;
 }

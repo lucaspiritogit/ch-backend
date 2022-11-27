@@ -17,6 +17,7 @@ const cluster = require("cluster");
 const os = require("os");
 const compression = require("compression");
 const Logger = require("./logs/logger.js");
+const { log } = require("console");
 /* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
 const server = http.createServer(app);
@@ -126,9 +127,17 @@ if (cluster.isPrimary && args.m === "cluster") {
   app.use("/api/productos", routerProductos);
   app.use("/api/carrito", routerCarrito);
 
+  const isLoggedIn = (req, res, next) => {
+    if (req.isAuthenticated()) {
+      return next();
+    } else {
+      res.redirect("/login");
+    }
+  };
   // home
-  app.get("/", passport.authenticate("local-login", { failureRedirect: "/login" }), (req, res) => {
-    res.render("./index.hbs");
+  app.get("/", isLoggedIn, (req, res) => {
+    let user = { username: req.user.username };
+    res.render("./index.hbs", { user });
   });
 
   // info - clase28
@@ -190,7 +199,7 @@ if (cluster.isPrimary && args.m === "cluster") {
 
   app.post(
     "/login",
-    passport.authenticate("local-login", { failureRedirect: "/loginError" }),
+    passport.authenticate("local-login", { failureRedirect: "/loginError", successRedirect: "/" }),
     (req, res) => {
       res.render("./index.hbs");
     }
@@ -248,6 +257,7 @@ if (cluster.isPrimary && args.m === "cluster") {
     socket.on("productos-cliente", async data => {
       try {
         await containerProdMongo.save(data);
+        console.log("🚀 ~ file: app.js ~ line 251 ~ data", data);
         io.sockets.emit("productos-server", await containerProdMongo.getAll());
       } catch (error) {
         logger.logError(error);
