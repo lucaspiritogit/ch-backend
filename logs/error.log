@@ -60,3 +60,36 @@
     at Function.process_params (C:\Users\lpiri\OneDrive\Escritorio\Projects\ch-backend\node_modules\express\lib\router\index.js:346:12)
     at next (C:\Users\lpiri\OneDrive\Escritorio\Projects\ch-backend\node_modules\express\lib\router\index.js:280:10)
     at cookieParser (C:\Users\lpiri\OneDrive\Escritorio\Projects\ch-backend\node_modules\cookie-parser\index.js:71:5)
+[2022-11-27T17:05:40.586] [ERROR] default - Error thrown: The user doesnt exist or the login values are incorrect.. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\logs\logger.js:32:15)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\app.js:208:12
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:280:10)
+    at cookieParser (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\cookie-parser\index.js:71:5)
+[2022-11-27T17:28:15.687] [ERROR] default - Error thrown: The user doesnt exist or the login values are incorrect.. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\logs\logger.js:32:15)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\app.js:214:12
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:280:10)
+    at cookieParser (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\cookie-parser\index.js:71:5)
+[2022-11-27T17:28:51.123] [ERROR] default - Error thrown: The user doesnt exist or the login values are incorrect.. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\logs\logger.js:32:15)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\app.js:217:12
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:280:10)
+    at cookieParser (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\cookie-parser\index.js:71:5)

@@ -17,6 +17,9 @@ const cluster = require("cluster");
 const os = require("os");
 const compression = require("compression");
 const Logger = require("./logs/logger.js");
+const multer = require("multer");
+const path = require("path");
+const nodemailer = require("nodemailer");
 /* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
 const server = http.createServer(app);
@@ -57,6 +60,31 @@ if (cluster.isPrimary && args.m === "cluster") {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(cookieParser());
+  app.use("/avatars", express.static("avatars"));
+
+  const storage = multer.diskStorage({
+    destination: "avatars",
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    },
+  });
+
+  app.use(
+    multer({
+      storage,
+      dest: "avatars",
+    }).single("image")
+  );
+
+  /* --------------------------- Nodemailer ---------------------------------- */
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    port: 587,
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
 
   /* ---------------------------- Views ------------------------- */
   app.set("views", "./views");
@@ -83,36 +111,64 @@ if (cluster.isPrimary && args.m === "cluster") {
 
   passport.use(
     "local-register",
-    new LocalStrategy(async function (username, password, done) {
-      try {
-        const userExists = await User.findOne({ username });
+    new LocalStrategy(
+      { passReqToCallback: true, usernameField: "email", passwordField: "password" },
+      async (req, email, password, done) => {
+        try {
+          const userExists = await User.findOne({ email });
 
-        if (userExists) {
-          return done(null, false);
+          if (userExists) {
+            return done(null, false);
+          }
+
+          const address = req.body.address;
+          const age = req.body.address;
+          const phoneNumber = req.body.phone;
+          const avatar = req.file;
+          const user = await User.create({ email, password, address, age, phoneNumber, avatar });
+
+          let emailContent = {
+            from: "NodeJS Lucas Pirito Coderhouse",
+            to: process.env.EMAIL,
+            subject: "Nuevo registro - Coderhouse backend",
+            html: `<h1>Nuevo registro en la aplicacion</h1>
+            <h3>Email:${user.email}</h3> 
+            <br />
+            <h3>Age:${user.age}</h3>     
+            <br />
+            <h3>Phone number: ${user.phoneNumber}</h3>      
+            <br />
+            <h3>URL del avatar: ${user.avatar.path}</h3>    
+            `,
+          };
+
+          const sentEmail = await transporter.sendMail(emailContent);
+          logger.logInfoRoute(`Sent email: ${emailContent.html}`);
+          return done(null, user);
+        } catch (error) {
+          throw error;
         }
-
-        const user = await User.create({ username, password });
-        return done(null, user);
-      } catch (error) {
-        throw error;
       }
-    })
+    )
   );
 
   passport.use(
     "local-login",
-    new LocalStrategy(async function (username, password, done) {
-      try {
-        const user = await User.findOne({ username: username });
-        if (!user) return done(null, false);
-        const isMatch = await user.matchPassword(password);
-        if (!isMatch) return done(null, false);
-        // if passwords match return user
-        return done(null, user);
-      } catch (error) {
-        throw error;
+    new LocalStrategy(
+      { usernameField: "email", passwordField: "password" },
+      async (email, password, done) => {
+        try {
+          const user = await User.findOne({ email: email });
+          if (!user) return done(null, false);
+          const isMatch = await user.matchPassword(password);
+          if (!isMatch) return done(null, false);
+          // if passwords match return user
+          return done(null, user);
+        } catch (error) {
+          throw error;
+        }
       }
-    })
+    )
   );
 
   /* ---------------------------- Retrieve Messages & Products from DB ------------------------- */
@@ -135,7 +191,7 @@ if (cluster.isPrimary && args.m === "cluster") {
   };
   // home
   app.get("/", isLoggedIn, (req, res) => {
-    let user = { username: req.user.username };
+    let user = { username: req.user.email, avatar: req.user.avatar.path };
     res.render("./index.hbs", { user });
   });
 
@@ -200,12 +256,12 @@ if (cluster.isPrimary && args.m === "cluster") {
     "/login",
     passport.authenticate("local-login", { failureRedirect: "/loginError", successRedirect: "/" }),
     (req, res) => {
-      logger.logInfoRoute("Login succesful")
+      logger.logInfoRoute("Login succesful");
       res.render("./index.hbs");
     }
   );
   app.get("/loginError", (req, res) => {
-    logger.logError("The user doesnt exist or the login values are incorrect.")
+    logger.logError("The user doesnt exist or the login values are incorrect.");
     res.render("./loginError.hbs");
   });
 
@@ -227,16 +283,19 @@ if (cluster.isPrimary && args.m === "cluster") {
   });
 
   // logout
-app.get('/logout', (req,res) => {
-  res.render("./logout.hbs")
-})
+  app.get("/logout", (req, res) => {
+    res.render("./logout.hbs");
+  });
 
-  app.post('/logout', function(req, res, next){
-    req.logout(function(err) {
-      if (err) { return next(err); }
-      res.redirect('/');
+  app.post("/logout", function (req, res, next) {
+    req.logout(function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/");
     });
   });
+
   /* --------------------------- SocketIO ---------------------------------- */
   const authorSchema = new normalizr.schema.Entity("author", {}, { idAttribute: "email" });
   const messageSchema = new normalizr.schema.Entity(

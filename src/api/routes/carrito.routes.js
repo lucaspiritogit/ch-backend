@@ -35,6 +35,7 @@ routerCarrito.delete("/:idCarrito/productos/:idProducto", async (req, res, next)
 routerCarrito.post("/:idCarrito/productos/:idProducto", async (req, res, next) => {
   try {
     await carritoDao.addProductToCarrito(req.params.idProducto, req.params.idCarrito);
+
     res.json({
       Producto: req.params.idProducto,
       "Agregado en carrito": req.params.idCarrito,
