@@ -47,7 +47,7 @@ Documentacion con respecto a las rutas disponibles de la aplicacion
 ## Carrito
 |Ruta         |POST                 |GET|DELETE
 |-------------|---------------------|---|----|
-|/api/carrito/|Crea un nuevo carrito|Obtiene todos los carritos| 
+|/api/carrito/|Crea un nuevo carrito|Obtiene todos los carritos| ❌
 |/api/carrito/:idCarrito/productos/:idProducto| Agrega al carrito seleccionado un producto utilizando id's de `Mongo`| ❌| Elimina un producto segun su id dentro de un carrito 
 |/api/carrito/:idCarrito|❌| Obtiene todos los productos en un carrito especifico| Elimina un carrito especifico
 ## Productos
