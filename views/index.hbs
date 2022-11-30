@@ -31,10 +31,9 @@
       </h1>
       <div>
       </div>
-      <a href="/cart">Ver Carrito</a>
+      <a href="/api/carrito">Ver Carrito</a>
     </div>
     <ol class="navbarLinks">
-      <li><a href="/">🏠 Home</a></li>
       <li><a href="/login">🔐 Login</a></li>
       <li><a href="/register">🔑 Register</a></li>
       <li><a href="/logout">🏃‍♂️ Logout</a></li>
@@ -47,7 +46,7 @@
         <label for="title">Title</label>
         <input id="title" type="text" name="title" placeholder="title" />
         <label for="price">Price</label>
-        <input id="price" type="text" name="price" placeholder="price" />
+        <input id="price" type="text" name="price" placeholder="price" required />
         <label for="thumbnail">Thumbnail</label>
         <input id="thumbnail" type="text" name="thumbnail" placeholder="url" />
         <label for="thumbnail">stock</label>
@@ -63,8 +62,7 @@
   <div class="productListIntro">
     <h1 style="text-align: center; font-size:3.2rem;">Listado de productos:</h1>
   </div>
-  <div id="listadoProductos">
-  </div>
+  <div id="listadoProductos"></div>
   <form id="chatBox" onsubmit="return sendMessage(this)">
     <h2>Live Chat</h2>
     <label for="email">Email</label>

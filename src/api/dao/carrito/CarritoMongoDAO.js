@@ -6,9 +6,20 @@ class CarritoMongoDAO extends ContainerMongo {
     super("carrito", CarritoModel.carritoSchema);
   }
 
-  async createCarrito() {
+  async createNewCarrito(userId) {
     try {
-      return await CarritoModel.create({});
+      return await CarritoModel.create({
+        userId: userId,
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getCarritoByUserId(userId) {
+    try {
+      let cart = await CarritoModel.findOne({ userId });
+      return cart;
     } catch (error) {
       throw error;
     }
@@ -19,6 +30,7 @@ class CarritoMongoDAO extends ContainerMongo {
       const carrito = await CarritoModel.findById(carritoId);
       carrito.products.push(productId);
       carrito.save();
+      return carrito;
     } catch (error) {
       throw error;
     }

@@ -18,8 +18,8 @@ const os = require("os");
 const compression = require("compression");
 const Logger = require("./logs/logger.js");
 const multer = require("multer");
-const path = require("path");
 const nodemailer = require("nodemailer");
+const CarritoMongoDAO = require("./src/api/dao/carrito/CarritoMongoDAO.js");
 /* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
 const server = http.createServer(app);
@@ -62,6 +62,7 @@ if (cluster.isPrimary && args.m === "cluster") {
   app.use(cookieParser());
   app.use("/avatars", express.static("avatars"));
 
+  /* --------------------------- Multer ---------------------------------- */
   const storage = multer.diskStorage({
     destination: "avatars",
     filename: (req, file, cb) => {
@@ -174,6 +175,7 @@ if (cluster.isPrimary && args.m === "cluster") {
   /* ---------------------------- Retrieve Messages & Products from DB ------------------------- */
   const dao = new daoMensajes();
   const containerProdMongo = new ProductosMongoDAO();
+  const containerCarritoMongo = new CarritoMongoDAO();
 
   /* --------------------------- Router ---------------------------------- */
   const routerCarrito = require("./src/api/routes/carrito.routes.js");
@@ -190,7 +192,7 @@ if (cluster.isPrimary && args.m === "cluster") {
     }
   };
   // home
-  app.get("/", isLoggedIn, (req, res) => {
+  app.get("/", isLoggedIn, async (req, res) => {
     let user = { username: req.user.email, avatar: req.user.avatar.path };
     res.render("./index.hbs", { user });
   });
@@ -328,7 +330,6 @@ if (cluster.isPrimary && args.m === "cluster") {
     socket.on("productos-cliente", async data => {
       try {
         await containerProdMongo.save(data);
-        console.log("🚀 ~ file: app.js ~ line 251 ~ data", data);
         io.sockets.emit("productos-server", await containerProdMongo.getAll());
       } catch (error) {
         logger.logError(error);

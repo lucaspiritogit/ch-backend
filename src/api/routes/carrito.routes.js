@@ -6,15 +6,36 @@ dotenv.config();
 
 // Crear un nuevo carrito
 routerCarrito.post("/", async (req, res, next) => {
-  let carrito = await carritoDao.createCarrito();
-  res.json({ msg: `Carrito created`, carritoCreated: carrito });
+  // Variable de sesion del usuario actual
+  try {
+    let userId = req.user._id;
+
+    let carrito = await carritoDao.getCarritoByUserId(userId);
+    if (!carrito) {
+      let newCarrito = await carritoDao.createNewCarrito(userId);
+      return res.json({ newCarrito });
+    }
+    return res.json({ carrito });
+  } catch (error) {
+    res.redirect("/login");
+  }
 });
 
 // Obtener todos los carritos
 routerCarrito.get("/", async (req, res, next) => {
-  // let allCarts = await carritoDao.getAll()
-  res.json(await carritoDao.getAll());
-  // res.render("./cart.hbs")
+  // Variable de sesion del usuario actual
+  try {
+    let userId = req.user._id;
+
+    let carrito = await carritoDao.getCarritoByUserId(userId);
+    if (!carrito) {
+      let newCarrito = await carritoDao.createNewCarrito(userId);
+      return res.json({ newCarrito });
+    }
+    return res.json({ "El carrito ya existe": carrito });
+  } catch (error) {
+    res.redirect("/login");
+  }
 });
 
 // Remover producto de carrito

@@ -1,5 +1,4 @@
 // /* --------------------------- Products ---------------------------------- */
-
 const sendProduct = () => {
   const title = document.getElementById("title");
   const price = document.getElementById("price");
@@ -20,24 +19,34 @@ const sendProduct = () => {
   return false;
 };
 
-function renderProducts(productos) {
+async function renderProducts(productos) {
+  let carritoId = await fetch(`${window.location.href}api/carrito`, {
+    method: "post",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  }).then(async r => {
+    const response = await r.json();
+    return await response.carrito._id;
+  });
   const html = productos
     .map(product => {
-      if (product.price == null) {
-        product.price = `Valor no ingresado`;
-      }
       return `
-    <div class="producto">
-      <h3>Id: ${product._id}</h3>
-      <h3>Titulo:${product.title}</h3>
-      <h3>Precio:${product.price}</h3>
-      <div class="productoThumbnail">
-        <h3>Image:</h3><img  src="${product.thumbnail}"/>
+    <form action="/api/carrito/${carritoId}/productos/${product._id}" method="POST">
+      <div class="producto">
+        <h3>Id: ${product._id}</h3>
+        <h3>Titulo:${product.title}</h3>
+        <h3>Precio:${product.price}</h3>
+        <div class="productoThumbnail">
+          <h3>Image:</h3><img  src="${product.thumbnail}"/>
+        </div>
+        <h3>Stock: ${product.stock}</h3>
+        <h3>Code: ${product.code}</h3>
+        <h3>Description: ${product.description}</h3>
+        <button id="addToCartBtn" type="submit">Agregar al carrito</button>
       </div>
-      <h3>Stock: ${product.stock}</h3>
-      <h3>Code: ${product.code}</h3>
-      <h3>Description: ${product.description}</h3>
-    </div>
+    </form>
     `;
     })
     .join("");
