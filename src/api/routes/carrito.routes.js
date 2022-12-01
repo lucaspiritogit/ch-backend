@@ -51,21 +51,7 @@ routerCarrito.get("/usuario", async (req, res, next) => {
 
 routerCarrito.get("/", async (req, res, next) => {
   try {
-    // Variable de sesion del usuario actual
-    let userId = req.user._id;
-
-    let carrito = await carritoDao.getCarritoByUserId(userId);
-
-    if (!carrito) {
-      let newCarrito = await carritoDao.createNewCarrito(userId);
-      return res.render("./cart.hbs", { newCarrito });
-    }
-
-    let productsInCarrito = [];
-    for (const product of carrito.products) {
-      productsInCarrito.push(await productoDao.getById(product._id));
-    }
-    return res.render("./cart.hbs", { productsInCarrito });
+    return res.render("./cart.hbs");
   } catch (error) {
     res.redirect("/login");
   }
