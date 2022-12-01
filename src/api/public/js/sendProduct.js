@@ -73,6 +73,10 @@ async function renderProducts(productos) {
     `;
     })
     .join("");
+
+  if (html == "" || html == undefined) {
+    return "El carrito esta vacio";
+  }
   document.querySelector("#listadoProductos").innerHTML = html;
 }
 
