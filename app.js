@@ -325,19 +325,6 @@ if (cluster.isPrimary && args.m === "cluster") {
 
   io.on("connection", async socket => {
     console.log("user connected with socket id:", socket.id);
-
-    // carrito
-    // socket.on("carrito-cliente", async () => {
-    //   try {
-    //     io.sockets.emit("carrito-server", await containerProdMongo.getAll());
-    //   } catch (error) {
-    //     logger.logError(error);
-    //     throw { error: "MongoDB connection failed" };
-    //   }
-    // });
-
-    // socket.emit("carrito-server", await containerProdMongo.getAll());
-
     // productos
     socket.on("productos-cliente", async data => {
       try {
