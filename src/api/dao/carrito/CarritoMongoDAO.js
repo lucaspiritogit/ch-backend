@@ -29,7 +29,7 @@ class CarritoMongoDAO extends ContainerMongo {
     try {
       const carrito = await CarritoModel.findById(carritoId);
       carrito.products.push(productId);
-      carrito.save();
+      await carrito.save();
       return carrito;
     } catch (error) {
       throw error;

@@ -19,7 +19,21 @@ const sendProduct = () => {
   return false;
 };
 
-async function renderProducts(productos) {
+async function createCarrito() {
+  let createCarrito = await fetch(`${window.location.href}api/carrito`, {
+    method: "post",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  }).then(async r => {
+    const response = await r.json();
+    return response;
+  });
+  return createCarrito;
+}
+
+async function getCarritoId() {
   let carritoId = await fetch(`${window.location.href}api/carrito`, {
     method: "post",
     headers: {
@@ -30,7 +44,16 @@ async function renderProducts(productos) {
     const response = await r.json();
     return await response.carrito._id;
   });
-  const html = productos
+  return carritoId;
+}
+
+async function renderProducts(productos) {
+  // Crear carrito por si no lo tiene antes de renderizar productos
+  await createCarrito();
+  // Obtener su id
+  let carritoId = await getCarritoId();
+
+  let html = productos
     .map(product => {
       return `
     <form action="/api/carrito/${carritoId}/productos/${product._id}" method="POST">

@@ -1,7 +1,11 @@
 const dotenv = require("dotenv");
 const { Router } = require("express");
+const Logger = require("../../../logs/logger.js");
 const { carritoDao, productoDao } = require("../dao/setDB.js");
 const routerCarrito = Router();
+const express = require("express");
+const logger = new Logger();
+routerCarrito.use(express.static("./src/api/public"));
 dotenv.config();
 
 // Crear un nuevo carrito
@@ -21,18 +25,23 @@ routerCarrito.post("/", async (req, res, next) => {
   }
 });
 
-// Obtener todos los carritos
 routerCarrito.get("/", async (req, res, next) => {
-  // Variable de sesion del usuario actual
   try {
+    // Variable de sesion del usuario actual
     let userId = req.user._id;
 
     let carrito = await carritoDao.getCarritoByUserId(userId);
+
     if (!carrito) {
       let newCarrito = await carritoDao.createNewCarrito(userId);
-      return res.json({ newCarrito });
+      return res.render("./cart.hbs", { newCarrito });
     }
-    return res.json({ "El carrito ya existe": carrito });
+
+    let productsInCarrito = [];
+    for (const product of carrito.products) {
+      productsInCarrito.push(await productoDao.getById(product._id));
+    }
+    return res.render("./cart.hbs", { productsInCarrito });
   } catch (error) {
     res.redirect("/login");
   }
@@ -56,14 +65,13 @@ routerCarrito.delete("/:idCarrito/productos/:idProducto", async (req, res, next)
 routerCarrito.post("/:idCarrito/productos/:idProducto", async (req, res, next) => {
   try {
     await carritoDao.addProductToCarrito(req.params.idProducto, req.params.idCarrito);
-
+    let readCarrito = await carritoDao.getById(req.params.idCarrito);
     res.json({
-      Producto: req.params.idProducto,
       "Agregado en carrito": req.params.idCarrito,
-      "Visualizando carrito": await carritoDao.getById(req.params.idCarrito),
+      "Visualizando carrito": readCarrito,
     });
   } catch (error) {
-    res.send({ error: "Object not found" });
+    res.send({ error: "Carrito not found" });
   }
 });
 

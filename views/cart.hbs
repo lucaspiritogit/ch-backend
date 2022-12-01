@@ -9,9 +9,18 @@
 </head>
 
 <body>
-    <form action="/api/carrito" method="POST">
-        <button type="submit">Crear carrito</button>
-    </form>
+    <h1>Carrito:</h1>
+    <div>
+        {{newCarrito}}
+    </div>
+    <div id="productInCarritoList">
+        {{#each productsInCarrito as | product |}}
+        <div>{{product}}</div>
+        <br>
+        {{/each}}
+    </div>
 </body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="./js/sendCarritoProducts.js"></script>
 
 </html>
