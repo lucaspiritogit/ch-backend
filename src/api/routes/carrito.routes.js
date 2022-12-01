@@ -25,6 +25,7 @@ routerCarrito.post("/", async (req, res, next) => {
   }
 });
 
+// Los productos del carrito del usuario
 routerCarrito.get("/usuario", async (req, res, next) => {
   try {
     // Variable de sesion del usuario actual
@@ -39,7 +40,8 @@ routerCarrito.get("/usuario", async (req, res, next) => {
 
     let productsInCarrito = [];
     for (const product of carrito.products) {
-      productsInCarrito.push(await productoDao.getById(product._id));
+      let products = await productoDao.getById(product._id);
+      productsInCarrito.push(products);
     }
     return res.json({ productsInCarrito });
   } catch (error) {

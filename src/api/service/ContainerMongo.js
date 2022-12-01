@@ -42,7 +42,7 @@ class ContainerMongo {
 
   async getById(id) {
     try {
-      return await this.col.find({ _id: id });
+      return await this.col.findById({ _id: id });
     } catch (error) {
       throw error;
     }
