@@ -45,15 +45,23 @@ _Esto es algo que voy a averiguar mas adelante ya que no hay una explicacion muy
 Documentacion con respecto a las rutas disponibles de la aplicacion
 
 ## Carrito
-|Ruta         |POST                 |GET|DELETE
-|-------------|---------------------|---|----|
-|/api/carrito/|Crea un nuevo carrito|Obtiene todos los carritos| ❌
-|/api/carrito/:idCarrito/productos/:idProducto| Agrega al carrito seleccionado un producto utilizando id's de `Mongo`| ❌| Elimina un producto segun su id dentro de un carrito 
-|/api/carrito/:idCarrito|❌| Obtiene todos los productos en un carrito especifico| Elimina un carrito especifico
+
+| Ruta                                          | POST                                                                  | GET                                                  | DELETE                                               |
+| --------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| /api/carrito/                                 | Crea un nuevo carrito                                                 | Obtiene todos los carritos                           | ❌                                                   |
+| /api/carrito/:idCarrito/productos/:idProducto | Agrega al carrito seleccionado un producto utilizando id's de `Mongo` | ❌                                                   | Elimina un producto segun su id dentro de un carrito |
+| /api/carrito/:idCarrito                       | ❌                                                                    | Obtiene todos los productos en un carrito especifico | Elimina un carrito especifico                        |
+
 ## Productos
 
-# Nodemailer
+# Evidencias de Twilio y Nodemailer
+
+## Nodemailer
 
 Dejo en evidencia el funcionamiento del envio de mail cuando se registra un nuevo usuario ya que es una consigna de la entrega:
 
 ![](./src/api/public/img/nodemailer-proof.png)
+
+## Twilio
+
+![](./src/api/public/img/evidenciaTwilio.png)
