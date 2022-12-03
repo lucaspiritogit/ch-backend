@@ -13,6 +13,9 @@ const client = new twilio(process.env.SSID, process.env.TWILIO_AUTH_TOKEN);
 routerCarrito.post("/order", async (req, res) => {
   try {
     let userId = req.user._id;
+    if (userId == null) {
+      throw new Error();
+    }
     let carrito = await carritoDao.getCarritoByUserId(userId);
 
     let productsInCarrito = [];
@@ -25,7 +28,7 @@ routerCarrito.post("/order", async (req, res) => {
       .create({
         from: "whatsapp:+14155238886",
         to: "whatsapp:+5491163788989",
-        body: `Nuevo pedido recibido de ${req.user.email}. <br/> Productos: ${productsInCarrito}`,
+        body: `Nuevo pedido recibido de ${req.user.email}. Productos: ${productsInCarrito}`,
       })
       .then(response => {
         res.send({ response });
@@ -34,7 +37,7 @@ routerCarrito.post("/order", async (req, res) => {
         throw e;
       });
   } catch (error) {
-    throw res.json("Couldnt send twilio message", error);
+    throw "Couldnt send twilio message";
   }
 });
 // Crear un nuevo carrito
@@ -76,7 +79,7 @@ routerCarrito.get("/usuario", async (req, res, next) => {
     return res.json({ productsInCarrito });
   } catch (error) {
     logger.logError("Error when trying to retrieve cart data from userId");
-    res.render("/loginError");
+    res.redirect("/loginError");
   }
 });
 
