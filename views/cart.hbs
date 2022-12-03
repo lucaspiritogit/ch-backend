@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/cart.css">
     <title>Carrito</title>
 </head>
 
@@ -15,7 +16,9 @@
     <div id="productInCarritoList">
     </div>
 
-    <form action="" method="post"></form>
+    <form action="/api/carrito/order" method="post">
+        <button id="makeOrderBtn" type="submit">Realizar pedido</button>
+    </form>
 </body>
 <script src="./js/sendCarritoProducts.js"></script>
 
