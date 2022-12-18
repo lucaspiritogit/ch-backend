@@ -1,19 +1,16 @@
-const dotenv = require("dotenv");
-const { Router } = require("express");
-const { carritoDao, productoDao } = require("../dao/setDB.js");
-dotenv.config();
-const routerProductos = Router();
+const ProductService = require("../service/ProductService.js");
 
-async function getProductById(req, res, next) {
+const productService = new ProductService();
+async function getProductById(req, res) {
   try {
-    res.send(await productoDao.getById(req.params.id));
+    res.send(await productService.getProductById(req, res));
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
   }
 }
 async function getAllProducts(req, res, next) {
   try {
-    res.send(await productoDao.getAll());
+    res.send(await productService.getAllProducts());
   } catch (error) {
     res.send({ error: "No existen productos" });
   }
@@ -21,8 +18,8 @@ async function getAllProducts(req, res, next) {
 
 async function createProduct(req, res) {
   try {
-    let producto = await productoDao.save(req.body);
-    res.json({ "Producto creado:": producto });
+    let createdProduct = await productService.createProduct(req.body);
+    res.json({ "Producto creado": createdProduct });
   } catch (error) {
     throw error;
   }

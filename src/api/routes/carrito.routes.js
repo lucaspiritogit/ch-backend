@@ -1,8 +1,6 @@
 const dotenv = require("dotenv");
-const twilio = require("twilio");
 const { Router } = require("express");
-const Logger = require("../../../logs/logger.js");
-const { carritoDao, productoDao } = require("../dao/setDB.js");
+const Logger = require("../utils/logger.js");
 const routerCarrito = Router();
 const express = require("express");
 const logger = new Logger();
@@ -15,8 +13,9 @@ const {
   addProductToCarrito,
   deleteCarrito,
 } = require("../controllers/carrito.controller.js");
-routerCarrito.use(express.static("./src/api/public"));
 dotenv.config();
+
+routerCarrito.use(express.static("./src/api/public"));
 
 routerCarrito.post("/order", createOrder);
 

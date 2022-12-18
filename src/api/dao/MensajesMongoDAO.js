@@ -1,5 +1,5 @@
 const { Schema } = require("mongoose");
-const ContainerMongo = require("../service/ContainerMongo.js");
+const ContainerMongo = require("../containers/ContainerMongo.js");
 
 const authorSchema = new Schema({
   id: { type: String, require: true, max: 1000 },

@@ -16,10 +16,10 @@ const normalizr = require("normalizr");
 const cluster = require("cluster");
 const os = require("os");
 const compression = require("compression");
-const Logger = require("./logs/logger.js");
+const Logger = require("./src/api/utils/logger.js");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
-const CarritoMongoDAO = require("./src/api/dao/carrito/CarritoMongoDAO.js");
+
 /* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
 const server = http.createServer(app);
@@ -61,6 +61,13 @@ if (cluster.isPrimary && args.m === "cluster") {
   app.use(passport.session());
   app.use(cookieParser());
   app.use("/avatars", express.static("avatars"));
+
+  /* --------------------------- Router ---------------------------------- */
+  const routerCarrito = require("./src/api/routes/carrito.routes.js");
+  const routerProductos = require("./src/api/routes/productos.routes.js");
+
+  app.use("/api/productos", routerProductos);
+  app.use("/api/carrito", routerCarrito);
 
   /* --------------------------- Multer ---------------------------------- */
   const storage = multer.diskStorage({
@@ -175,14 +182,6 @@ if (cluster.isPrimary && args.m === "cluster") {
   /* ---------------------------- Retrieve Messages & Products from DB ------------------------- */
   const dao = new daoMensajes();
   const containerProdMongo = new ProductosMongoDAO();
-  const containerCarritoMongo = new CarritoMongoDAO();
-
-  /* --------------------------- Router ---------------------------------- */
-  const routerCarrito = require("./src/api/routes/carrito.routes.js");
-  const routerProductos = require("./src/api/routes/productos.routes.js");
-
-  app.use("/api/productos", routerProductos);
-  app.use("/api/carrito", routerCarrito);
 
   const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
