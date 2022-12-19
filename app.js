@@ -19,6 +19,8 @@ const compression = require("compression");
 const Logger = require("./src/api/utils/logger.js");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
+const ProductService = require("./src/api/service/ProductService.js");
+const MensajeRepository = require("./src/api/repository/MensajeRepository.js");
 
 /* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
@@ -182,6 +184,8 @@ if (cluster.isPrimary && args.m === "cluster") {
   /* ---------------------------- Retrieve Messages & Products from DB ------------------------- */
   const dao = new daoMensajes();
   const containerProdMongo = new ProductosMongoDAO();
+  const productService = new ProductService();
+  const mensajeRepository = new MensajeRepository();
 
   const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -249,7 +253,7 @@ if (cluster.isPrimary && args.m === "cluster") {
   });
 
   // login
-  app.get("/login", (req, res) => {
+  app.get("/login", async (req, res) => {
     res.render("./login.hbs");
   });
 
@@ -317,7 +321,7 @@ if (cluster.isPrimary && args.m === "cluster") {
   };
 
   async function mostrarMensajesNormalizados() {
-    const allMessages = await dao.getAll();
+    const allMessages = await mensajeRepository.getAllMensajes();
     const normalizedMessages = normalizarMsj({ id: "msj", allMessages });
     return normalizedMessages;
   }
@@ -328,14 +332,14 @@ if (cluster.isPrimary && args.m === "cluster") {
     socket.on("productos-cliente", async data => {
       try {
         await containerProdMongo.save(data);
-        io.sockets.emit("productos-server", await containerProdMongo.getAll());
+        io.sockets.emit("productos-server", await productService.getAllProducts());
       } catch (error) {
         logger.logError(error);
         throw { error: "MongoDB connection failed" };
       }
     });
 
-    socket.emit("productos-server", await containerProdMongo.getAll());
+    socket.emit("productos-server", await productService.getAllProducts());
 
     // chat
     socket.on("nuevo-mensaje-cliente", async data => {

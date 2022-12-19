@@ -1,4 +1,6 @@
 const dotenv = require("dotenv");
+const DAOFactory = require("../classes/DAOFactory.js");
+const chooseDAO = new DAOFactory();
 dotenv.config();
 
 let productoDao;
@@ -19,11 +21,12 @@ switch (process.env.DBTYPE) {
     break;
 
   case "mongo":
-    const ProductosMongoDAO = require("./products/ProductosMongoDAO.js");
-    const CarritoMongoDAO = require("./carrito/CarritoMongoDAO.js");
+    const ProductosMongoDAO = require("../dao/products/ProductosMongoDAO.js");
+    const CarritoMongoDAO = require("../dao/carrito/CarritoMongoDAO.js");
 
     productoDao = new ProductosMongoDAO();
     carritoDao = new CarritoMongoDAO();
+    // chooseDAO.useDAO("mongo");
     break;
 
   case "firebase":

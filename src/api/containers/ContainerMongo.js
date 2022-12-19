@@ -1,34 +1,19 @@
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const Logger = require("../utils/logger.js");
-const logger = new Logger();
-dotenv.config();
+const MongoDBClient = require("../config/MongoDBClient.js");
+const mongo = new MongoDBClient();
+mongo.connect();
 
-const connectMongo = async () => {
-  try {
-    const URL = process.env.MONGOATLAS_CONNECTION_URL;
-    await mongoose.connect(URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("Connected with MongoDB");
-  } catch (error) {
-    logger.logError(error);
-  }
-};
-
-connectMongo();
 class ContainerMongo {
   constructor(collectionName, scheme) {
     this.col = mongoose.model(collectionName, scheme);
   }
-
   async save(obj) {
     try {
       const prodModel = new this.col(obj);
       return await prodModel.save();
     } catch (error) {
       throw error;
+    } finally {
     }
   }
 
@@ -37,6 +22,7 @@ class ContainerMongo {
       await this.col.findByIdAndDelete({ _id: id });
     } catch (error) {
       throw error;
+    } finally {
     }
   }
 
@@ -45,6 +31,7 @@ class ContainerMongo {
       return await this.col.findById({ _id: id });
     } catch (error) {
       throw error;
+    } finally {
     }
   }
 

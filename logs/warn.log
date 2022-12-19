@@ -203,3 +203,45 @@
     at Function.process_params (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:346:12)
     at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:280:10)
     at multerMiddleware (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\multer\lib\make-middleware.js:13:41)
+[2022-12-19T12:21:09.937] [ERROR] default - Error thrown: Error when trying to retrieve cart data from userId. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at getCarritoFromUser (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:36:12)
+[2022-12-19T12:21:09.942] [ERROR] default - Error thrown: The user doesnt exist or the login values are incorrect.. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\app.js:265:12
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:280:10)
+    at multerMiddleware (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\multer\lib\make-middleware.js:13:41)
+[2022-12-19T12:22:50.205] [ERROR] default - Error thrown: Error when trying to retrieve cart data from userId. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at getCarritoFromUser (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:36:12)
+[2022-12-19T12:22:50.211] [ERROR] default - Error thrown: The user doesnt exist or the login values are incorrect.. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\app.js:265:12
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:280:10)
+    at multerMiddleware (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\multer\lib\make-middleware.js:13:41)
+[2022-12-19T12:57:09.482] [ERROR] default - Error thrown: Error when trying to retrieve cart data from userId. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at getCarritoFromUser (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:36:12)
+[2022-12-19T12:57:09.488] [ERROR] default - Error thrown: The user doesnt exist or the login values are incorrect.. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\app.js:266:12
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:280:10)
+    at multerMiddleware (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\multer\lib\make-middleware.js:13:41)

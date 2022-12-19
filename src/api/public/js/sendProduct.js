@@ -56,17 +56,17 @@ async function renderProducts(productos) {
   let html = productos
     .map(product => {
       return `
-    <form action="/api/carrito/${carritoId}/productos/${product._id}" method="POST">
+    <form action="/api/carrito/${carritoId}/productos/${product.id}" method="POST">
       <div class="producto">
-        <h3>Id: ${product._id}</h3>
+        <h3>Id: ${product.id}</h3>
         <h3>Titulo:${product.title}</h3>
         <h3>Precio:${product.price}</h3>
+        <h3>Description: ${product.description}</h3>
         <div class="productoThumbnail">
           <h3>Image:</h3><img  src="${product.thumbnail}"/>
         </div>
         <h3>Stock: ${product.stock}</h3>
         <h3>Code: ${product.code}</h3>
-        <h3>Description: ${product.description}</h3>
         <button id="addToCartBtn" type="submit">Agregar al carrito</button>
       </div>
     </form>

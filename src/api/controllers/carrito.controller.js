@@ -14,7 +14,7 @@ const client = new twilio(process.env.SSID, process.env.TWILIO_AUTH_TOKEN);
 const carritoService = new CarritoService();
 async function createOrder(req, res) {
   try {
-    carritoService.createOrder(req, res);
+    await carritoService.createOrder(req, res);
   } catch (error) {
     throw "Couldnt send twilio message";
   }
@@ -22,7 +22,7 @@ async function createOrder(req, res) {
 // Crear un nuevo carrito
 async function createCarrito(req, res) {
   try {
-    carritoService.createCarrito(req, res);
+    await carritoService.createCarrito(req, res);
   } catch (error) {
     res.redirect("/login");
   }
@@ -31,7 +31,7 @@ async function createCarrito(req, res) {
 // Los productos del carrito del usuario
 async function getCarritoFromUser(req, res) {
   try {
-    carritoService.getCarritoFromUser(req, res);
+    await carritoService.getCarritoFromUser(req, res);
   } catch (error) {
     logger.logError("Error when trying to retrieve cart data from userId");
     res.redirect("/loginError");
@@ -40,7 +40,7 @@ async function getCarritoFromUser(req, res) {
 
 async function getAllCarritos(req, res) {
   try {
-    carritoService.getAllCarritos(req, res);
+    await carritoService.getAllCarritos(req, res);
   } catch (error) {
     res.redirect("/login");
   }
@@ -49,7 +49,7 @@ async function getAllCarritos(req, res) {
 // Remover producto de carrito
 async function removeProductFromCarrito(req, res) {
   try {
-    carritoService.removeProductFromCarrito(req, res);
+    await carritoService.removeProductFromCarrito(req, res);
   } catch (error) {
     res.send({ Error: "Product not found in the selected cart" });
   }
@@ -58,7 +58,7 @@ async function removeProductFromCarrito(req, res) {
 // Agregar un producto a un carrito
 async function addProductToCarrito(req, res) {
   try {
-    carritoService.addProductToCarrito(req, res);
+    await carritoService.addProductToCarrito(req, res);
   } catch (error) {
     res.send({ error: "Carrito not found" });
   }
@@ -66,7 +66,7 @@ async function addProductToCarrito(req, res) {
 
 async function deleteCarrito(req, res) {
   try {
-    carritoService.deleteCarrito(req, res);
+    await carritoService.deleteCarrito(req, res);
   } catch (error) {
     res.send({ error: "Carrito not found" });
   }
