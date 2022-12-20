@@ -1,13 +1,29 @@
 const { carritoDao, productoDao } = require("../dao/setDB.js");
+const Logger = require("../utils/logger.js");
+const logger = new Logger();
 const twilio = require("twilio");
 const client = new twilio(process.env.SSID, process.env.TWILIO_AUTH_TOKEN);
 
 class CarritoService {
-  constructor() {}
+  /**
+   * Creates a new cart, otherwise returns the existing cart
+   * @param {number} userId
+   * @returns {Object} Carrito
+   */
+  async createCarrito(userId) {
+    try {
+      let carrito = await carritoDao.getCarritoByUserId(userId);
+      if (!carrito) {
+        let newCarrito = await carritoDao.createNewCarrito(userId);
+        return newCarrito;
+      }
+      return carrito;
+    } catch (error) {
+      throw error;
+    }
+  }
 
-  async createOrder(req, res) {
-    let userId = req.user._id;
-
+  async createOrder(userId, userEmail) {
     if (userId == null) {
       throw new Error();
     }
@@ -23,26 +39,14 @@ class CarritoService {
       .create({
         from: "whatsapp:+14155238886",
         to: "whatsapp:+5491163788989",
-        body: `Nuevo pedido recibido de ${req.user.email}. Productos: ${productsInCarrito}`,
+        body: `Nuevo pedido recibido de ${userEmail}. Productos: ${productsInCarrito}`,
       })
       .then(response => {
-        res.send({ response });
+        return response;
       })
-      .catch(e => {
-        throw e;
+      .catch(error => {
+        throw error;
       });
-  }
-
-  async createCarrito(req, res) {
-    // Variable de sesion del usuario actual
-    let userId = req.user._id;
-
-    let carrito = await carritoDao.getCarritoByUserId(userId);
-    if (!carrito) {
-      let newCarrito = await carritoDao.createNewCarrito(userId);
-      return res.json({ newCarrito });
-    }
-    return res.json({ carrito });
   }
 
   async getCarritoFromUser(req, res) {

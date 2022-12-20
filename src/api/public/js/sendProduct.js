@@ -63,7 +63,7 @@ async function renderProducts(productos) {
         <h3>Precio:${product.price}</h3>
         <h3>Description: ${product.description}</h3>
         <div class="productoThumbnail">
-          <h3>Image:</h3><img  src="${product.thumbnail}"/>
+          <h3>Image:</h3><img src="${product.thumbnail}"/>
         </div>
         <h3>Stock: ${product.stock}</h3>
         <h3>Code: ${product.code}</h3>
@@ -74,9 +74,6 @@ async function renderProducts(productos) {
     })
     .join("");
 
-  if (html == "" || html == undefined) {
-    return "El carrito esta vacio";
-  }
   document.querySelector("#listadoProductos").innerHTML = html;
 }
 

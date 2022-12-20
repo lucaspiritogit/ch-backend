@@ -2,7 +2,6 @@ const dotenv = require("dotenv");
 const twilio = require("twilio");
 const { Router } = require("express");
 const Logger = require("../utils/logger.js");
-const { carritoDao, productoDao } = require("../dao/setDB.js");
 const routerCarrito = Router();
 const express = require("express");
 const logger = new Logger();
@@ -10,21 +9,26 @@ dotenv.config();
 const CarritoService = require("../service/CarritoService.js");
 routerCarrito.use(express.static("./src/api/public"));
 
-const client = new twilio(process.env.SSID, process.env.TWILIO_AUTH_TOKEN);
 const carritoService = new CarritoService();
-async function createOrder(req, res) {
-  try {
-    await carritoService.createOrder(req, res);
-  } catch (error) {
-    throw "Couldnt send twilio message";
-  }
-}
 // Crear un nuevo carrito
 async function createCarrito(req, res) {
   try {
-    await carritoService.createCarrito(req, res);
+    let userId = req.user._id;
+    let carrito = await carritoService.createCarrito(userId);
+    res.json({ carrito });
   } catch (error) {
     res.redirect("/login");
+    throw error;
+  }
+}
+async function createOrder(req, res) {
+  try {
+    let userId = req.user._id;
+    let userEmail = req.user.email;
+    await carritoService.createOrder(userId, userEmail);
+    res.json({ message: "Order created" });
+  } catch (error) {
+    throw error;
   }
 }
 
