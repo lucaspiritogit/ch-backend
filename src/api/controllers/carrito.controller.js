@@ -10,15 +10,15 @@ const CarritoService = require("../service/CarritoService.js");
 routerCarrito.use(express.static("./src/api/public"));
 
 const carritoService = new CarritoService();
-// Crear un nuevo carrito
+
 async function createCarrito(req, res) {
   try {
     let userId = req.user._id;
     let carrito = await carritoService.createCarrito(userId);
     res.json({ carrito });
   } catch (error) {
+    logger.logError(error);
     res.redirect("/login");
-    throw error;
   }
 }
 
@@ -45,11 +45,21 @@ async function getCarritoFromUser(req, res) {
   }
 }
 
+async function getCarrito(req, res) {
+  try {
+    res.render("./cart.hbs");
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getAllCarritos(req, res) {
   try {
-    await carritoService.getAllCarritos(req, res);
+    let allCarritos = await carritoService.getAllCarritos();
+    console.log("🚀 ~ file: carrito.controller.js:59 ~ getAllCarritos ~ allCarritos", allCarritos);
+    res.send(allCarritos);
   } catch (error) {
-    res.redirect("/login");
+    throw error;
   }
 }
 
@@ -106,4 +116,5 @@ module.exports = {
   removeProductFromCarrito,
   addProductToCarrito,
   deleteCarrito,
+  getCarrito,
 };

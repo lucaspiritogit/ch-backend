@@ -67,8 +67,8 @@ class CarritoService {
     return productsInCarrito;
   }
 
-  async getAllCarritos(req, res) {
-    return res.render("./cart.hbs");
+  async getAllCarritos() {
+    await carritoDao.getAll();
   }
 
   async removeProductFromCarrito(idProducto, idCarrito) {
