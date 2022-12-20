@@ -21,6 +21,7 @@ async function createCarrito(req, res) {
     throw error;
   }
 }
+
 async function createOrder(req, res) {
   try {
     let userId = req.user._id;
@@ -35,7 +36,9 @@ async function createOrder(req, res) {
 // Los productos del carrito del usuario
 async function getCarritoFromUser(req, res) {
   try {
-    await carritoService.getCarritoFromUser(req, res);
+    let userId = req.user._id;
+    let carrito = await carritoService.getCarritoFromUser(userId);
+    res.json({ carrito });
   } catch (error) {
     logger.logError("Error when trying to retrieve cart data from userId");
     res.redirect("/loginError");
@@ -53,8 +56,16 @@ async function getAllCarritos(req, res) {
 // Remover producto de carrito
 async function removeProductFromCarrito(req, res) {
   try {
-    await carritoService.removeProductFromCarrito(req, res);
+    let idProducto = req.params.idProducto;
+    let idCarrito = req.params.idCarrito;
+
+    await carritoService.removeProductFromCarrito(idProducto, idCarrito);
+    res.json({
+      Producto: req.params.idProducto,
+      "Eliminado en Carrito": req.params.idCarrito,
+    });
   } catch (error) {
+    logger.logError(error);
     res.send({ Error: "Product not found in the selected cart" });
   }
 }
@@ -62,7 +73,15 @@ async function removeProductFromCarrito(req, res) {
 // Agregar un producto a un carrito
 async function addProductToCarrito(req, res) {
   try {
-    await carritoService.addProductToCarrito(req, res);
+    let idProducto = req.params.idProducto;
+    let idCarrito = req.params.idCarrito;
+    let readCarrito = await carritoDao.getById(idCarrito);
+
+    await carritoService.addProductToCarrito(idProducto, idCarrito);
+    res.json({
+      "Agregado en carrito": req.params.idCarrito,
+      "Visualizando carrito": readCarrito,
+    });
   } catch (error) {
     res.send({ error: "Carrito not found" });
   }
@@ -70,7 +89,10 @@ async function addProductToCarrito(req, res) {
 
 async function deleteCarrito(req, res) {
   try {
-    await carritoService.deleteCarrito(req, res);
+    let carritoId = req.params.id;
+
+    await carritoService.deleteCarrito(carritoId);
+    res.json({ message: "Carrito deleted" });
   } catch (error) {
     res.send({ error: "Carrito not found" });
   }

@@ -23,6 +23,12 @@ class CarritoService {
     }
   }
 
+  /**
+   * Creates a new order of purchase and sends it to the administrator via whatsapp
+   * @param {Object} userId
+   * @param {String} userEmail
+   * @returns {Object} response
+   */
   async createOrder(userId, userEmail) {
     if (userId == null) {
       throw new Error();
@@ -49,16 +55,8 @@ class CarritoService {
       });
   }
 
-  async getCarritoFromUser(req, res) {
-    // Variable de sesion del usuario actual
-    let userId = req.user._id;
-
+  async getCarritoFromUser(userId) {
     let carrito = await carritoDao.getCarritoByUserId(userId);
-
-    if (!carrito) {
-      let newCarrito = await carritoDao.createNewCarrito(userId);
-      return res.json({ newCarrito });
-    }
 
     let productsInCarrito = [];
     for (const product of carrito.products) {
@@ -66,33 +64,24 @@ class CarritoService {
       productsInCarrito.push(products);
     }
 
-    return res.json({ productsInCarrito });
+    return productsInCarrito;
   }
 
   async getAllCarritos(req, res) {
     return res.render("./cart.hbs");
   }
 
-  async removeProductFromCarrito(req, res) {
-    await carritoDao.removeProductFromCarrito(req.params.idProducto, req.params.idCarrito);
-    res.json({
-      Producto: req.params.idProducto,
-      "Eliminado en Carrito": req.params.idCarrito,
-      "Visualizando carrito": await carritoDao.getById(req.params.idCarrito),
-    });
+  async removeProductFromCarrito(idProducto, idCarrito) {
+    await carritoDao.removeProductFromCarrito(idProducto, idCarrito);
   }
 
-  async addProductToCarrito(req, res) {
-    await carritoDao.addProductToCarrito(req.params.idProducto, req.params.idCarrito);
-    let readCarrito = await carritoDao.getById(req.params.idCarrito);
-    res.json({
-      "Agregado en carrito": req.params.idCarrito,
-      "Visualizando carrito": readCarrito,
-    });
+  async addProductToCarrito(idProducto, idCarrito) {
+    await carritoDao.addProductToCarrito(idProducto, idCarrito);
   }
-  async deleteCarrito(req, res) {
-    await carritoDao.deleteById(req.params.id);
-    res.json({ "Carrito deleted": req.params.id });
+
+  async deleteCarrito(carritoId) {
+    await carritoDao.deleteById(carritoId);
+    res.json({ "Carrito deleted": carritoId });
   }
 }
 

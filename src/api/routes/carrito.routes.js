@@ -21,7 +21,7 @@ routerCarrito.post("/order", createOrder);
 
 routerCarrito.post("/", createCarrito);
 
-routerCarrito.get("/usuario", getCarritoFromUser);
+routerCarrito.get("/usuario/:idUsuario", getCarritoFromUser);
 
 routerCarrito.get("/", getAllCarritos);
 
