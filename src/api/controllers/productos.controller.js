@@ -19,7 +19,7 @@ async function getAllProducts(req, res, next) {
 async function createProduct(req, res) {
   try {
     let createdProduct = await productService.createProduct(req.body);
-    res.json({ "Producto creado": createdProduct });
+    res.status(201).json({ "Producto creado": createdProduct });
   } catch (error) {
     throw error;
   }
