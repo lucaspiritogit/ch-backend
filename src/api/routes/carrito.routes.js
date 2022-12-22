@@ -1,19 +1,18 @@
 const dotenv = require("dotenv");
 const { Router } = require("express");
-const Logger = require("../utils/logger.js");
 const routerCarrito = Router();
 const express = require("express");
-const logger = new Logger();
 const {
   createOrder,
   createCarrito,
-  getCarritoFromUser,
+  getCarrito,
   getAllCarritos,
   removeProductFromCarrito,
   addProductToCarrito,
   deleteCarrito,
-  getCarrito,
+  getViewCarrito,
 } = require("../controllers/carrito.controller.js");
+
 dotenv.config();
 
 routerCarrito.use(express.static("./src/api/public"));
@@ -22,15 +21,15 @@ routerCarrito.post("/order", createOrder);
 
 routerCarrito.post("/", createCarrito);
 
-routerCarrito.get("/usuario/:idUsuario", getCarritoFromUser);
+routerCarrito.post("/:idCarrito/productos/:idProducto", addProductToCarrito);
 
 routerCarrito.get("/", getCarrito);
+
+routerCarrito.get("/view", getViewCarrito);
 
 routerCarrito.get("/all", getAllCarritos);
 
 routerCarrito.delete("/:idCarrito/productos/:idProducto", removeProductFromCarrito);
-
-routerCarrito.post("/:idCarrito/productos/:idProducto", addProductToCarrito);
 
 routerCarrito.delete("/:id", deleteCarrito);
 

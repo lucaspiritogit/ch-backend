@@ -33,25 +33,24 @@ async function createOrder(req, res) {
   }
 }
 
-// Los productos del carrito del usuario
-async function getCarritoFromUser(req, res) {
-  try {
-    let userId = req.user._id;
-    let carrito = await carritoService.getCarritoFromUser(userId);
-    res.json({ carrito });
-  } catch (error) {
-    logger.logError("Error when trying to retrieve cart data from userId");
-    res.redirect("/loginError");
-  }
+async function getViewCarrito(req, res) {
+  res.render("./cart.hbs");
 }
-
+// Products in the user's cart
 async function getCarrito(req, res) {
   try {
     let userId = req.user._id;
     let carrito = await carritoService.getCarritoFromUser(userId);
+
+    //res.render("./cart.hbs", { carrito });
     res.json({ carrito });
   } catch (error) {
-    throw error;
+    /*
+      Usually this error will happen only on development
+      since using nodemon refreshes the server, thus losing the user id in the process
+    */
+    logger.logError("Error when trying to retrieve cart data from userId");
+    res.redirect("/loginError");
   }
 }
 
@@ -111,10 +110,10 @@ async function deleteCarrito(req, res) {
 module.exports = {
   createOrder,
   createCarrito,
-  getCarritoFromUser,
   getAllCarritos,
   removeProductFromCarrito,
   addProductToCarrito,
   deleteCarrito,
   getCarrito,
+  getViewCarrito,
 };

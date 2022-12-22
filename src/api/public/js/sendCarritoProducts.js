@@ -1,17 +1,15 @@
 async function getProductsFromCarrito() {
   try {
-    let response = await fetch(`${window.location.href}`);
-    let products = await response.json();
+    let response = await fetch("/api/carrito").then(res => res.json());
 
-    return products.productsInCarrito;
+    return response.carrito;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
-
 async function renderProductsInCarrito() {
   let products = await getProductsFromCarrito();
+
   let html = products
     .map(product => {
       return `
