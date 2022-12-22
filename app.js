@@ -8,8 +8,6 @@ const { Server } = require("socket.io");
 const ProductosMongoDAO = require("./src/api/dao/products/ProductosMongoDAO.js");
 const daoMensajes = require("./src/api/dao/MensajesMongoDAO.js");
 const passport = require("passport");
-const { Strategy } = require("passport-local");
-const User = require("./src/api/models/userModel.js");
 const minimist = require("minimist");
 const { fork } = require("child_process");
 const normalizr = require("normalizr");
@@ -17,8 +15,6 @@ const cluster = require("cluster");
 const os = require("os");
 const compression = require("compression");
 const Logger = require("./src/api/utils/logger.js");
-const multer = require("multer");
-const nodemailer = require("nodemailer");
 const ProductService = require("./src/api/service/ProductService.js");
 const MensajeRepository = require("./src/api/repository/MensajeRepository.js");
 
@@ -69,12 +65,13 @@ if (cluster.isPrimary && args.m === "cluster") {
   const routerProductos = require("./src/api/routes/productos.routes.js");
   const routerLogin = require("./src/api/routes/login.routes.js");
   const routerRegister = require("./src/api/routes/register.routes.js");
+  const routerLogout = require("./src/api/routes/logout.routes.js");
 
   app.use("/api/productos", routerProductos);
   app.use("/api/carrito", routerCarrito);
   app.use("/login", routerLogin);
   app.use("/register", routerRegister);
-
+  app.use("/logout", routerLogout);
   /* ---------------------------- Views ------------------------- */
   app.set("views", "./views");
   app.set("view engine", "hbs");
@@ -161,20 +158,6 @@ if (cluster.isPrimary && args.m === "cluster") {
         res.send(message);
       });
     }
-  });
-
-  // logout
-  app.get("/logout", (req, res) => {
-    res.render("./logout.hbs");
-  });
-
-  app.post("/logout", function (req, res, next) {
-    req.logout(function (err) {
-      if (err) {
-        return next(err);
-      }
-      res.redirect("/");
-    });
   });
 
   /* --------------------------- SocketIO ---------------------------------- */

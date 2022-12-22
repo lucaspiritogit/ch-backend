@@ -1885,3 +1885,36 @@
     at Function.process_params (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:346:12)
     at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:280:10)
     at serveStatic (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\serve-static\index.js:75:16)
+[2022-12-22T15:38:57.271] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading '_id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at createCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:19:12)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:280:10)
+    at serveStatic (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\serve-static\index.js:75:16)
+[2022-12-22T15:39:29.264] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading '_id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at createCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:19:12)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:280:10)
+    at serveStatic (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\serve-static\index.js:75:16)
+[2022-12-22T18:47:41.170] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading '_id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at createCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:19:12)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:280:10)
+    at serveStatic (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\serve-static\index.js:75:16)
