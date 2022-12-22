@@ -1,11 +1,13 @@
 async function getProductsFromCarrito() {
-  let productosFromCarrito = fetch(`${window.location.href}usuario`).then(async response => {
+  try {
+    let response = await fetch(`${window.location.href}`);
     let products = await response.json();
 
     return products.productsInCarrito;
-  });
-
-  return productosFromCarrito;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 async function renderProductsInCarrito() {

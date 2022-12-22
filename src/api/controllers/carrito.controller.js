@@ -47,7 +47,9 @@ async function getCarritoFromUser(req, res) {
 
 async function getCarrito(req, res) {
   try {
-    res.render("./cart.hbs");
+    let userId = req.user._id;
+    let carrito = await carritoService.getCarritoFromUser(userId);
+    res.json({ carrito });
   } catch (error) {
     throw error;
   }
@@ -56,7 +58,6 @@ async function getCarrito(req, res) {
 async function getAllCarritos(req, res) {
   try {
     let allCarritos = await carritoService.getAllCarritos();
-    console.log("🚀 ~ file: carrito.controller.js:59 ~ getAllCarritos ~ allCarritos", allCarritos);
     res.send(allCarritos);
   } catch (error) {
     throw error;
@@ -85,15 +86,14 @@ async function addProductToCarrito(req, res) {
   try {
     let idProducto = req.params.idProducto;
     let idCarrito = req.params.idCarrito;
-    let readCarrito = await carritoDao.getById(idCarrito);
 
     await carritoService.addProductToCarrito(idProducto, idCarrito);
     res.json({
       "Agregado en carrito": req.params.idCarrito,
-      "Visualizando carrito": readCarrito,
     });
   } catch (error) {
     res.send({ error: "Carrito not found" });
+    throw error;
   }
 }
 

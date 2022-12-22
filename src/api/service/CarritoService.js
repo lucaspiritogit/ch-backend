@@ -56,15 +56,19 @@ class CarritoService {
   }
 
   async getCarritoFromUser(userId) {
-    let carrito = await carritoDao.getCarritoByUserId(userId);
+    try {
+      let carrito = await carritoDao.getCarritoByUserId(userId);
 
-    let productsInCarrito = [];
-    for (const product of carrito.products) {
-      let products = await productoDao.getById(product._id);
-      productsInCarrito.push(products);
+      let productsInCarrito = [];
+      for (const product of carrito.products) {
+        let products = await productoDao.getById(product._id);
+        productsInCarrito.push(products);
+      }
+
+      return productsInCarrito;
+    } catch (error) {
+      throw error;
     }
-
-    return productsInCarrito;
   }
 
   async getAllCarritos() {
@@ -81,7 +85,6 @@ class CarritoService {
 
   async deleteCarrito(carritoId) {
     await carritoDao.deleteById(carritoId);
-    res.json({ "Carrito deleted": carritoId });
   }
 }
 
