@@ -67,34 +67,13 @@ if (cluster.isPrimary && args.m === "cluster") {
   /* --------------------------- Router ---------------------------------- */
   const routerCarrito = require("./src/api/routes/carrito.routes.js");
   const routerProductos = require("./src/api/routes/productos.routes.js");
+  const routerLogin = require("./src/api/routes/login.routes.js");
+  const routerRegister = require("./src/api/routes/register.routes.js");
 
   app.use("/api/productos", routerProductos);
   app.use("/api/carrito", routerCarrito);
-
-  /* --------------------------- Multer ---------------------------------- */
-  const storage = multer.diskStorage({
-    destination: "avatars",
-    filename: (req, file, cb) => {
-      cb(null, file.originalname);
-    },
-  });
-
-  app.use(
-    multer({
-      storage,
-      dest: "avatars",
-    }).single("image")
-  );
-
-  /* --------------------------- Nodemailer ---------------------------------- */
-  let transporter = nodemailer.createTransport({
-    service: "gmail",
-    port: 587,
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+  app.use("/login", routerLogin);
+  app.use("/register", routerRegister);
 
   /* ---------------------------- Views ------------------------- */
   app.set("views", "./views");
@@ -107,78 +86,6 @@ if (cluster.isPrimary && args.m === "cluster") {
       defaultLayout: "",
       layoutsDir: "",
     })
-  );
-
-  /* --------------------------- Passport ---------------------------------- */
-  const LocalStrategy = Strategy;
-  passport.serializeUser(function (user, done) {
-    done(null, user);
-  });
-
-  passport.deserializeUser(function (user, done) {
-    done(null, user);
-  });
-
-  passport.use(
-    "local-register",
-    new LocalStrategy(
-      { passReqToCallback: true, usernameField: "email", passwordField: "password" },
-      async (req, email, password, done) => {
-        try {
-          const userExists = await User.findOne({ email });
-
-          if (userExists) {
-            return done(null, false);
-          }
-
-          const address = req.body.address;
-          const age = req.body.address;
-          const phoneNumber = req.body.phone;
-          const avatar = req.file;
-          const user = await User.create({ email, password, address, age, phoneNumber, avatar });
-
-          let emailContent = {
-            from: "NodeJS Lucas Pirito Coderhouse",
-            to: process.env.EMAIL,
-            subject: "Nuevo registro - Coderhouse backend",
-            html: `<h1>Nuevo registro en la aplicacion</h1>
-            <h3>Email:${user.email}</h3> 
-            <br />
-            <h3>Age:${user.age}</h3>     
-            <br />
-            <h3>Phone number: ${user.phoneNumber}</h3>      
-            <br />
-            <h3>URL del avatar: ${user.avatar.path}</h3>    
-            `,
-          };
-
-          const sentEmail = await transporter.sendMail(emailContent);
-          logger.logInfoRoute(`Sent email: ${emailContent.html}`);
-          return done(null, user);
-        } catch (error) {
-          throw error;
-        }
-      }
-    )
-  );
-
-  passport.use(
-    "local-login",
-    new LocalStrategy(
-      { usernameField: "email", passwordField: "password" },
-      async (email, password, done) => {
-        try {
-          const user = await User.findOne({ email: email });
-          if (!user) return done(null, false);
-          const isMatch = await user.matchPassword(password);
-          if (!isMatch) return done(null, false);
-          // if passwords match return user
-          return done(null, user);
-        } catch (error) {
-          throw error;
-        }
-      }
-    )
   );
 
   /* ---------------------------- Retrieve Messages & Products from DB ------------------------- */
@@ -196,8 +103,12 @@ if (cluster.isPrimary && args.m === "cluster") {
   };
   // home
   app.get("/", isLoggedIn, async (req, res) => {
-    let user = { username: req.user.email, avatar: req.user.avatar.path };
-    res.render("./index.hbs", { user });
+    try {
+      let user = { username: req.user.email, avatar: req.user.avatar.path };
+      res.render("./index.hbs", { user });
+    } catch (error) {
+      throw error;
+    }
   });
 
   // info - clase28
@@ -250,41 +161,6 @@ if (cluster.isPrimary && args.m === "cluster") {
         res.send(message);
       });
     }
-  });
-
-  // login
-  app.get("/login", async (req, res) => {
-    res.render("./login.hbs");
-  });
-
-  app.post(
-    "/login",
-    passport.authenticate("local-login", { failureRedirect: "/loginError", successRedirect: "/" }),
-    (req, res) => {
-      logger.logInfoRoute("Login succesful");
-      res.render("./index.hbs");
-    }
-  );
-  app.get("/loginError", (req, res) => {
-    logger.logError("The user doesnt exist or the login values are incorrect.");
-    res.render("./loginError.hbs");
-  });
-
-  // register
-  app.get("/register", (req, res) => {
-    res.render("./register.hbs");
-  });
-
-  app.post(
-    "/register",
-    passport.authenticate("local-register", {
-      successRedirect: "/login",
-      failureRedirect: "/registerError",
-    })
-  );
-
-  app.get("/registerError", (req, res) => {
-    res.render("./registerError.hbs");
   });
 
   // logout

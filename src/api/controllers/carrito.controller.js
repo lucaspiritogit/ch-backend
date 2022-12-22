@@ -1,5 +1,4 @@
 const dotenv = require("dotenv");
-const twilio = require("twilio");
 const { Router } = require("express");
 const Logger = require("../utils/logger.js");
 const routerCarrito = Router();
@@ -18,7 +17,7 @@ async function createCarrito(req, res) {
     res.json({ carrito });
   } catch (error) {
     logger.logError(error);
-    res.redirect("/login");
+    throw error;
   }
 }
 
@@ -33,8 +32,12 @@ async function createOrder(req, res) {
   }
 }
 
-async function getViewCarrito(req, res) {
-  res.render("./cart.hbs");
+async function getCarritoView(req, res) {
+  try {
+    res.render("./cart.hbs");
+  } catch (error) {
+    throw error;
+  }
 }
 // Products in the user's cart
 async function getCarrito(req, res) {
@@ -42,12 +45,11 @@ async function getCarrito(req, res) {
     let userId = req.user._id;
     let carrito = await carritoService.getCarritoFromUser(userId);
 
-    //res.render("./cart.hbs", { carrito });
     res.json({ carrito });
   } catch (error) {
     /*
-      Usually this error will happen only on development
-      since using nodemon refreshes the server, thus losing the user id in the process
+      Usually this error will happen only on development since using nodemon
+      refreshes the server, thus losing the user id in the process
     */
     logger.logError("Error when trying to retrieve cart data from userId");
     res.redirect("/loginError");
@@ -115,5 +117,5 @@ module.exports = {
   addProductToCarrito,
   deleteCarrito,
   getCarrito,
-  getViewCarrito,
+  getCarritoView,
 };

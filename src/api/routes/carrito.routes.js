@@ -10,7 +10,7 @@ const {
   removeProductFromCarrito,
   addProductToCarrito,
   deleteCarrito,
-  getViewCarrito,
+  getCarritoView,
 } = require("../controllers/carrito.controller.js");
 
 dotenv.config();
@@ -25,7 +25,7 @@ routerCarrito.post("/:idCarrito/productos/:idProducto", addProductToCarrito);
 
 routerCarrito.get("/", getCarrito);
 
-routerCarrito.get("/view", getViewCarrito);
+routerCarrito.get("/view", getCarritoView);
 
 routerCarrito.get("/all", getAllCarritos);
 
