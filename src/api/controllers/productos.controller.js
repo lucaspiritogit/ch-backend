@@ -1,6 +1,6 @@
 const ProductService = require("../service/ProductService.js");
-
 const productService = new ProductService();
+
 async function getProductById(req, res) {
   try {
     res.send(await productService.getProductById(req, res));
@@ -25,4 +25,19 @@ async function createProduct(req, res) {
   }
 }
 
-module.exports = { getProductById, getAllProducts, createProduct };
+async function deleteProductById(req, res) {
+  try {
+    await productService.deleteProductById(req, res);
+
+    res.json({ "Producto eliminado": req.params.id });
+  } catch (error) {
+    res.send({ error: "Objeto no encontrado" });
+  }
+}
+
+module.exports = {
+  getProductById,
+  getAllProducts,
+  createProduct,
+  deleteProductById,
+};

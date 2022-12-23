@@ -4,6 +4,7 @@ const {
   getProductById,
   getAllProducts,
   createProduct,
+  deleteProductById,
 } = require("../controllers/productos.controller.js");
 dotenv.config();
 const routerProductos = Router();
@@ -26,5 +27,7 @@ routerProductos.get("/:id", getProductById);
 routerProductos.get("/", getAllProducts);
 
 routerProductos.post("/", checkAdmin, createProduct);
+
+routerProductos.delete("/:id", deleteProductById);
 
 module.exports = routerProductos;

@@ -18,7 +18,7 @@ class ProductService {
   async getAllProducts() {
     let allProducts = await productoDao.getAll();
 
-    let productsDTO = allProducts.map(product => {
+    let productsDTO = allProducts.map((product) => {
       const productDTO = new ProductDTO(
         product.id,
         product.title,
@@ -32,6 +32,14 @@ class ProductService {
 
   async createProduct(req, res) {
     return await productoDao.save(req.body);
+  }
+
+  async deleteProductById(req, res) {
+    try {
+      return await productoDao.deleteById(req.params.id);
+    } catch {
+      error;
+    }
   }
 }
 

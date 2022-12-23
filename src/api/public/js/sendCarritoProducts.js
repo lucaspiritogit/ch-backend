@@ -1,6 +1,6 @@
 async function getProductsFromCarrito() {
   try {
-    let response = await fetch("/api/carrito").then(res => res.json());
+    let response = await fetch("/api/carrito").then((res) => res.json());
 
     return response.carrito;
   } catch (error) {
@@ -9,11 +9,14 @@ async function getProductsFromCarrito() {
 }
 async function renderProductsInCarrito() {
   let products = await getProductsFromCarrito();
-
+  console.log(products);
   let html = products
-    .map(product => {
+    .map((product) => {
+      if (product == null) {
+        return `<h3>Producto no encontrado</h3>`;
+      }
       return `
-    <div class="producto">
+      <div class="producto">
       <h3>Id: ${product._id}</h3>
           <h3>Titulo: ${product.title}</h3>
           <h3>Precio: ${product.price}</h3>
