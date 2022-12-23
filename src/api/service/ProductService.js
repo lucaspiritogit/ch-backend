@@ -34,6 +34,14 @@ class ProductService {
     return await productoDao.save(req.body);
   }
 
+  async updateProductById(req, res) {
+    try {
+      return await productoDao.updateById(req.params.id, req.body);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async deleteProductById(req, res) {
     try {
       return await productoDao.deleteById(req.params.id);

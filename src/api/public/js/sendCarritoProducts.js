@@ -7,6 +7,7 @@ async function getProductsFromCarrito() {
     throw error;
   }
 }
+
 async function renderProductsInCarrito() {
   let products = await getProductsFromCarrito();
   console.log(products);

@@ -25,6 +25,15 @@ async function createProduct(req, res) {
   }
 }
 
+async function updateProductById(req, res) {
+  try {
+    let updatedProduct = await productService.updateProductById(req, res);
+    res.status(201).json({ "Producto actualizado": updatedProduct });
+  } catch (error) {
+    res.send({ error: "Objeto no encontrado" });
+  }
+}
+
 async function deleteProductById(req, res) {
   try {
     await productService.deleteProductById(req, res);
@@ -40,4 +49,5 @@ module.exports = {
   getAllProducts,
   createProduct,
   deleteProductById,
+  updateProductById,
 };
