@@ -87,7 +87,11 @@ if (cluster.isPrimary && args.m === "cluster") {
 
   /* ---------------------------- Retrieve Messages & Products from DB ------------------------- */
   const dao = new daoMensajes();
-  const containerProdMongo = new ProductosMongoDAO();
+  const DAOFactory = require("./src/api/classes/DAOFactory.js");
+  const daoFactory = new DAOFactory();
+  const DAOFactoryProd = daoFactory.useDAO("mongo").ProductosMongoDAO;
+
+  const containerProdMongo = new DAOFactoryProd();
   const productService = new ProductService();
   const mensajeRepository = new MensajeRepository();
 
