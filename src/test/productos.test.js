@@ -32,25 +32,9 @@ describe("Product tests", () => {
 
   // Create product
   it("POST /productos", async () => {
-    const product = JSON.stringify(
-      {
-        title: "Test",
-        price: 100,
-        description: "Test",
-        code: "code",
-        thumbnail: "thumbnail",
-        stock: 100,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer admin",
-        },
-      }
-    );
     const responseChaiSuper = await request.post("/").send(
       {
-        title: "Test",
+        title: "Created by test",
         price: 100,
         description: "Test",
         code: "code",
