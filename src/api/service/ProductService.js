@@ -18,7 +18,7 @@ class ProductService {
   async getAllProducts() {
     let allProducts = await productoDao.getAll();
 
-    let productsDTO = allProducts.map((product) => {
+    let productsDTO = allProducts.map(product => {
       const productDTO = new ProductDTO(
         product.id,
         product.title,
@@ -30,8 +30,9 @@ class ProductService {
     return productsDTO;
   }
 
-  async createProduct(req, res) {
-    return await productoDao.save(req.body);
+  async createProduct(product) {
+    console.log(product);
+    return await productoDao.save(product);
   }
 
   async updateProductById(req, res) {

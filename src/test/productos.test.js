@@ -32,6 +32,22 @@ describe("Product tests", () => {
 
   // Create product
   it("POST /productos", async () => {
+    const product = JSON.stringify(
+      {
+        title: "Test",
+        price: 100,
+        description: "Test",
+        code: "code",
+        thumbnail: "thumbnail",
+        stock: 100,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer admin",
+        },
+      }
+    );
     const responseChaiSuper = await request.post("/").send(
       {
         title: "Test",
@@ -53,9 +69,16 @@ describe("Product tests", () => {
 
   // Update product
   it("PUT /productos/:id", async () => {
-    const responseChaiSuper = await request.put("/63ab6292fa40b5debc1327d3").send(
+    let products = await productService.getAllProducts();
+    let productsIds = [];
+    products.forEach(async product => {
+      productsIds.push(product.id);
+    });
+
+    let randomProductId = productsIds[Math.floor(Math.random() * productsIds.length)];
+    const responseChaiSuper = await request.put(`/${randomProductId}`).send(
       {
-        title: "Test",
+        title: "Changed by test",
         price: 100,
         description: "Test",
         code: "code",

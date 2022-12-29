@@ -1,0 +1,253 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 8,
+    "passes": 8,
+    "pending": 0,
+    "failures": 0,
+    "start": "2022-12-29T00:52:49.335Z",
+    "end": "2022-12-29T00:52:50.493Z",
+    "duration": 1158,
+    "testsRegistered": 8,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "4b74f895-c6a5-4969-8453-cdb2cf52b205",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "fcf9e461-2830-4e9e-b67d-1c081e039f04",
+          "title": "Product tests",
+          "fullFile": "C:\\Users\\lucas\\Desktop\\Proyectos\\coderhouse-backend\\src\\test\\productos.test.js",
+          "file": "\\src\\test\\productos.test.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "GET /productos",
+              "fullTitle": "Product tests GET /productos",
+              "timedOut": false,
+              "duration": 61,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const responseChaiSuper = await request.get(\"/\").expect(200);\nexpect(responseChaiSuper.status).to.eql(200);",
+              "err": {},
+              "uuid": "68604d9b-e910-4642-9917-ea4f2f5e4ba4",
+              "parentUUID": "fcf9e461-2830-4e9e-b67d-1c081e039f04",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "GET /productos/:id",
+              "fullTitle": "Product tests GET /productos/:id",
+              "timedOut": false,
+              "duration": 773,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let products = await productService.getAllProducts();\nlet productsIds = [];\nproducts.forEach(async product => {\n  productsIds.push(product.id);\n});\nlet randomProductId = productsIds[Math.floor(Math.random() * productsIds.length)];\nconst productsSuperChai = await request.get(`/${randomProductId}`).expect(200);\nexpect(productsSuperChai.status).to.eql(200);",
+              "err": {},
+              "uuid": "c1064230-27eb-42bd-b505-2b947a3eb1bc",
+              "parentUUID": "fcf9e461-2830-4e9e-b67d-1c081e039f04",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "POST /productos",
+              "fullTitle": "Product tests POST /productos",
+              "timedOut": false,
+              "duration": 3,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const product = JSON.stringify(\n  {\n    title: \"Test\",\n    price: 100,\n    description: \"Test\",\n    code: \"code\",\n    thumbnail: \"thumbnail\",\n    stock: 100,\n  },\n  {\n    headers: {\n      \"Content-Type\": \"application/json\",\n      Authorization: \"Bearer admin\",\n    },\n  }\n);\nconst responseChaiSuper = await request.post(\"/\").send(\n  {\n    title: \"Test\",\n    price: 100,\n    description: \"Test\",\n    code: \"code\",\n    thumbnail: \"thumbnail\",\n    stock: 100,\n  },\n  {\n    headers: {\n      \"Content-Type\": \"application/json\",\n      Authorization: \"Bearer admin\",\n    },\n  }\n);\nexpect(responseChaiSuper.status).to.eql(200);",
+              "err": {},
+              "uuid": "3f894bb9-4723-4ae1-b30b-c9d13d4503c6",
+              "parentUUID": "fcf9e461-2830-4e9e-b67d-1c081e039f04",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "PUT /productos/:id",
+              "fullTitle": "Product tests PUT /productos/:id",
+              "timedOut": false,
+              "duration": 98,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let products = await productService.getAllProducts();\nlet productsIds = [];\nproducts.forEach(async product => {\n  productsIds.push(product.id);\n});\nlet randomProductId = productsIds[Math.floor(Math.random() * productsIds.length)];\nconst responseChaiSuper = await request.put(`/${randomProductId}`).send(\n  {\n    title: \"Changed by test\",\n    price: 100,\n    description: \"Test\",\n    code: \"code\",\n    thumbnail: \"thumbnail\",\n    stock: 100,\n  },\n  {\n    headers: {\n      \"Content-Type\": \"application/json\",\n      Authorization: \"Bearer admin\",\n    },\n  }\n);\nexpect(responseChaiSuper.status).to.eql(201);",
+              "err": {},
+              "uuid": "74d3abae-fe1d-4de6-b725-f82fd8ee32b9",
+              "parentUUID": "fcf9e461-2830-4e9e-b67d-1c081e039f04",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "68604d9b-e910-4642-9917-ea4f2f5e4ba4",
+            "c1064230-27eb-42bd-b505-2b947a3eb1bc",
+            "3f894bb9-4723-4ae1-b30b-c9d13d4503c6",
+            "74d3abae-fe1d-4de6-b725-f82fd8ee32b9"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 935,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "b4df015b-50bd-417c-8b6b-cca8ba359e73",
+          "title": "Product tests",
+          "fullFile": "C:\\Users\\lucas\\Desktop\\Proyectos\\coderhouse-backend\\src\\test\\productosAxios.test.js",
+          "file": "\\src\\test\\productosAxios.test.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "GET /productos",
+              "fullTitle": "Product tests GET /productos",
+              "timedOut": false,
+              "duration": 50,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await axios.get(url);\nassert.equal(response.status, 200);",
+              "err": {},
+              "uuid": "584f05c5-f66e-4ad6-834f-3a066078ba1a",
+              "parentUUID": "b4df015b-50bd-417c-8b6b-cca8ba359e73",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "GET /productos/:id",
+              "fullTitle": "Product tests GET /productos/:id",
+              "timedOut": false,
+              "duration": 109,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let products = await productService.getAllProducts();\nlet productsIds = [];\nproducts.forEach(async product => {\n  productsIds.push(product.id);\n});\nlet randomProductId = productsIds[Math.floor(Math.random() * productsIds.length)];\nconst response = await axios.get(`${url}/${randomProductId}`);\nassert.equal(response.status, 200);",
+              "err": {},
+              "uuid": "6d3f2ac1-806a-4c89-93dc-c1311af6c384",
+              "parentUUID": "b4df015b-50bd-417c-8b6b-cca8ba359e73",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "POST /productos",
+              "fullTitle": "Product tests POST /productos",
+              "timedOut": false,
+              "duration": 52,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await axios.post(\n  url,\n  {\n    title: \"Test\",\n    price: 100,\n    description: \"Test\",\n    code: \"code\",\n    thumbnail: \"thumbnail\",\n    stock: 100,\n  },\n  {\n    headers: {\n      \"Content-Type\": \"application/json\",\n      Authorization: \"Bearer admin\",\n    },\n  }\n);\nassert.equal(response.status, 201);",
+              "err": {},
+              "uuid": "48c928df-f991-4f10-8f57-a8f490e7f8c8",
+              "parentUUID": "b4df015b-50bd-417c-8b6b-cca8ba359e73",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "PUT /productos/:id",
+              "fullTitle": "Product tests PUT /productos/:id",
+              "timedOut": false,
+              "duration": 4,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await axios.put(`${url}/1`, {\n  title: \"Test\",\n  price: 100,\n  description: \"Test\",\n  code: \"code\",\n  thumbnail: \"thumbnail\",\n  stock: 100,\n});\nassert.equal(response.status, 200);",
+              "err": {},
+              "uuid": "28c56d0d-934c-4898-a0c2-6eceb5cda0dd",
+              "parentUUID": "b4df015b-50bd-417c-8b6b-cca8ba359e73",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "584f05c5-f66e-4ad6-834f-3a066078ba1a",
+            "6d3f2ac1-806a-4c89-93dc-c1311af6c384",
+            "48c928df-f991-4f10-8f57-a8f490e7f8c8",
+            "28c56d0d-934c-4898-a0c2-6eceb5cda0dd"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 215,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.2.0"
+    }
+  }
+}
