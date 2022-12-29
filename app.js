@@ -5,7 +5,6 @@ const { engine } = require("express-handlebars");
 const session = require("express-session");
 const http = require("http");
 const { Server } = require("socket.io");
-const ProductosMongoDAO = require("./src/api/dao/products/ProductosMongoDAO.js");
 const daoMensajes = require("./src/api/dao/MensajesMongoDAO.js");
 const passport = require("passport");
 const minimist = require("minimist");
@@ -25,7 +24,10 @@ const io = new Server(server);
 const logger = new Logger();
 
 /* ---------------------------- args ------------------------- */
-let options = { alias: { p: "puerto", m: "modo" }, default: { p: 8080, m: "fork" } };
+let options = {
+  alias: { p: "puerto", m: "modo" },
+  default: { p: 8080, m: "fork" },
+};
 let args = minimist(process.argv.slice(2), options);
 let PORT = process.env.PORT || 8080;
 let changeInitMode = args.m;
@@ -33,10 +35,15 @@ let changeInitMode = args.m;
 if (args.m === "cluster") {
   changeInitMode = "cluster";
 }
+
+// Mongo by default
+if (args.t == undefined) {
+  args.t = "mongo";
+}
 console.table(args);
 console.log(`Mode is now: ${args.m}`);
 console.log("processes", process.pid);
-
+console.log("Connected using:", args.t);
 if (cluster.isPrimary && args.m === "cluster") {
   for (let i = 0; i < os.cpus().length; i++) {
     cluster.fork();
@@ -89,9 +96,7 @@ if (cluster.isPrimary && args.m === "cluster") {
   const dao = new daoMensajes();
   const DAOFactory = require("./src/api/classes/DAOFactory.js");
   const daoFactory = new DAOFactory();
-  const DAOFactoryProd = daoFactory.useDAO("mongo").ProductosMongoDAO;
 
-  const containerProdMongo = new DAOFactoryProd();
   const productService = new ProductService();
   const mensajeRepository = new MensajeRepository();
 
@@ -194,7 +199,7 @@ if (cluster.isPrimary && args.m === "cluster") {
     // productos
     socket.on("productos-cliente", async data => {
       try {
-        await containerProdMongo.save(data);
+        await productService.createProduct(data);
         io.sockets.emit("productos-server", await productService.getAllProducts());
       } catch (error) {
         logger.logError(error);

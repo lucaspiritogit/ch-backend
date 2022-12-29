@@ -1,8 +1,11 @@
-const { carritoDao, productoDao } = require("../dao/setDB.js");
 const Logger = require("../utils/logger.js");
 const logger = new Logger();
 const twilio = require("twilio");
 const client = new twilio(process.env.SSID, process.env.TWILIO_AUTH_TOKEN);
+const DAOFactory = require("../classes/DAOFactory.js");
+const daoFactory = new DAOFactory();
+const productoDao = daoFactory.useDAO().productoDao;
+const carritoDao = daoFactory.useDAO().carritoDao;
 
 class CarritoService {
   /**

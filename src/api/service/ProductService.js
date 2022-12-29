@@ -1,5 +1,8 @@
-const { carritoDao, productoDao } = require("../dao/setDB.js");
 const ProductDTO = require("../dto/ProductDTO.js");
+const DAOFactory = require("../classes/DAOFactory.js");
+const daoFactory = new DAOFactory();
+const productoDao = daoFactory.useDAO().productoDao;
+
 class ProductService {
   constructor() {}
 

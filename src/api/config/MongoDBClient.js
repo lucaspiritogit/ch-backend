@@ -12,7 +12,6 @@ class MongoDBClient extends DBClient {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
-      console.log("Connected with MongoDB");
     } catch (error) {
       logger.logError(error);
     }
