@@ -1,8 +1,3 @@
-let productoDao;
-let carritoDao;
-
-let instance = null;
-
 class DAOFactory {
   useDAO(DAOType) {
     if (DAOType == "mongo") {
@@ -11,14 +6,6 @@ class DAOFactory {
 
       return { CarritoMongoDAO, ProductosMongoDAO };
     }
-  }
-
-  static getInstance() {
-    if (!instance) {
-      instance = new MongoDBClient();
-    }
-
-    return instance;
   }
 }
 

@@ -3,7 +3,7 @@ const productService = new ProductService();
 
 async function getProductById(req, res) {
   try {
-    res.send(await productService.getProductById(req, res));
+    res.send(await productService.getProductById(req.params.id));
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
   }
@@ -27,7 +27,7 @@ async function createProduct(req, res) {
 
 async function updateProductById(req, res) {
   try {
-    let updatedProduct = await productService.updateProductById(req, res);
+    let updatedProduct = await productService.updateProductById(req.params.id, req.body);
     res.status(201).json({ "Producto actualizado": updatedProduct });
   } catch (error) {
     res.send({ error: "Objeto no encontrado" });
@@ -36,7 +36,7 @@ async function updateProductById(req, res) {
 
 async function deleteProductById(req, res) {
   try {
-    await productService.deleteProductById(req, res);
+    await productService.deleteProductById(req.params.id);
 
     res.json({ "Producto eliminado": req.params.id });
   } catch (error) {

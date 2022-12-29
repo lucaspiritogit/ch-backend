@@ -16,8 +16,7 @@ async function createCarrito(req, res) {
     let carrito = await carritoService.createCarrito(userId);
     res.json({ carrito });
   } catch (error) {
-    logger.logError(error);
-    throw error;
+    logger.logError("Error when trying to retrieve cart data from userId", error);
   }
 }
 

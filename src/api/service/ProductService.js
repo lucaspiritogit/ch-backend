@@ -3,8 +3,8 @@ const ProductDTO = require("../dto/ProductDTO.js");
 class ProductService {
   constructor() {}
 
-  async getProductById(req, res) {
-    let product = await productoDao.getById(req.params.id);
+  async getProductById(productId) {
+    let product = await productoDao.getById(productId);
     const productDTO = new ProductDTO(
       product.id,
       product.title,
@@ -18,7 +18,7 @@ class ProductService {
   async getAllProducts() {
     let allProducts = await productoDao.getAll();
 
-    let productsDTO = allProducts.map((product) => {
+    let productsDTO = allProducts.map(product => {
       const productDTO = new ProductDTO(
         product.id,
         product.title,
@@ -30,21 +30,22 @@ class ProductService {
     return productsDTO;
   }
 
-  async createProduct(req, res) {
-    return await productoDao.save(req.body);
+  async createProduct(product) {
+    console.log(product);
+    return await productoDao.save(product);
   }
 
-  async updateProductById(req, res) {
+  async updateProductById(productId, obj) {
     try {
-      return await productoDao.updateById(req.params.id, req.body);
+      return await productoDao.updateById(productId, obj);
     } catch (error) {
       throw error;
     }
   }
 
-  async deleteProductById(req, res) {
+  async deleteProductById(productId) {
     try {
-      return await productoDao.deleteById(req.params.id);
+      return await productoDao.deleteById(productId);
     } catch {
       error;
     }
