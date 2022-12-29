@@ -1,24 +1,24 @@
+const axios = require("axios");
+const assert = require("assert").strict;
 const ProductService = require("../api/service/ProductService.js");
 const url = "http://localhost:8080/api/productos";
-const request = require("supertest")(url);
-const expect = require("chai").expect;
-let productService = new ProductService();
 
+let productService = new ProductService();
 /*
     Controller of products test
 */
-console.log("Testing products with MochaChaiSupertest");
-
+console.log("Testing products with Axios")
 describe("Product tests", () => {
   // All products
   it("GET /productos", async () => {
-    const responseChaiSuper = await request.get("/").expect(200);
-    expect(responseChaiSuper.status).to.eql(200);
+    const response = await axios.get(url);
+    assert.equal(response.status, 200);
   });
 
   // Single product
   it("GET /productos/:id", async () => {
     let products = await productService.getAllProducts();
+
     let productsIds = [];
     products.forEach(async product => {
       productsIds.push(product.id);
@@ -26,13 +26,14 @@ describe("Product tests", () => {
 
     let randomProductId = productsIds[Math.floor(Math.random() * productsIds.length)];
 
-    const productsSuperChai = await request.get(`/${randomProductId}`).expect(200);
-    expect(productsSuperChai.status).to.eql(200);
+    const response = await axios.get(`${url}/${randomProductId}`);
+    assert.equal(response.status, 200);
   });
 
   // Create product
   it("POST /productos", async () => {
-    const responseChaiSuper = await request.post("/").send(
+    const response = await axios.post(
+      url,
       {
         title: "Test",
         price: 100,
@@ -48,27 +49,19 @@ describe("Product tests", () => {
         },
       }
     );
-    expect(responseChaiSuper.status).to.eql(200);
+    assert.equal(response.status, 201);
   });
 
   // Update product
   it("PUT /productos/:id", async () => {
-    const responseChaiSuper = await request.put("/63ab6292fa40b5debc1327d3").send(
-      {
-        title: "Test",
-        price: 100,
-        description: "Test",
-        code: "code",
-        thumbnail: "thumbnail",
-        stock: 100,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer admin",
-        },
-      }
-    );
-    expect(responseChaiSuper.status).to.eql(201);
+    const response = await axios.put(`${url}/1`, {
+      title: "Test",
+      price: 100,
+      description: "Test",
+      code: "code",
+      thumbnail: "thumbnail",
+      stock: 100,
+    });
+    assert.equal(response.status, 200);
   });
 });
