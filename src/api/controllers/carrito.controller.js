@@ -17,7 +17,6 @@ async function createCarrito(req, res) {
     res.json({ carrito });
   } catch (error) {
     logger.logError(error);
-    throw error;
   }
 }
 
