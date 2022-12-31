@@ -7,7 +7,7 @@ let productService = new ProductService();
 /*
     Controller of products test
 */
-console.log("Testing products with Axios")
+console.log("Testing products with Axios");
 describe("Product tests", () => {
   // All products
   it("GET /productos", async () => {
