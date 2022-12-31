@@ -34,7 +34,6 @@ class ProductService {
   }
 
   async createProduct(product) {
-    console.log(product);
     return await productoDao.save(product);
   }
 
