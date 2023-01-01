@@ -44,10 +44,20 @@ async function deleteProductById(req, res) {
   }
 }
 
+async function deleteAllProducts(req, res) {
+  try {
+    await productService.deleteAllProducts();
+    res.json({ "Productos eliminados": "Todos los productos" });
+  } catch (error) {
+    res.send({ error: "No existen productos" });
+  }
+}
+
 module.exports = {
   getProductById,
   getAllProducts,
   createProduct,
   deleteProductById,
   updateProductById,
+  deleteAllProducts,
 };

@@ -19,6 +19,28 @@ const sendProduct = () => {
   return false;
 };
 
+const deleteAllProductsBtn = document.getElementById("deleteAllProducts");
+
+async function deleteAllProducts() {
+  let deleteAllProducts = await fetch(`${window.location.href}api/productos`, {
+    method: "delete",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  }).then(async r => {
+    const response = await r.json();
+    console.log("🚀 ~ file: sendProduct.js:31 ~ deleteAllProducts ~ response", response);
+    return response;
+  });
+  return deleteAllProducts;
+}
+
+deleteAllProductsBtn.addEventListener("click", async () => {
+  socket.emit("productos-cliente", {});
+  await deleteAllProducts();
+});
+
 async function createCarrito() {
   let createCarrito = await fetch(`${window.location.href}api/carrito`, {
     method: "post",
@@ -76,7 +98,6 @@ async function renderProducts(productos) {
 
   document.querySelector("#listadoProductos").innerHTML = html;
 }
-
 socket.on("productos-server", productos => {
   renderProducts(productos);
 });

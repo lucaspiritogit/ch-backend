@@ -82,6 +82,10 @@ class CarritoService {
     await carritoDao.removeProductFromCarrito(idProducto, idCarrito);
   }
 
+  async deleteAllProductsFromCarrito(idCarrito) {
+    await carritoDao.deleteAllProductsFromCarrito(idCarrito);
+  }
+
   async addProductToCarrito(idProducto, idCarrito) {
     await carritoDao.addProductToCarrito(idProducto, idCarrito);
   }

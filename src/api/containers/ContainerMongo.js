@@ -68,6 +68,13 @@ class ContainerMongo {
       throw error;
     }
   }
+  async deleteAll() {
+    try {
+      await this.col.deleteMany({});
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = ContainerMongo;

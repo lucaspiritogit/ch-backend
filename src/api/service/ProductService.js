@@ -52,6 +52,13 @@ class ProductService {
       error;
     }
   }
+  async deleteAllProducts() {
+    try {
+      return await productoDao.deleteAll();
+    } catch {
+      error;
+    }
+  }
 }
 
 module.exports = ProductService;

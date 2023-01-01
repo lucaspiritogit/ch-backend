@@ -109,6 +109,18 @@ async function deleteCarrito(req, res) {
   }
 }
 
+async function deleteAllProductsFromCarrito(req, res) {
+  try {
+    let carritoId = req.params.idCarrito;
+
+    await carritoService.deleteAllProductsFromCarrito(carritoId);
+    res.json({ message: "Carrito deleted" });
+  } catch (error) {
+    console.log(error);
+    res.send({ error: "Carrito not found" });
+  }
+}
+
 module.exports = {
   createOrder,
   createCarrito,
@@ -118,4 +130,5 @@ module.exports = {
   deleteCarrito,
   getCarrito,
   getCarritoView,
+  deleteAllProductsFromCarrito,
 };

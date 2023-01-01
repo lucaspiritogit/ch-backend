@@ -35,6 +35,24 @@ input {
   margin-top: 20px;
 }
 
+#deleteAllProducts {
+  cursor: pointer;
+  font-size: 2rem;
+  background-color: rgba(189, 52, 52, 0.765);
+  color: rgb(192, 162, 162);
+  padding: 10px;
+  margin-top: 20px;
+}
+
+#deleteAllProducts:hover {
+  cursor: pointer;
+  font-size: 2rem;
+  background-color: rgb(189, 52, 52);
+  color: rgb(231, 221, 221);
+  padding: 10px;
+  margin-top: 20px;
+}
+
 .submitProductButton:hover {
   background-color: rgb(255, 255, 255);
   transition: all ease-in-out 0.1s;

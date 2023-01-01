@@ -44,6 +44,17 @@ class CarritoMongoDAO extends ContainerMongo {
       throw error;
     }
   }
+
+  async deleteAllProductsFromCarrito(carritoId) {
+    try {
+      const carrito = await CarritoModel.findById(carritoId);
+      if (!carrito) throw new Error("Carrito no encontrado");
+      carrito.products = [];
+      carrito.save();
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = CarritoMongoDAO;
