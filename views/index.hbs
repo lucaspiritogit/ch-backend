@@ -39,33 +39,35 @@
       <li><a href="/logout">🏃‍♂️ Logout</a></li>
     </ol>
   </nav>
-  <div class="postProduct">
-    <h1 style="text-align: center; font-size:3.2rem;">Ingresar un producto:</h1>
-    <form id="postProductForm" onsubmit="return sendProduct(this)">
-      <div class="container">
-        <label for="title">Title</label>
-        <input id="title" type="text" name="title" placeholder="title" />
-        <label for="price">Price</label>
-        <input id="price" type="text" name="price" placeholder="price" required />
-        <label for="thumbnail">Thumbnail</label>
-        <input id="thumbnail" type="text" name="thumbnail" placeholder="url" />
-        <label for="thumbnail">stock</label>
-        <input id="stock" type="text" name="stock" placeholder="stock" />
-        <label for="thumbnail">code</label>
-        <input id="code" type="text" name="code" placeholder="code" />
-        <label for="description">description</label>
-        <input id="description" type="text" name="description" placeholder="description" />
-        <button class="submitProductButton" type="submit">Ingresar</button>
+  <div class="mainContainer">
+    <div class="postProduct">
+      <form id="postProductForm" onsubmit="return sendProduct(this)">
+        <h1 style="text-align: center; font-size:3.2rem;">Ingresar un producto:</h1>
+        <div class="container">
+          <label for="title">Title</label>
+          <input id="title" type="text" name="title" placeholder="title" />
+          <label for="price">Price</label>
+          <input id="price" type="text" name="price" placeholder="price" required />
+          <label for="thumbnail">Thumbnail</label>
+          <input id="thumbnail" type="text" name="thumbnail" placeholder="url" />
+          <label for="thumbnail">stock</label>
+          <input id="stock" type="text" name="stock" placeholder="stock" />
+          <label for="thumbnail">code</label>
+          <input id="code" type="text" name="code" placeholder="code" />
+          <label for="description">description</label>
+          <input id="description" type="text" name="description" placeholder="description" />
+          <button class="submitProductButton" type="submit">Ingresar</button>
+        </div>
+      </form>
+    </div>
+    <div class="productListIntro">
+      <h1 style="text-align: center; font-size:3.2rem;">Listado de productos:</h1>
+      <div>
+        <button id="deleteAllProducts">Eliminar todos los productos</button>
       </div>
-    </form>
-    <div>
-      <button id="deleteAllProducts">Eliminar todos los productos</button>
+      <div id="listadoProductos"></div>
     </div>
   </div>
-  <div class="productListIntro">
-    <h1 style="text-align: center; font-size:3.2rem;">Listado de productos:</h1>
-  </div>
-  <div id="listadoProductos"></div>
   <form id="chatBox" onsubmit="return sendMessage(this)">
     <h2>Live Chat</h2>
     <label for="email">Email</label>
