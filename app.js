@@ -16,7 +16,9 @@ const compression = require("compression");
 const Logger = require("./src/api/utils/logger.js");
 const ProductService = require("./src/api/service/ProductService.js");
 const MensajeRepository = require("./src/api/repository/MensajeRepository.js");
-
+const { graphqlHTTP } = require("express-graphql");
+const { buildSchema } = require("graphql");
+const ProductosMongoDAO = require("./src/api/dao/products/ProductosMongoDAO.js");
 /* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
 const server = http.createServer(app);
@@ -168,6 +170,40 @@ if (cluster.isPrimary && args.m === "cluster") {
       });
     }
   });
+
+  /* ---------------------------- GraphQL ------------------------- */
+
+  async function getProductos() {
+    let products = await productService.getAllProducts();
+    return products;
+  }
+
+  const schema = buildSchema(`
+  type Producto {
+    title: String
+    price: Float
+    thumbnail: String
+    code: String
+    stock: Int
+    description: String
+  }
+
+  type Query {
+    getProductos: [Producto]
+
+  }
+`);
+
+  app.use(
+    "/graphql/productos",
+    graphqlHTTP({
+      schema: schema,
+      rootValue: {
+        getProductos,
+      },
+      graphiql: false,
+    })
+  );
 
   /* --------------------------- SocketIO ---------------------------------- */
   const authorSchema = new normalizr.schema.Entity("author", {}, { idAttribute: "email" });
