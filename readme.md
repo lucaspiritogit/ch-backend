@@ -56,7 +56,7 @@ Documentacion con respecto a las rutas disponibles de la aplicacion
 
 ## GraphiQL
 
-![](./src/api/public/img/graph-evid.png.png)
+![](./src/api/public/img/graph-evid.png)
 
 # Evidencias de Twilio y Nodemailer
 
