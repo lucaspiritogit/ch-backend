@@ -58,6 +58,15 @@ class CarritoService {
       });
   }
 
+  async getCarritoById(carritoId) {
+    try {
+      let carrito = await carritoDao.getCarritoById(carritoId);
+      return carrito;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getCarritoFromUser(userId) {
     try {
       let carrito = await carritoDao.getCarritoByUserId(userId);
@@ -75,7 +84,7 @@ class CarritoService {
   }
 
   async getAllCarritos() {
-    await carritoDao.getAll();
+    return await carritoDao.getAll();
   }
 
   async removeProductFromCarrito(idProducto, idCarrito) {

@@ -101,7 +101,7 @@ routerGraphProductos.use(
       deleteProductGraph,
       updateProductGraph,
     },
-    graphiql: false,
+    graphiql: true,
   })
 );
 

@@ -44,7 +44,9 @@ emptyCartBtn.addEventListener("click", async () => {
 function getTotalPriceInCart(products) {
   let totalPrice = 0;
   products.forEach(product => {
-    console.log(product);
+    if (product.price == null) {
+      product.price = 0;
+    }
     totalPrice += product.price;
   });
   let totalPriceHtml = document.getElementById("totalPrice");

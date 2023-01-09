@@ -4,11 +4,13 @@ const Logger = require("../utils/logger.js");
 const routerCarrito = Router();
 const express = require("express");
 const logger = new Logger();
-dotenv.config();
 const CarritoService = require("../service/CarritoService.js");
+const ProductService = require("../service/ProductService.js");
+dotenv.config();
 routerCarrito.use(express.static("./src/api/public"));
 
 const carritoService = new CarritoService();
+const productService = new ProductService();
 
 async function createCarrito(req, res) {
   try {
@@ -61,6 +63,7 @@ async function getAllCarritos(req, res) {
     let allCarritos = await carritoService.getAllCarritos();
     res.send(allCarritos);
   } catch (error) {
+    console.log(error);
     throw error;
   }
 }
@@ -87,6 +90,7 @@ async function addProductToCarrito(req, res) {
   try {
     let idProducto = req.params.idProducto;
     let idCarrito = req.params.idCarrito;
+    await produ;
 
     await carritoService.addProductToCarrito(idProducto, idCarrito);
     res.json({

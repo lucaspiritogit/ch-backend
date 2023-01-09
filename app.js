@@ -17,6 +17,7 @@ const Logger = require("./src/api/utils/logger.js");
 const ProductService = require("./src/api/service/ProductService.js");
 const MensajeRepository = require("./src/api/repository/MensajeRepository.js");
 const routerGraphProductos = require("./src/api/graphql/productos.js");
+const routerGraphCarrito = require("./src/api/graphql/carritos.js");
 
 /* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
@@ -82,6 +83,7 @@ if (cluster.isPrimary && args.m === "cluster") {
   app.use("/logout", routerLogout);
   /* ---------------------------- GraphQL ------------------------- */
   app.use("/graphql/productos", routerGraphProductos);
+  app.use("/graphql/carritos", routerGraphCarrito);
 
   /* ---------------------------- Views ------------------------- */
   app.set("views", "./views");
