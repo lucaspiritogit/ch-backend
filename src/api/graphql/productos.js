@@ -37,6 +37,35 @@ async function createProductGraph({ title, price, code, stock, description }) {
   }
 }
 
+async function updateProductGraph({ id, title, price, code, stock, description }) {
+  try {
+    let updatedProduct = await productService.updateProductById(id, {
+      title,
+      price,
+      code,
+      stock,
+      description,
+    });
+
+    if (!updatedProduct) return "Product not found";
+
+    return updatedProduct;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+async function deleteProductGraph({ id }) {
+  try {
+    let deletedProduct = await productService.deleteProductById(id);
+    return deletedProduct;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 const schema = buildSchema(`
   type Producto {
     id: String!
@@ -54,7 +83,10 @@ const schema = buildSchema(`
   }
 
   type Mutation {
-    createProductGraph(title: String!, price: Float!, code: String, stock: Int, description: String): Producto
+    createProductGraph(title: String!, price: Float!, code: String, stock: Int, description: String): Producto,
+    deleteProductGraph(id: String!): Producto
+    updateProductGraph(id: String!, title: String, price: Float, code: String, stock: Int, description: String): Producto
+
   }
   `);
 
@@ -66,8 +98,10 @@ routerGraphProductos.use(
       getAllProductsGraph,
       getProductByIdGraph,
       createProductGraph,
+      deleteProductGraph,
+      updateProductGraph,
     },
-    graphiql: true,
+    graphiql: false,
   })
 );
 

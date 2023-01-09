@@ -17,6 +17,7 @@ const Logger = require("./src/api/utils/logger.js");
 const ProductService = require("./src/api/service/ProductService.js");
 const MensajeRepository = require("./src/api/repository/MensajeRepository.js");
 const routerGraphProductos = require("./src/api/graphql/productos.js");
+
 /* ---------------------------- Server Creation with Socket.io ------------------------- */
 const app = express();
 const server = http.createServer(app);
@@ -196,7 +197,6 @@ if (cluster.isPrimary && args.m === "cluster") {
     const normalizedMessages = normalizarMsj({ id: "msj", allMessages });
     return normalizedMessages;
   }
-
   io.on("connection", async socket => {
     console.log("user connected with socket id:", socket.id);
     // productos
