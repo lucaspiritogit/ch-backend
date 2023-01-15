@@ -1,67 +1,73 @@
-# Coderhouse | Back-end
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+</p>
 
-Proyecto back-end realizado por Lucas Pirito en Coderhouse.
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-# Levantar en local
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-El servidor se puede levantar o stoppear de las siguientes maneras:
+## Description
 
-### Utilizando Forever
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-- `npm run forever`
-  Inicia el servidor con forever en modo cluster
-- `npm run foreverStop`
-  Stoppea todas las instancias forever del servidor.
+## Installation
 
-### Utilizando PM2
-
-- `npm run pm2Fork`
-  Inicia el servidor con PM2 en modo fork junto a 2 instancias en los puertos 8080 y 8081 dandole mas peso al 8080
-
-- `npm run pm2Cluster`
-  Inicia el servidor con PM2 en modo cluster a partir del puerto 8080
-
-- `npm run pm2Stop`
-  Stoppea todas las instancias PM2 activas
-
-# Glitch
-
-El proyecto se hosteara en glitch.com debido a que Heroku dejara de ser gratis a partir del 28 de Noviembre de 2022.
-
-## Glitch TextEncoder error / dependency error
-
-Me tope con un error donde Glitch tiene problemas con una dependencia que utiliza Textencoder. Hay que agregar la siguiente linea al `package.json`:
-
-```json
-  "engines": { "node": "12.x" },
+```bash
+$ npm install
 ```
 
-Esto soluciono el problema ya que Glitch viene con node 6 por default, el cual genera conflictos con algunas dependencias.
+## Running the app
 
-_Esto es algo que voy a averiguar mas adelante ya que no hay una explicacion muy clara del problema 👻_
+```bash
+# development
+$ npm run start
 
-# API Routes
+# watch mode
+$ npm run start:dev
 
-Documentacion con respecto a las rutas disponibles de la aplicacion
+# production mode
+$ npm run start:prod
+```
 
-## Carrito
+## Test
 
-| Ruta                                          | POST                                                                  | GET                                                  | DELETE                                               |
-| --------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
-| /api/carrito/                                 | Crea un nuevo carrito                                                 | Obtiene todos los carritos                           | ❌                                                   |
-| /api/carrito/:idCarrito/productos/:idProducto | Agrega al carrito seleccionado un producto utilizando id's de `Mongo` | ❌                                                   | Elimina un producto segun su id dentro de un carrito |
-| /api/carrito/:idCarrito                       | ❌                                                                    | Obtiene todos los productos en un carrito especifico | Elimina un carrito especifico                        |
+```bash
+# unit tests
+$ npm run test
 
-## Productos
+# e2e tests
+$ npm run test:e2e
 
-# Evidencias de Twilio y Nodemailer
+# test coverage
+$ npm run test:cov
+```
 
-## Nodemailer
+## Support
 
-Dejo en evidencia el funcionamiento del envio de mail cuando se registra un nuevo usuario ya que es una consigna de la entrega:
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-![](./src/api/public/img/nodemailer-proof.png)
+## Stay in touch
 
-## Twilio
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-![](./src/api/public/img/evidenciaTwilio.png)
+## License
+
+Nest is [MIT licensed](LICENSE).
