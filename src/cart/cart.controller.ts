@@ -8,7 +8,6 @@ import {
   Delete,
 } from '@nestjs/common';
 import { CartService } from './cart.service';
-import { Cart } from './entities/cart.entity';
 import { ProductService } from 'src/product/product.service';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { CreateCartDto } from './dto/create-cart.dto';
@@ -42,6 +41,17 @@ export class CartController {
     }
     console.log(await this.productService.getProductById(product._id));
     return this.cartService.pushProductIntoCart(id, product);
+  }
+
+  @Put(':id/:productId')
+  async removeProductFromCart(
+    @Param('id') id: string,
+    @Param('productId') productId: string,
+  ) {
+    if (!(await this.productService.getProductById(productId))) {
+      throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
+    }
+    return this.cartService.removeProductFromCart(id, productId);
   }
 
   @Delete(':id')

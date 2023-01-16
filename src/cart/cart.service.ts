@@ -29,4 +29,11 @@ export class CartService {
   remove(id: string) {
     return this.cartModel.findByIdAndDelete({ _id: id }).exec();
   }
+
+  removeProductFromCart(id: string, product: any) {
+    return this.cartModel
+      .findById({ _id: id })
+      .updateOne({ $pull: { products: product } })
+      .exec();
+  }
 }
