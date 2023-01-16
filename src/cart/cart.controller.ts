@@ -11,6 +11,7 @@ import { CartService } from './cart.service';
 import { Cart } from './entities/cart.entity';
 import { ProductService } from 'src/product/product.service';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import { CreateCartDto } from './dto/create-cart.dto';
 
 @Controller('cart')
 export class CartController {
@@ -20,7 +21,7 @@ export class CartController {
   ) {}
 
   @Post()
-  create(@Body() cart: Cart) {
+  create(@Body() cart: CreateCartDto) {
     return this.cartService.create(cart);
   }
 

@@ -3,23 +3,20 @@ import { ProductService } from './product.service';
 import { Product } from './product.model';
 import { HttpException, HttpStatus, Param } from '@nestjs/common';
 import { isValidObjectId } from 'mongoose';
+import { ProductDto } from './dto/product.dto';
+import { UsePipes, ValidationPipe } from '@nestjs/common';
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  async create(@Body() product: Product) {
-    if (!product.title) {
-      throw new HttpException('Title is required', HttpStatus.BAD_REQUEST);
-    }
-    if (!product.price) {
-      throw new HttpException('Price is required', HttpStatus.BAD_REQUEST);
-    }
+  @UsePipes(new ValidationPipe())
+  async create(@Body() product: ProductDto) {
     return this.productService.create(product);
   }
 
   @Get()
-  async getAllProducts(): Promise<Product[]> {
+  async getAllProducts(): Promise<ProductDto[]> {
     return this.productService.getAllProducts();
   }
 

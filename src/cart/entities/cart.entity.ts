@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { Product } from 'src/product/product.model';
 
 export const CartSchema = new mongoose.Schema({
   products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'productos' }],
@@ -7,7 +6,7 @@ export const CartSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 export interface Cart {
-  products: [Product];
+  products: [string];
   userId: string;
   timestamp: Date;
 }
