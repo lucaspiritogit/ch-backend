@@ -1,8 +1,8 @@
-const Logger = require("../utils/logger.js");
+const Logger = require('../utils/logger.js');
 const logger = new Logger();
-const twilio = require("twilio");
+const twilio = require('twilio');
 const client = new twilio(process.env.SSID, process.env.TWILIO_AUTH_TOKEN);
-const DAOFactory = require("../classes/DAOFactory.js");
+const DAOFactory = require('../classes/DAOFactory.js');
 const daoFactory = new DAOFactory();
 const productoDao = daoFactory.useDAO().productoDao;
 const carritoDao = daoFactory.useDAO().carritoDao;
@@ -27,7 +27,7 @@ class CarritoService {
   }
 
   /**
-   * Creates a new order of purchase and sends it to the administrator via whatsapp
+   * Creates a new purchase order and sends it to the administrator via whatsapp
    * @param {Object} userId
    * @param {String} userEmail
    * @returns {Object} response
@@ -46,8 +46,8 @@ class CarritoService {
 
     return client.messages
       .create({
-        from: "whatsapp:+14155238886",
-        to: "whatsapp:+5491163788989",
+        from: 'whatsapp:+14155238886',
+        to: 'whatsapp:+5491163788989',
         body: `Nuevo pedido recibido de ${userEmail}. Productos: ${productsInCarrito}`,
       })
       .then(response => {
@@ -58,11 +58,17 @@ class CarritoService {
       });
   }
 
-  async getCarritoFromUser(userId) {
+  /**
+   * Return a cart by user id
+   * @constructor
+   * @param {string} userId
+   */
+  async getCarritoFromUserId(userId) {
     try {
       let carrito = await carritoDao.getCarritoByUserId(userId);
 
       let productsInCarrito = [];
+
       for (const product of carrito.products) {
         let products = await productoDao.getById(product._id);
         productsInCarrito.push(products);

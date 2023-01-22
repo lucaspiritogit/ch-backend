@@ -1,6 +1,9 @@
+const emptyCartBtn = document.querySelector('#emptyCartBtn');
+let totalPriceHtml = document.getElementById('totalPrice');
+
 async function getProductsFromCarrito() {
   try {
-    let response = await fetch("/api/carrito").then(res => res.json());
+    let response = await fetch('/api/carrito').then(res => res.json());
 
     return response.carrito;
   } catch (error) {
@@ -8,14 +11,12 @@ async function getProductsFromCarrito() {
   }
 }
 
-const emptyCartBtn = document.querySelector("#emptyCartBtn");
-
 async function removeAllProductsFromCarrito() {
   let carritoId = await fetch(`/api/carrito`, {
-    method: "post",
+    method: 'POST',
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
   }).then(async r => {
     const response = await r.json();
@@ -23,7 +24,7 @@ async function removeAllProductsFromCarrito() {
   });
 
   let response = await fetch(`/api/carrito/${carritoId}/productos`, {
-    method: "DELETE",
+    method: 'DELETE',
   })
     .then(res => res.json())
     .then(data => {
@@ -36,7 +37,7 @@ async function removeAllProductsFromCarrito() {
   return response;
 }
 
-emptyCartBtn.addEventListener("click", async () => {
+emptyCartBtn.addEventListener('click', async () => {
   await removeAllProductsFromCarrito();
   window.location.reload();
 });
@@ -44,10 +45,12 @@ emptyCartBtn.addEventListener("click", async () => {
 function getTotalPriceInCart(products) {
   let totalPrice = 0;
   products.forEach(product => {
-    console.log(product);
-    totalPrice += product.price;
+    if (product == null) {
+      totalPrice = 0;
+    } else {
+      totalPrice += product.price;
+    }
   });
-  let totalPriceHtml = document.getElementById("totalPrice");
   totalPriceHtml.innerHTML = totalPrice;
 }
 async function renderProductsInCarrito() {
@@ -56,13 +59,13 @@ async function renderProductsInCarrito() {
   let html = products
     .map(product => {
       if (product == null) {
-        return `<h3>Producto no encontrado</h3>`;
+        return;
       }
       return `
       <div class="producto">
       <h3>Id: ${product._id}</h3>
-          <h3>Titulo: ${product.title}</h3>
-          <h3>Precio: ${product.price}</h3>
+          <h3>Title: ${product.title}</h3>
+          <h3>Price: ${product.price}</h3>
           <div class="productoThumbnail">
             <h3>Image:</h3><img src="${product.thumbnail}"/>
           </div>
@@ -72,8 +75,8 @@ async function renderProductsInCarrito() {
     </div>
         `;
     })
-    .join("");
-  document.querySelector("#productInCarritoList").innerHTML = html;
+    .join('');
+  document.querySelector('#productInCarritoList').innerHTML = html;
 }
 
 renderProductsInCarrito();

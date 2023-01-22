@@ -17,7 +17,6 @@ const sendMessage = () => {
   return false;
 };
 
-// When messages are received, render them in HTML format.
 const authorSchema = new normalizr.schema.Entity("author", {}, { idAttribute: "email" });
 const messageSchema = new normalizr.schema.Entity(
   "message",

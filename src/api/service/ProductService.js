@@ -1,5 +1,5 @@
-const ProductDTO = require("../dto/ProductDTO.js");
-const DAOFactory = require("../classes/DAOFactory.js");
+const ProductDTO = require('../dto/ProductDTO.js');
+const DAOFactory = require('../classes/DAOFactory.js');
 const daoFactory = new DAOFactory();
 const productoDao = daoFactory.useDAO().productoDao;
 
@@ -20,13 +20,15 @@ class ProductService {
 
   async getAllProducts() {
     let allProducts = await productoDao.getAll();
-
     let productsDTO = allProducts.map(product => {
       const productDTO = new ProductDTO(
         product.id,
         product.title,
         product.price,
-        product.description
+        product.description,
+        product.thumbnail,
+        product.stock,
+        product.code
       );
       return productDTO;
     });

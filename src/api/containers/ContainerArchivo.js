@@ -1,6 +1,5 @@
-const { readFile, readFileSync, writeFileSync } = require("fs");
+const { readFile, readFileSync, writeFileSync, writeFile } = require('fs');
 
-console.log("Using .txt files");
 class ContainerArchivo {
   constructor(filePath) {
     this.filePath = filePath;
@@ -19,7 +18,7 @@ class ContainerArchivo {
     await this.startDocument();
     await readFile(this.filePath, async (err, data) => {
       try {
-        data = JSON.parse(readFileSync(this.filePath, "utf-8"));
+        data = JSON.parse(readFileSync(this.filePath, 'utf-8'));
         let newId;
 
         if (data.length) {
@@ -50,10 +49,10 @@ class ContainerArchivo {
 
   async getById(objectId) {
     try {
-      let fileData = await JSON.parse(readFileSync(this.filePath, "utf-8"));
+      let fileData = await JSON.parse(readFileSync(this.filePath, 'utf-8'));
 
       const foundObject = fileData.find(object => object.id === objectId);
-      if (!foundObject) throw "Objeto no encontrado";
+      if (!foundObject) throw 'Objeto no encontrado';
 
       return foundObject;
     } catch (error) {
@@ -64,7 +63,7 @@ class ContainerArchivo {
   async getAll() {
     await this.startDocument();
     try {
-      let fileData = readFileSync(this.filePath, "utf-8");
+      let fileData = readFileSync(this.filePath, 'utf-8');
       return JSON.parse(fileData);
     } catch (error) {
       throw error;
@@ -73,11 +72,11 @@ class ContainerArchivo {
 
   async deleteById(objectId) {
     try {
-      let fileData = JSON.parse(readFileSync(this.filePath, "utf-8"));
+      let fileData = JSON.parse(readFileSync(this.filePath, 'utf-8'));
       let index = fileData.findIndex(object => object.id == objectId);
 
       if (index == -1) {
-        throw new Error({ error: "Objeto no encontrado" });
+        throw new Error({ error: 'Objeto no encontrado' });
       }
 
       fileData.splice(index, 1);

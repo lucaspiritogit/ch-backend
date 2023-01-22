@@ -1,22 +1,22 @@
-const express = require("express");
-const { Router } = require("express");
-const multer = require("multer");
+const express = require('express');
+const { Router } = require('express');
+const multer = require('multer');
 const routerRegister = Router();
-const nodemailer = require("nodemailer");
-const passport = require("passport");
-const User = require("../models/userModel.js");
-const { Strategy } = require("passport-local");
-const Logger = require("../utils/logger.js");
+const nodemailer = require('nodemailer');
+const passport = require('passport');
+const User = require('../models/userModel.js');
+const { Strategy } = require('passport-local');
+const Logger = require('../utils/logger.js');
 const logger = new Logger();
-routerRegister.use("/avatars", express.static("avatars"));
+routerRegister.use('/avatars', express.static('avatars'));
 const {
   registerView,
   registerViewError,
   register,
-} = require("../controllers/register.controller.js");
+} = require('../controllers/register.controller.js');
 /* --------------------------- Multer ---------------------------------- */
 const storage = multer.diskStorage({
-  destination: "avatars",
+  destination: 'avatars',
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
@@ -25,13 +25,13 @@ const storage = multer.diskStorage({
 routerRegister.use(
   multer({
     storage,
-    dest: "avatars",
-  }).single("image")
+    dest: 'avatars',
+  }).single('image')
 );
 
 /* --------------------------- Nodemailer ---------------------------------- */
 let transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: 'gmail',
   port: 587,
   auth: {
     user: process.env.EMAIL,
@@ -50,9 +50,9 @@ passport.deserializeUser(function (user, done) {
 });
 
 passport.use(
-  "local-register",
+  'local-register',
   new LocalStrategy(
-    { passReqToCallback: true, usernameField: "email", passwordField: "password" },
+    { passReqToCallback: true, usernameField: 'email', passwordField: 'password' },
     async (req, email, password, done) => {
       try {
         const userExists = await User.findOne({ email });
@@ -68,9 +68,9 @@ passport.use(
         const user = await User.create({ email, password, address, age, phoneNumber, avatar });
 
         let emailContent = {
-          from: "NodeJS Lucas Pirito Coderhouse",
+          from: 'NodeJS Lucas Pirito Coderhouse',
           to: process.env.EMAIL,
-          subject: "Nuevo registro - Coderhouse backend",
+          subject: 'Nuevo registro - Coderhouse backend',
           html: `<h1>Nuevo registro en la aplicacion</h1>
             <h3>Email:${user.email}</h3> 
             <br />
@@ -86,6 +86,7 @@ passport.use(
         logger.logInfoRoute(`Sent email: ${emailContent.html}`);
         return done(null, user);
       } catch (error) {
+        logger.logError(`Error en el registro: ${error}`)
         throw error;
       }
     }
@@ -93,15 +94,15 @@ passport.use(
 );
 //
 
-routerRegister.get("/", registerView);
+routerRegister.get('/', registerView);
 
-routerRegister.get("/registerError", registerViewError);
+routerRegister.get('/registerError', registerViewError);
 
 routerRegister.post(
-  "/",
-  passport.authenticate("local-register", {
-    successRedirect: "/login",
-    failureRedirect: "/register/registerError",
+  '/',
+  passport.authenticate('local-register', {
+    successRedirect: '/login',
+    failureRedirect: '/register/registerError',
   }),
   register
 );

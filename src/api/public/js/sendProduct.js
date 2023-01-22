@@ -1,11 +1,11 @@
 // /* --------------------------- Products ---------------------------------- */
 const sendProduct = () => {
-  const title = document.getElementById("title");
-  const price = document.getElementById("price");
-  const thumbnail = document.getElementById("thumbnail");
-  const stock = document.getElementById("stock");
-  const code = document.getElementById("code");
-  const description = document.getElementById("description");
+  const title = document.getElementById('title');
+  const price = document.getElementById('price');
+  const thumbnail = document.getElementById('thumbnail');
+  const stock = document.getElementById('stock');
+  const code = document.getElementById('code');
+  const description = document.getElementById('description');
 
   const prod = {
     title: title.value,
@@ -15,38 +15,37 @@ const sendProduct = () => {
     code: code.value,
     description: description.value,
   };
-  socket.emit("productos-cliente", prod);
+  socket.emit('productos-cliente', prod);
   return false;
 };
 
-const deleteAllProductsBtn = document.getElementById("deleteAllProducts");
+const deleteAllProductsBtn = document.getElementById('deleteAllProducts');
 
 async function deleteAllProducts() {
   let deleteAllProducts = await fetch(`${window.location.href}api/productos`, {
-    method: "delete",
+    method: 'delete',
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
   }).then(async r => {
     const response = await r.json();
-    console.log("🚀 ~ file: sendProduct.js:31 ~ deleteAllProducts ~ response", response);
     return response;
   });
   return deleteAllProducts;
 }
 
-deleteAllProductsBtn.addEventListener("click", async () => {
-  socket.emit("productos-cliente", {});
+deleteAllProductsBtn.addEventListener('click', async () => {
+  socket.emit('productos-cliente', {});
   await deleteAllProducts();
 });
 
 async function createCarrito() {
   let createCarrito = await fetch(`${window.location.href}api/carrito`, {
-    method: "post",
+    method: 'post',
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
   }).then(async r => {
     const response = await r.json();
@@ -57,10 +56,10 @@ async function createCarrito() {
 
 async function getCarritoId() {
   let carritoId = await fetch(`${window.location.href}api/carrito`, {
-    method: "post",
+    method: 'post',
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
   }).then(async r => {
     const response = await r.json();
@@ -70,9 +69,8 @@ async function getCarritoId() {
 }
 
 async function renderProducts(productos) {
-  // Crear carrito por si no lo tiene antes de renderizar productos
+  // Before rendering products, create a carrito if the user doesn't have one
   await createCarrito();
-  // Obtener su id
   let carritoId = await getCarritoId();
 
   let html = productos
@@ -94,10 +92,10 @@ async function renderProducts(productos) {
     </form>
     `;
     })
-    .join("");
+    .join('');
 
-  document.querySelector("#listadoProductos").innerHTML = html;
+  document.querySelector('#listadoProductos').innerHTML = html;
 }
-socket.on("productos-server", productos => {
+socket.on('productos-server', productos => {
   renderProducts(productos);
 });
