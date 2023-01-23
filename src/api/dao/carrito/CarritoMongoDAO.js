@@ -1,9 +1,17 @@
-const ContainerMongo = require("../../containers/ContainerMongo.js");
-const CarritoModel = require("../../models/CarritoModel.js");
+const ContainerMongo = require('../../containers/ContainerMongo.js');
+const CarritoModel = require('../../models/CarritoModel.js');
 
 class CarritoMongoDAO extends ContainerMongo {
   constructor() {
-    super("carrito", CarritoModel.carritoSchema);
+    super('carrito', CarritoModel.carritoSchema);
+  }
+
+  async createNewCarritoWithoutUser() {
+    try {
+      return await CarritoModel.create({});
+    } catch (error) {
+      throw error;
+    }
   }
 
   async createNewCarrito(userId) {
@@ -48,7 +56,7 @@ class CarritoMongoDAO extends ContainerMongo {
   async deleteAllProductsFromCarrito(carritoId) {
     try {
       const carrito = await CarritoModel.findById(carritoId);
-      if (!carrito) throw new Error("Carrito no encontrado");
+      if (!carrito) throw new Error('Carrito no encontrado');
       carrito.products = [];
       carrito.save();
     } catch (error) {

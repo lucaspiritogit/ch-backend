@@ -1,5 +1,4 @@
-const MensajesMongoDAO = require("../dao/MensajesMongoDAO.js");
-
+const MensajesMongoDAO = require('../dao/MensajesMongoDAO.js');
 const dao = new MensajesMongoDAO();
 
 class MensajeRepository {

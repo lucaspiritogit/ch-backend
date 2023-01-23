@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const MongoDBClient = require("../config/MongoDBClient.js");
+const mongoose = require('mongoose');
+const MongoDBClient = require('../config/MongoDBClient.js');
 const mongo = new MongoDBClient();
 mongo.connect();
 

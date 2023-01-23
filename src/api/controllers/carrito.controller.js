@@ -20,6 +20,15 @@ async function createCarrito(req, res) {
   }
 }
 
+async function createCarritoWithoutUser(req, res) {
+  try {
+    let carrito = await carritoService.createCarritoWithoutUser();
+    res.json({ carrito });
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function createOrder(req, res) {
   try {
     let userId = req.user._id;
@@ -42,7 +51,7 @@ async function getCarritoView(req, res) {
 async function getCarrito(req, res) {
   try {
     let userId = req.user._id;
-    let carrito = await carritoService.getCarritoFromUserId(userId);
+    let carrito = await carritoService.getProductsInCarritoFromUserId(userId);
 
     res.json({ carrito });
   } catch (error) {
@@ -56,8 +65,8 @@ async function getCarrito(req, res) {
 
 async function getAllCarritos(req, res) {
   try {
-    let allCarritos = await carritoService.getAllCarritos();
-    res.send(allCarritos);
+    let carritos = await carritoService.getAllCarritos();
+    res.json({ carritos });
   } catch (error) {
     throw error;
   }
@@ -120,11 +129,12 @@ async function deleteAllProductsFromCarrito(req, res) {
 module.exports = {
   createOrder,
   createCarrito,
-  getAllCarritos,
+  createCarritoWithoutUser,
   removeProductFromCarrito,
   addProductToCarrito,
   deleteCarrito,
   getCarrito,
+  getAllCarritos,
   getCarritoView,
   deleteAllProductsFromCarrito,
 };

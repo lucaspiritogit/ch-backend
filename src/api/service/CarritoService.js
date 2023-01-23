@@ -9,6 +9,21 @@ const carritoDao = daoFactory.useDAO().carritoDao;
 
 class CarritoService {
   /**
+   * This method only exists for the purpose of testing the application.
+   * I defined that a cart needs a userId to be usable, but to be able to test
+   * the application at its fullest, i think this would be useful too.
+   * @returns {Object} Carrito
+   */
+  async createCarritoWithoutUser() {
+    try {
+      let newCarrito = await carritoDao.createNewCarritoWithoutUser();
+      return newCarrito;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
    * Creates a new cart, otherwise returns the existing cart
    * @param {number} userId
    * @returns {Object} Carrito
@@ -59,11 +74,11 @@ class CarritoService {
   }
 
   /**
-   * Return a cart by user id
+   * Return a list of products from a cart by user id
    * @constructor
    * @param {string} userId
    */
-  async getCarritoFromUserId(userId) {
+  async getProductsInCarritoFromUserId(userId) {
     try {
       let carrito = await carritoDao.getCarritoByUserId(userId);
 
@@ -81,7 +96,7 @@ class CarritoService {
   }
 
   async getAllCarritos() {
-    await carritoDao.getAll();
+    return await carritoDao.getAll();
   }
 
   async removeProductFromCarrito(idProducto, idCarrito) {

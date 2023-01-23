@@ -2015,3 +2015,310 @@
     at Function.process_params (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:346:12)
     at next (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\express\lib\router\index.js:280:10)
     at SendStream.error (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\node_modules\serve-static\index.js:121:7)
+[2023-01-22T19:13:24.992] [ERROR] default - Error thrown: TypeError: carritoDao.removeProductFromCarrito is not a function. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:15:22.851] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:15:30.502] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:16:17.777] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:16:34.022] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:17:47.463] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:18:26.642] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:81:12)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-01-22T19:19:08.286] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:20:24.103] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:20:29.785] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:26:27.977] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-01-22T19:26:34.524] [ERROR] default - Error thrown: ReferenceError: Cannot access 'carrito' before initialization. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:26:43.116] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:26:54.645] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:27:00.032] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:27:23.767] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:27:25.568] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:27:27.748] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:27:28.683] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:27:42.012] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:27:46.764] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:28:18.326] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:28:45.684] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:28:54.440] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:28:57.175] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:28:58.496] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:28:59.596] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:29:08.000] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:29:09.613] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:29:45.888] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:29:54.663] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:30:03.318] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:30:28.519] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:30:31.164] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:30:41.193] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-01-22T19:30:50.601] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-01-22T19:31:08.283] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-01-22T19:31:12.984] [ERROR] default - Error thrown: ReferenceError: consoole is not defined. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-01-22T19:31:23.409] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-01-22T19:32:02.303] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-01-22T19:32:05.414] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-01-22T19:35:06.164] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:35:21.887] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:35:22.756] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:35:36.472] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:35:39.985] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:35:45.587] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:36:01.727] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:36:02.560] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:36:44.858] [ERROR] default - Error thrown: Error: Producto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:36:54.097] [ERROR] default - Error thrown: ReferenceError: error is not defined. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:36:57.229] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:37:00.566] [ERROR] default - Error thrown: ReferenceError: error is not defined. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:37:04.518] [ERROR] default - Error thrown: ReferenceError: error is not defined. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:38:00.855] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:38:12.067] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:39:07.925] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:39:13.597] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:39:31.382] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:39:37.424] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:40:36.381] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:40:37.581] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:40:38.998] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:40:53.694] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:41:05.759] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:41:23.762] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:42:10.462] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-01-22T19:42:25.469] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:43:19.765] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:43:30.563] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:43:31.467] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:43:35.145] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:43:56.020] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:44:02.415] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:44:14.142] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:44:18.780] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:44:21.078] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:44:33.376] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:44:46.814] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:45:11.433] [ERROR] default - Error thrown: Objeto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:49:01.226] [ERROR] default - Error thrown: Error: Producto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:49:23.075] [ERROR] default - Error thrown: Error: Producto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:49:28.067] [ERROR] default - Error thrown: Error: Producto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:50:03.019] [ERROR] default - Error thrown: Error: Producto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:53:20.276] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading 'id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:53:23.928] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading 'id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:53:32.640] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading 'id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:54:02.278] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading 'id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:54:03.844] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading 'id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:54:07.236] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading 'id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:54:21.502] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading 'id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:54:35.590] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading 'id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:54:55.447] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading 'id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:55:04.549] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading 'id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:55:14.966] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading 'id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T19:55:36.679] [ERROR] default - Error thrown: TypeError: Cannot read properties of undefined (reading 'id'). Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T20:01:50.824] [ERROR] default - Error thrown: Error: Producto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T20:01:52.448] [ERROR] default - Error thrown: Error: Producto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)
+[2023-01-22T20:04:00.603] [ERROR] default - Error thrown: Error: Producto no encontrado. Printing stack trace: Error
+    at Logger.logError (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\utils\logger.js:32:15)
+    at removeProductFromCarrito (C:\Users\lucas\Desktop\Proyectos\coderhouse-backend\src\api\controllers\carrito.controller.js:77:12)

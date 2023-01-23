@@ -50,7 +50,6 @@ class ContainerArchivo {
   async getById(objectId) {
     try {
       let fileData = await JSON.parse(readFileSync(this.filePath, 'utf-8'));
-
       const foundObject = fileData.find(object => object.id === objectId);
       if (!foundObject) throw 'Objeto no encontrado';
 

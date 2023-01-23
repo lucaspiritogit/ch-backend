@@ -1,39 +1,42 @@
-const dotenv = require("dotenv");
-const { Router } = require("express");
+const dotenv = require('dotenv');
+const { Router } = require('express');
 const routerCarrito = Router();
-const express = require("express");
+const express = require('express');
 const {
   createOrder,
   createCarrito,
-  getCarrito,
-  getAllCarritos,
+  createCarritoWithoutUser,
   removeProductFromCarrito,
   addProductToCarrito,
   deleteCarrito,
   getCarritoView,
+  getCarrito,
+  getAllCarritos,
   deleteAllProductsFromCarrito,
-} = require("../controllers/carrito.controller.js");
+} = require('../controllers/carrito.controller.js');
 
 dotenv.config();
 
-routerCarrito.use(express.static("./src/api/public"));
+routerCarrito.use(express.static('./src/api/public'));
 
-routerCarrito.post("/order", createOrder);
+routerCarrito.post('/order', createOrder);
 
-routerCarrito.post("/", createCarrito);
+routerCarrito.post('/', createCarrito);
 
-routerCarrito.post("/:idCarrito/productos/:idProducto", addProductToCarrito);
+routerCarrito.post('/withoutUser', createCarritoWithoutUser);
 
-routerCarrito.get("/", getCarrito);
+routerCarrito.post('/:idCarrito/productos/:idProducto', addProductToCarrito);
 
-routerCarrito.get("/view", getCarritoView);
+routerCarrito.get('/', getCarrito);
 
-routerCarrito.get("/all", getAllCarritos);
+routerCarrito.get('/all', getAllCarritos);
 
-routerCarrito.delete("/:idCarrito/productos/:idProducto", removeProductFromCarrito);
+routerCarrito.get('/view', getCarritoView);
 
-routerCarrito.delete("/:idCarrito/productos", deleteAllProductsFromCarrito);
+routerCarrito.delete('/:idCarrito/productos/:idProducto', removeProductFromCarrito);
 
-routerCarrito.delete("/:id", deleteCarrito);
+routerCarrito.delete('/:idCarrito/productos', deleteAllProductsFromCarrito);
+
+routerCarrito.delete('/:id', deleteCarrito);
 
 module.exports = routerCarrito;

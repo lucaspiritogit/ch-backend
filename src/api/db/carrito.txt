@@ -5,7 +5,13 @@
     "products": [
       {
         "id": 1,
-        "title": "asd"
+        "timestamp": "28/9/2022 11:41:16",
+        "title": "Product",
+        "description": "test",
+        "code": "code",
+        "thumbnail": "test",
+        "price": 1000,
+        "stock": "stock"
       },
       {
         "id": 2,
@@ -16,6 +22,36 @@
         "thumbnail": "test",
         "price": 1000,
         "stock": "stock"
+      },
+      {
+        "id": 3,
+        "timestamp": "28/9/2022 20:16:07",
+        "title": "test",
+        "description": "test",
+        "code": "2",
+        "thumbnail": "test",
+        "price": 1000,
+        "stock": 100
+      },
+      {
+        "id": 4,
+        "timestamp": "28/9/2022 20:15:56",
+        "title": "Product",
+        "description": "test",
+        "code": "code",
+        "thumbnail": "test",
+        "price": 1000,
+        "stock": 100
+      },
+      {
+        "id": 5,
+        "timestamp": "28/9/2022 20:15:57",
+        "title": "Product",
+        "description": "test",
+        "code": "code",
+        "thumbnail": "test",
+        "price": 1000,
+        "stock": 100
       }
     ]
   },
@@ -32,6 +68,21 @@
   {
     "id": 4,
     "timestamp": "28/9/2022 20:16:23",
+    "products": []
+  },
+  {
+    "id": 5,
+    "timestamp": "22/1/2023 20:22:4",
+    "products": []
+  },
+  {
+    "id": 6,
+    "timestamp": "22/1/2023 20:22:22",
+    "products": []
+  },
+  {
+    "id": 7,
+    "timestamp": "22/1/2023 20:22:24",
     "products": []
   }
 ]
